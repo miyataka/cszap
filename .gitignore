@@ -8,3 +8,7 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# Playwright / scratch screenshots
+.playwright-mcp/
+/page-*.png

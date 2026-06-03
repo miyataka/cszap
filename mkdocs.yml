@@ -58,8 +58,12 @@ markdown_extensions:
       custom_checkbox: true
   - tables
 
+hooks:
+  - hooks/mermaid_lazy.py
+
 extra_javascript:
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - assets/js/mermaid-lazy.js
 
 nav:
   - ホーム: index.md

@@ -306,4 +306,66 @@ load factor は **1 未満必須**。α→1 でクラスタリング悪化する
 
 ---
 
+## Q7. 複合データ型 / composite type / primitive type / ADT はどう整理して覚える？ {#q7}
+
+*(2026-06-04)*
+
+**A.** 混乱の原因は、これらが**1本の階層ではなく「2つの別々の軸」**だから。分けて捉えるとスッキリする。
+
+!!! note "先に1点"
+    **「複合データ型」と「composite type」は同じもの**（日本語訳と英語）。別物ではない。
+
+### 軸A：構成 ——「分解できるか？」 primitive ↔ composite
+
+| | 意味 | 例 |
+|---|---|---|
+| **Primitive type / 基本型** | それ以上分解できない**原子的な型** | `int`, `float`, `char`, `bool` |
+| **Composite type / 複合型（=複合データ型）** | **他の型を組み合わせて作る型** | array, struct/record, tuple, union |
+
+→「**何でできているか（構成）**」の話。
+
+### 軸B：抽象度 ——「中身が見えるか？」 concrete ↔ ADT
+
+| | 意味 | 例 |
+|---|---|---|
+| **Concrete type / 具象型** | **表現（実装）が見えている** | `int`, struct（フィールド見える）, array |
+| **ADT / 抽象データ型** | **操作だけで定義**し表現を隠す | Stack, Queue, Dictionary, Set, List, Priority Queue |
+
+→「**操作だけ見せるか、実装まで見せるか（抽象度）**」の話。
+
+### 2軸の関係：ADT は「具象型」で実装される
+
+primitive/composite（軸A）と concrete/ADT（軸B）は**直交**し、ADT は primitive・composite を素材に実装される（[Q1](#q1) の「ADT ↔ 実装」と同じ構図）。
+
+```mermaid
+graph TD
+  ADT["<b>ADT 抽象データ型</b><br/>操作で定義・実装は隠す<br/>Stack / Queue / Dictionary / Set / List"]
+  ADT -->|実装に使う| CON["<b>具象型 concrete</b><br/>表現が見えている"]
+  CON --> PRIM["<b>primitive 基本型</b><br/>int, char, bool, float"]
+  CON --> COMP["<b>composite 複合型 = 複合データ型</b><br/>array, struct, tuple, union"]
+  COMP -.->|素材として組み合わせる| PRIM
+```
+
+例：
+- **Dictionary（ADT）** ← **hash table**（array という composite ＋ ノード）で実装
+- **Stack（ADT）** ← array や linked list（composite）で実装
+- **struct（composite）** ← `int`, `char`（primitive）を束ねて作る
+
+### 覚え方：2つの問いを当てるだけ
+
+1. **「分解できる？」**（軸A） → 原子なら **primitive**／組み合わせなら **composite（複合データ型）**
+2. **「中身が見える？」**（軸B） → 見えるなら **具象型**／操作だけなら **ADT**
+
+!!! tip "一言で"
+    - **primitive ↔ composite** =「**原子か／組み立てか**」（構成の軸）
+    - **具象型 ↔ ADT** =「**中身が見えるか／操作だけか**」（抽象の軸）
+    - **ADT は具象型（primitive＋composite）で実装される**——別の階層に乗っている
+
+!!! warning "教科書による違い"
+    入門書では「primitive / composite / ADT」を**1列の分類**として並べることがある。便利だが、ADT は本来別軸なので、「ADT を分解すると composite」ではなく「**ADT を実装すると composite を使う**」と捉えるのが正確。
+
+関連: [複合データ型](AL-Foundational.md#composite)、[Q1（ADT と実装の区別）](#q1)、[Q5（Struct の順序性）](#q5)
+
+---
+
 <!-- 新しい Q&A はこの下に追記する（古い順・最新が末尾）-->

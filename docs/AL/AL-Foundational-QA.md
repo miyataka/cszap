@@ -368,4 +368,22 @@ graph TD
 
 ---
 
+## Q8. Hash Table のコードサンプルが見たい（Go の map 実装 / C 実装） {#q8}
+
+*(2026-06-04)*
+
+**A.** 動作確認済みのコードを **[Hash Table 実装サンプル](hashtable-code.md)** ページにまとめた。
+
+- **C（連鎖法 / chaining）**: `insert`/`find`/`delete`/`rehash`。delete は鎖からノードを外すだけで墓標不要。
+- **Go（オープンアドレス法＋墓標）**: [Q6](#q6) の「delete で墓標を立てる」話に対応した実装。
+- **Go 組み込み `map` の内部**: 〜1.23 のバケット方式（8スロット＋overflow 連鎖＋段階的 evacuation）と、**1.24 以降の Swiss Tables**（現行 go1.26 含む）を解説。
+
+実務では自作せず組み込み `map` を使うのが基本だが、`insert`/`find`/`delete`・衝突・rehash・墓標を自作で追うと、組み込み `map` の挙動（償却 O(1)、反復順ランダム）の理解につながる。
+
+→ **[Hash Table 実装サンプルページへ](hashtable-code.md)**
+
+関連: [ハッシュ表](AL-Foundational.md#2-連想集合の構造)、[Q6（衝突対処）](#q6)
+
+---
+
 <!-- 新しい Q&A はこの下に追記する（古い順・最新が末尾）-->

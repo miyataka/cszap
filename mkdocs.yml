@@ -71,4 +71,5 @@ nav:
   - Algorithmic Foundations (AL):
       - AL-Foundational: AL/AL-Foundational.md
       - AL-Foundational Q&A: AL/AL-Foundational-QA.md
+      - AL-Foundational 採点記録: AL/AL-Foundational-Quiz.md
       - Hash Table 実装サンプル: AL/hashtable-code.md

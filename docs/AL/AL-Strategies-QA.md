@@ -289,3 +289,66 @@
     分数の約分、`lcm(m, n) = m·n / gcd(m, n)`（[問題の帰着](AL-Strategies.md#5c-problem-reduction)の例として本編にも登場）、そして**拡張ユークリッド互除法** → モジュラ逆元 → **RSA 暗号の鍵生成**。2300年前のアルゴリズムが毎日の HTTPS を支えている。
 
     関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[Q4 insertion sort](#q4)、[Q5 topological sort](#q5)（3変種の比較）
+
+---
+
+<a id="q7"></a>
+
+??? question "Q7. quicksort（クイックソート）について教えて"
+
+    *(2026-06-13)*
+
+    **A.** **「ピボット（基準値）を1つ選び、配列を『ピボット未満 / 以上』に振り分けて（partition）、左右をそれぞれ再帰的にソートする」**アルゴリズム。
+
+    ```
+    [ 3, 8, 2, 5, 1, 4, 7 ]   ピボット = 5 を選ぶ
+    [ 3, 2, 1, 4 ] 5 [ 8, 7 ]  5未満を左、5以上を右へ（partition）
+    ↓ 左右をそれぞれ再帰的に quicksort
+    [ 1, 2, 3, 4 ] 5 [ 7, 8 ]
+    → 連結は不要。partition の時点でピボットの最終位置は確定している
+    ```
+
+    ```python
+    def quicksort(a, lo=0, hi=None):
+        if hi is None:
+            hi = len(a) - 1
+        if lo >= hi:
+            return a
+        p = partition(a, lo, hi)   # ピボットの最終位置が決まる
+        quicksort(a, lo, p - 1)    # 左半分
+        quicksort(a, p + 1, hi)    # 右半分
+        return a
+    ```
+
+    ### パラダイム視点：mergesort と「仕事の置き場」が逆
+
+    どちらも [Divide-and-Conquer](AL-Strategies.md#3-divide-and-conquer) だが、対で覚えると構造が立体的になる：
+
+    | | quicksort | mergesort |
+    |---|---|---|
+    | 分割 (divide) | **ここが本体**（partition で大小に振り分け） | 単純に真ん中で割るだけ |
+    | 併合 (combine) | **不要**（場所が既に正しい） | **ここが本体**（2列を併合） |
+    | 最悪計算量 | **O(n²)**（分割が偏ると） | O(n log n) 保証 |
+    | 追加メモリ | O(log n)（再帰スタックのみ、in-place） | O(n) の作業領域 |
+    | 安定性 | 不安定 | 安定 |
+
+    ### 最悪 O(n²) はいつ起きる？ → 乱択の身近な実例
+
+    partition が毎回「0 : n−1」に偏るとき。素朴に**先頭をピボット**にすると、**整列済み入力という日常的なケースで最悪**を踏む。
+
+    対策：**ピボットをランダムに選ぶ**と、どんな入力でも**期待値 O(n log n)**。[§9 乱択アルゴリズム](AL-Strategies.md#9-ka-core)の「最悪ケースの入力を乱数で均す」の最も身近な実例。決定的な工夫としては median-of-three（先頭・中央・末尾の中央値をピボットに）もある。
+
+    ### なぜ実務で速い・どう使われている
+
+    平均 O(n log n) 勢の中でも**定数倍が小さく、in-place でキャッシュ効率が良い**。C++ `std::sort` の **introsort** は：
+
+    - ベースは quicksort
+    - 再帰が深くなりすぎたら **heapsort** に切替（O(n²) 回避の保険）
+    - 小区間は**挿入ソート**（→ [Q4](#q4)）
+
+    と、**1つの実装に3パラダイムが同居**する。「[フローは最初の仮説を出す道具](AL-Strategies.md#paradigm-selection)——実際は組み合わせ」の完成形。
+
+    ??? note "補足：選択だけなら quickselect で O(n)"
+        「k 番目に小さい値だけ欲しい」なら、partition 後に**片側だけ**再帰すればよい（quickselect）。期待値 O(n)。両側を解く分割統治から、片側だけの減治法（by a variable size）に変わる、Q1〜Q6 の流れと繋がる好例。
+
+    関連: [Divide-and-Conquer / 分割統治法](AL-Strategies.md#3-divide-and-conquer)、[Q4 insertion sort](#q4)、[AL-Foundational §5 ソート](AL-Foundational.md#5-sort)

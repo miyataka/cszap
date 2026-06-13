@@ -785,3 +785,83 @@
     SAT ソルバは AL-Strategies の複数パラダイムが合流する場所：**problem reduction（Q12）で問題を翻訳し、backtracking（§7）系の CDCL で指数爆発をしのぐ**。「なぜ難しいか」は AL-Complexity（NP完全・Cook-Levin）で回収される。
 
     関連: [Q12 problem reduction](#q12)（SAT への翻訳）、[指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)（backtracking）、[Q2 TSP](#q2)・[Q3 knapsack](#q3)（同じ NP困難の仲間）
+
+---
+
+<a id="q15"></a>
+
+??? question "Q15. NP困難性・NP完全性ってなに？"
+
+    *(2026-06-13)*
+
+    **A.** ざっくり言うと「**答えの確認は簡単なのに、答えを見つけるのは絶望的に難しい問題がある**」——その難しさを分類する言葉。これまで出た TSP・knapsack・SAT がまさにこの仲間。
+
+    !!! note "これは AL-Complexity の主題（先取り）"
+        NP困難・NP完全・P・NP・Cook-Levin・帰着による証明は次の Knowledge Unit **AL-Complexity** で正式に扱う。ここは TSP（[Q2](#q2)）・knapsack（[Q3](#q3)）・SAT（[Q14](#q14)）の「難しさ」を理解する橋渡しとして整理する。
+
+    ### まず3つのクラス
+
+    | クラス | 意味 | 例 |
+    |---|---|---|
+    | **P** | **多項式時間で解ける**（現実的に解ける） | 最短経路、ソート、二分探索 |
+    | **NP** | **答えを与えられれば正しさを多項式時間で確認できる** | SAT、TSP、knapsack |
+    | **NP完全** | NP の中で**最も難しい**問題たち | SAT、TSP(判定版)、0/1 knapsack |
+
+    ### NP の本質は「検証は速い」
+
+    「解くのは難しくても答え合わせは速い」のが NP。数独は解くのは大変だが「これが解」と渡されれば一瞬で確認できる。SAT も割り当てを渡されれば代入して確認するだけ。「当てずっぽうで引いて (Non-deterministic) 多項式時間で検証 (Polynomial) できる」から NP。
+
+    ### NP困難 と NP完全 の違い（質問の核心）
+
+    条件が1つ違うだけ：
+
+    ```
+    NP困難  = 「NP のすべての問題と同じくらい（以上に）難しい」
+              ＝ どんな NP 問題もこれに帰着できる
+    NP完全  = NP困難  AND  自分自身も NP に属する
+              ＝ NP の中で最も難しい問題
+    ```
+
+    | | NP に属する？ | NP の全てを帰着できる？ |
+    |---|---|---|
+    | **NP完全** | ✅ Yes | ✅ Yes |
+    | **NP困難** | 必ずしも No | ✅ Yes |
+
+    **NP完全 = NP困難の中で、特に NP の中にも収まっているもの**。NP困難はもっと広く、NP に収まらない（もっと難しい）問題も含む。
+
+    ```mermaid
+    graph TD
+      H[NP困難<br/>NP の全問題を帰着できる]
+      H --> NPC[NP完全<br/>＝ NP困難 ∩ NP]
+      subgraph NP [NP: 検証が速い]
+        NPC
+        P[P: 多項式で解ける]
+      end
+    ```
+
+    - **0/1 knapsack 判定版・SAT・TSP判定版** → NP完全（NP に属し、かつ最難）
+    - **TSP 最適化版**（最短巡回路そのものを出せ）→ NP困難（検証が判定版ほど自明でなく NP に属すと言いにくい）
+    - **停止性問題** → NP困難だが NP ですらない（決定不能）
+
+    ### なぜ「帰着」が難しさを測るのか（→ Q12, Q14 と直結）
+
+    [problem reduction（Q12）](#q12)の「難しさを示す帰着」がここで効く。**A が NP完全と示すには「既知の NP完全問題（例: 3SAT）を A に帰着」**する。
+
+    > もし A が多項式時間で解けるなら 3SAT も多項式時間で解けてしまう。3SAT は NP完全だから、それは NP 全体が P に潰れる＝ P=NP の大事件。
+
+    [SAT（Q14）](#q14)が「最初の NP完全問題」(Cook-Levin) なのは**最初の1個**を作ったから。一度 SAT が NP完全と分かれば、あとは「SAT を帰着」で芋づる式に他の NP完全性を証明できる。
+
+    ### 実務的な意味 — NP完全だと分かったら諦め方を変える
+
+    AL-Strategies と繋がる最重要ポイント。NP完全と分かったら「速い厳密アルゴリズムを探す」のをやめ、別戦略に切り替えるサイン：
+
+    | 戦略 | 手段 | 参照 |
+    |---|---|---|
+    | 厳密解を粘る（中規模まで）| branch-and-bound, backtracking | [§7](AL-Strategies.md#7-handling-exponential-growth) |
+    | 最適を諦め品質保証つき近似 | 近似アルゴリズム | [§9](AL-Strategies.md#9-ka-core) |
+    | 入力の特殊性を使う | DP（knapsack の O(nW) 等）| [Q3](#q3) |
+    | ソルバに翻訳して投げる | SAT/ILP ソルバ | [Q12](#q12), [Q14](#q14) |
+
+    「P=NP か？」（NP完全問題に多項式アルゴリズムはあるか）は**100万ドルの懸賞金つき未解決問題**。ほとんどの研究者は P≠NP と信じている。
+
+    関連: [Q2 TSP](#q2)・[Q3 knapsack](#q3)・[Q14 SAT](#q14)（NP困難/完全の代表例）、[Q12 problem reduction](#q12)（難しさを示す帰着）、[指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)

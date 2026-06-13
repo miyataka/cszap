@@ -652,3 +652,75 @@
     reduction は4つで最も抽象度が高く、**「未知の問題を、解ける既知の問題の言葉で語り直す」**アルゴリズム設計の最上位の発想。
 
     関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q6 Euclid's](#q6)（lcm→gcd の gcd 側）、[Q10 instance simplification](#q10)・[Q11 representation change](#q11)（同じ変換統治の仲間）
+
+---
+
+<a id="q13"></a>
+
+??? question "Q13. Dynamic programming（動的計画法）— Floyd's / Warshall / Bellman-Ford"
+
+    *(2026-06-13)*
+
+    **A.** [Transform-and-Conquer](AL-Strategies.md#5d-dynamic-programming) の最後の変換。**「問題を重なり合う部分問題に分解し、各部分問題の解を表に記録（メモ化）して再利用する」**構え。
+
+    ### DP が効く2条件
+
+    1. **重複部分問題 (overlapping subproblems)**: 同じ部分問題が何度も現れる。素朴な再帰の指数回計算を、表に1回だけ計算して使い回す。
+    2. **最適部分構造 (optimal substructure)**: 全体の最適解が部分問題の最適解から組み立てられる。
+
+    分割統治（→ [Q7](#q7)/[Q8](#q8)）と似るが、**分割統治は部分問題が独立、DP は部分問題が重なる**——だから DP は表で再利用する価値がある。これが決定的な違い。
+
+    ### 3例に共通する「DP の型」
+
+    Floyd's・Warshall・Bellman-Ford は全部**グラフの最短経路/到達可能性**で、**同じ DP の骨格**を持つ。鍵は「**何を1つずつ許していくか**」という軸の取り方。
+
+    | アルゴリズム | 解く問題 | DP の軸（段階的に許すもの） | 計算量 |
+    |---|---|---|---|
+    | **Bellman-Ford** | 単一始点最短経路（負辺OK） | 「辺を**最大 k 本**使ってよい」の k を 1→n−1 | O(VE) |
+    | **Floyd's** (Floyd-Warshall) | 全点対間最短経路 | 「中継に頂点 1..k だけ使ってよい」の k | O(V³) |
+    | **Warshall's** | 推移閉包（到達可能性） | Floyd と同じ軸、距離の代わりに到達可否 | O(V³) |
+
+    ### Bellman-Ford を「DP の表」として見る
+
+    「最大 k 本の辺で、始点から各頂点への最短距離」を dp[k][v] とすると：
+
+    $$dp[k][v] = \min\Big(dp[k-1][v],\ \min_{(u \to v)} dp[k-1][u] + w(u,v)\Big)$$
+
+    「辺を1本ずつ多く使ってよくする」軸で部分問題を並べたのが Bellman-Ford。
+
+    - **Dijkstra（→ [Q9](#q9)）との違い**: Dijkstra は貪欲で負辺に弱い。Bellman-Ford は DP なので**負辺OK**、さらに**負閉路の検出**もできる（n 回目の更新でまだ縮むなら負閉路）。「貪欲で無理なら DP へ」の実例。
+
+    ### Floyd's / Warshall を「DP の表」として見る
+
+    「中継点として頂点 1..k だけ使ってよいときの i→j 最短距離」を dp[k][i][j] とすると：
+
+    $$dp[k][i][j] = \min\Big(dp[k-1][i][j],\ dp[k-1][i][k] + dp[k-1][k][j]\Big)$$
+
+    「k を中継に通すか通さないか」を k を1つずつ増やしながら全 (i,j) で更新。三重ループ O(V³) のあの短いコードはこの漸化式そのもの。
+
+    ```python
+    for k in range(n):           # 中継に許す頂点を1つずつ増やす
+        for i in range(n):
+            for j in range(n):
+                d[i][j] = min(d[i][j], d[i][k] + d[k][j])
+    ```
+
+    **Warshall's は Floyd's の min/+ を OR/AND に変えただけ**：到達可能か(真偽)を「k 経由で行けるか」で更新する。同じ骨格で「距離の最小化」も「到達可能性の判定」もできるのが美しい。
+
+    ### なぜ CS2023 はこれを Transform-and-Conquer に置くのか
+
+    「i→j の最短距離を求める問題」を「**dp という表を端から埋める問題**」に変換した、と見るから。元の最適化問題が表計算という機械的作業に化けている——だから変換統治の一種。
+
+    !!! note "DP は独立パラダイムとして扱う教科書も多い"
+        重要度の割に一項目なのは CS2023 の分類上の都合。位置づけより「**重複部分問題 + 最適部分構造があれば表で再利用**」が本質。実装は2系統——**ボトムアップ（表を下から埋める／上記3例）**と**トップダウン（再帰＋メモ化）**。
+
+    ### Transform-and-Conquer 4変換、完成
+
+    | 変換 | 例 | Q |
+    |---|---|---|
+    | Instance simplification | presort で重複検出 | [Q10](#q10) |
+    | Representation change | heapsort | [Q11](#q11) |
+    | Problem reduction | lcm→gcd、各種→LP | [Q12](#q12) |
+    | **Dynamic programming** | **Floyd's / Warshall / Bellman-Ford** | **Q13** |
+
+    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q9 Dijkstra's](#q9)（貪欲 vs DP の最短経路）、[Q3 knapsack](#q3)（DP O(nW) の別例）、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)

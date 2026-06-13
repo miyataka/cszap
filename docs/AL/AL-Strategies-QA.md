@@ -586,3 +586,69 @@
     selection sort と heapsort は「最大/最小を取り出して並べる」**同じ発想**だが、selection が毎回 O(n) で探すのに対し heapsort は**ヒープ表現に投資して取り出しを O(log n) に**した。representation change が O(n²) を O(n log n) に変えた、と見ると両者がきれいに繋がる。
 
     関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q1 selection sort](#q1)、[Q10 instance simplification](#q10)（同じ Transform-and-Conquer の別変換）
+
+---
+
+<a id="q12"></a>
+
+??? question "Q12. Problem reduction（問題の帰着）— lcm・linear programming"
+
+    *(2026-06-13)*
+
+    **A.** [Transform-and-Conquer](AL-Strategies.md#5c-problem-reduction) の変換のひとつで、最も強力かつ抽象的。**「問題 A を、解法が分かっている別の問題 B に翻訳し、B のソルバに解かせて、答えを A の言葉に訳し戻す」**構え。
+
+    instance simplification（→ [Q10](#q10)）や representation change（→ [Q11](#q11)）が**同じ問題のまま**入力をいじったのに対し、problem reduction は**問題そのものを別物に置き換える**点が決定的に違う。
+
+    ```
+    解きたい問題 A ──[変換]──▶ 既知の問題 B
+                                │
+                           B のソルバで解く
+                                │
+    A の答え ◀──[逆変換]──── B の答え
+    ```
+
+    ### 例1：最小公倍数 (LCM) → 最大公約数 (GCD)
+
+    「lcm(m, n) を求める」を直接考えるのは面倒だが、こう翻訳できる：
+
+    $$\text{lcm}(m, n) = \frac{m \times n}{\gcd(m, n)}$$
+
+    LCM を **GCD を求める問題に帰着**させ、GCD は[互除法（→ Q6）](#q6)で O(log) で解ける。自前で LCM のアルゴリズムを考えず、**既存の道具を呼ぶだけ**。見た目の違う2問が数式の関係で繋がっている、これが reduction の最小例。
+
+    ### 例2：linear programming（線形計画法）への帰着
+
+    problem reduction の真価。LP は「線形の制約の下で線形の目的関数を最大化/最小化する」**汎用の万能ソルバ**で、驚くほど多くの問題が LP に翻訳できる。
+
+    | 元の問題 | LP への翻訳 |
+    |---|---|
+    | 最大フロー | 各辺の流量を変数に、容量・保存則を制約に |
+    | 二部マッチング | マッチング変数を 0〜1 に緩和した LP |
+    | 最短経路 | 距離を変数にした LP |
+    | 配分・スケジューリング | 資源制約を線形不等式で |
+
+    **自分でアルゴリズムを設計せず、問題を LP の形（変数・制約・目的関数）に定式化できれば、枯れた LP ソルバ（シンプレックス法など）に丸投げできる**。まとめページの「[強力な既製ソルバに変換して任せる](AL-Strategies.md#5-transform-and-conquer)」の王道。
+
+    !!! note "実務での『帰着』は毎日使われている"
+        「この配置、SAT ソルバに食わせられないか」「このスケジューリング、整数計画 (ILP) に落とせないか」「この探索、最大フローに帰着できないか」——ゼロから書くより**枯れた高性能ソルバに翻訳して投げる**方が速くて堅牢。reduction は「車輪の再発明をしない」ための最重要スキル。
+
+    ### 同じ「reduction」がもう一つの顔を持つ：難しさの証明
+
+    problem reduction は**速く解くため**だけでなく、**「この問題は難しい」と証明するため**にも使う（→ AL-Complexity）。
+
+    - **A を速く解く帰着**: A → 既に速く解ける B（このユニットの話）
+    - **A が難しいと示す帰着**: 既知の難問（3SAT など）→ A。「A が簡単に解けるなら難問 B も簡単に解けてしまう（矛盾）」で A の NP困難性を示す
+
+    **矢印の向きが逆**。「B を A に帰着」できれば「A は B 以上に難しい」。NP完全性証明（→ AL-Complexity 学習成果19）はこの後者の使い方。
+
+    ### Transform-and-Conquer 4変換の総まとめ
+
+    | 変換 | 何を変える | 例 | Q |
+    |---|---|---|---|
+    | Instance simplification | 入力の**状態**（問題は同じ） | presort で重複検出 | [Q10](#q10) |
+    | Representation change | データの**表現** | heapsort | [Q11](#q11) |
+    | **Problem reduction** | **問題そのもの**を別問題へ | **lcm→gcd、各種→LP** | Q12 |
+    | Dynamic programming | 「部分問題の表を埋める問題」へ | Floyd's, Warshall's, Bellman-Ford | （次） |
+
+    reduction は4つで最も抽象度が高く、**「未知の問題を、解ける既知の問題の言葉で語り直す」**アルゴリズム設計の最上位の発想。
+
+    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q6 Euclid's](#q6)（lcm→gcd の gcd 側）、[Q10 instance simplification](#q10)・[Q11 representation change](#q11)（同じ変換統治の仲間）

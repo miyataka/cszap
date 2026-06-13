@@ -464,3 +464,65 @@
     3つを並べる本当の意図は、まとめページの [warning「貪欲が最適とは限らない」](AL-Strategies.md#4-greedy) の実演。**貪欲を使うときは「局所最適の積み重ねが大域最適になるか」を必ず検証する**——Dijkstra's/Kruskal's は証明できる側、0/1 Knapsack は反例が作れる側。学習成果6「Evaluate whether a greedy approach leads to an optimal solution」がこの判断力を問うている。
 
     関連: [Greedy / 貪欲法](AL-Strategies.md#4-greedy)、[Q3 knapsack](#q3)、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)
+
+---
+
+<a id="q10"></a>
+
+??? question "Q10. Instance simplification（インスタンスの単純化）— presort で重複検出"
+
+    *(2026-06-13)*
+
+    **A.** [Transform-and-Conquer](AL-Strategies.md#5a-instance-simplification) の4変換のひとつ。**「同じ問題のまま、扱いやすいインスタンス（入力の状態）に変えてから解く」**構え。
+
+    ポイントは「**変えるのは入力の状態であって、問題そのものではない**」こと。問題を別物に置き換える [problem reduction（§5c）](AL-Strategies.md#5c-problem-reduction) とはここが違う。
+
+    ### 例：重複検出（find duplicates）
+
+    「配列に重複する要素があるか？」を解く。
+
+    **素直な解（Brute-Force）**: 全ペアを突き合わせる。
+
+    ```python
+    for i in range(n):
+        for j in range(i+1, n):
+            if a[i] == a[j]:
+                return True   # O(n²)
+    ```
+
+    **Instance simplification**: まず**ソートしてから**隣だけ見る。同じ値はソートで必ず隣り合う。
+
+    ```python
+    a.sort()                       # O(n log n) ← ここが「単純化」
+    for i in range(n-1):
+        if a[i] == a[i+1]:         # 隣接チェックだけ O(n)
+            return True
+    ```
+
+    全体は **O(n log n)** で O(n²) に勝つ。「ソート済み」という**より扱いやすい状態**に変えたことで、隣接比較という単純な走査で済むようになった。
+
+    ### なぜ「presort（事前ソート）」が決め技なのか
+
+    **ソート済みという状態は、いろんな問題を一気に簡単にする**汎用の前処理だから。一度 O(n log n) 払えば後が軽くなる問題群：
+
+    | 問題 | 素朴 | presort 後 |
+    |---|---|---|
+    | 重複検出 | O(n²) | O(n log n) → 隣接チェック |
+    | 最頻値 (mode) | O(n²) | O(n log n) → 連続ランを数える |
+    | 最近接ペア（1次元） | O(n²) | O(n log n) → 隣接差の最小 |
+    | 2要素の和が k | O(n²) | O(n log n) → 両端から挟む (two-pointer) |
+
+    ### パラダイム視点：前処理コストを後で回収する
+
+    [まとめページの使いどころ](AL-Strategies.md#5-transform-and-conquer)「同値判定・近傍比較を何度も行うなら presort」がこれ。Transform-and-Conquer の3変換の並び：
+
+    | 変換 | 何を変える | 例 |
+    |---|---|---|
+    | **Instance simplification** | 入力の**状態**（問題は同じ） | **presort して重複検出** |
+    | Representation change | データの**表現** | heapsort（配列→ヒープ） |
+    | Problem reduction | **問題そのもの**を別問題へ | lcm を gcd に帰着 |
+
+    !!! note "ハッシュを使えば O(n) では？というツッコミ"
+        重複検出だけなら set に放り込んで O(n)（[空間で時間を買う](AL-Strategies.md#6-space-vs-time-tradeoffs)）。でも presort の価値は**「ソート済み」が再利用できる**点にある——最頻値・最近接ペア・範囲クエリなど複数の問いに同じ前処理が効く。「1つの問いならハッシュ、複数の順序依存の問いなら presort」が使い分け。
+
+    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q6 Euclid's](#q6)（problem reduction の lcm→gcd と対比）、[空間と時間のトレードオフ](AL-Strategies.md#6-space-vs-time-tradeoffs)

@@ -724,3 +724,64 @@
     | **Dynamic programming** | **Floyd's / Warshall / Bellman-Ford** | **Q13** |
 
     関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q9 Dijkstra's](#q9)（貪欲 vs DP の最短経路）、[Q3 knapsack](#q3)（DP O(nW) の別例）、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)
+
+---
+
+<a id="q14"></a>
+
+??? question "Q14. SAT ソルバってなに？"
+
+    *(2026-06-13)*
+
+    **A.** **SAT（充足可能性問題, satisfiability）**を解くプログラム。SAT とは：
+
+    > **論理式（AND・OR・NOT で繋いだ真偽変数の式）に対し、「全体を真にする変数の割り当てが存在するか？」を判定する問題。**
+
+    例: `(x₁ ∨ ¬x₂) ∧ (¬x₁ ∨ x₂ ∨ x₃) ∧ (¬x₃)` を真にする割り当てはあるか？
+    （x₁=真, x₂=真, x₃=偽 で全節が真 → **充足可能 (SAT)**。一つも無ければ **充足不能 (UNSAT)**）
+
+    ### なぜ SAT が特別なのか — 最初の NP完全問題
+
+    **Cook-Levin の定理**（→ AL-Complexity）により、**SAT は最初に NP完全と証明された問題**。「NP に属するすべての問題は SAT に多項式時間で帰着できる」＝ SAT は**NP問題の代表選手**。これが [Q12 problem reduction](#q12) と直結する：
+
+    - **理論**: あらゆる NP問題は SAT に帰着できる（Cook-Levin）
+    - **実務**: だから「難しい問題を SAT に翻訳して高性能ソルバに解かせる」が成立する
+
+    ### 素朴には指数時間、なのに実用で速い理由
+
+    n 変数の割り当ては 2ⁿ 通り。SAT は NP完全で**最悪は誰も多項式時間で解けない**（P≠NP なら）。それでも現代のソルバは**数百万変数の実問題**を秒〜分で解く。鍵は賢い探索：
+
+    | 技法 | 中身 | パラダイム的に |
+    |---|---|---|
+    | **DPLL** | 変数を仮に決め、矛盾したら戻る | [backtracking（§7）](AL-Strategies.md#7-handling-exponential-growth) |
+    | **単位伝播** | 「この節を満たすにはこの変数はこう」と強制確定 | 制約伝播による枝刈り |
+    | **CDCL（節学習）** | 矛盾の原因を「二度と踏まない節」として学習・追加 | 失敗からの学習 |
+
+    [まとめページ §7「指数的爆発への対処」](AL-Strategies.md#7-handling-exponential-growth)の backtracking が現実の最強ツールに育った姿。最悪は指数のままだが、実用入力では枝刈りが劇的に効く。
+
+    ### 実務でどう使うか — 翻訳して投げる
+
+    自分でアルゴリズムを書く代わりに、問題を SAT（論理式）に翻訳してソルバに渡す。
+
+    - **形式検証**: 「このバグ状態に到達可能か」を論理式にし、UNSAT を証明（到達不能＝安全）
+    - **数独・パズル**: 制約を論理式にすれば一瞬
+    - **スケジューリング・配置**: 制約を論理式にエンコード
+    - **依存解決**: パッケージのバージョン制約充足（一部のパッケージマネージャが内部利用）
+
+    !!! note "SAT / SMT / ILP / LP の使い分け"
+        [Q12](#q12) で出た「ソルバに投げる」系の親戚：
+
+        | ソルバ | 扱う問題 | 変数 |
+        |---|---|---|
+        | **SAT** | 純粋な論理式の充足 | 真偽 (0/1) |
+        | **SMT** | SAT＋算術や配列などの理論 | 真偽＋整数・実数等 |
+        | **ILP**（整数計画）| 線形制約＋最適化 | 整数 |
+        | **LP**（線形計画）| 線形制約＋最適化 | 実数（連続）|
+
+        「論理の充足判定なら SAT、最適化があるなら LP/ILP」が大まかな選び方。いずれも**自前で解かず枯れたソルバに翻訳して任せる**（problem reduction）の実践。
+
+    ### このユニットでの位置づけ
+
+    SAT ソルバは AL-Strategies の複数パラダイムが合流する場所：**problem reduction（Q12）で問題を翻訳し、backtracking（§7）系の CDCL で指数爆発をしのぐ**。「なぜ難しいか」は AL-Complexity（NP完全・Cook-Levin）で回収される。
+
+    関連: [Q12 problem reduction](#q12)（SAT への翻訳）、[指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)（backtracking）、[Q2 TSP](#q2)・[Q3 knapsack](#q3)（同じ NP困難の仲間）

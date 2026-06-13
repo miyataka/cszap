@@ -526,3 +526,63 @@
         重複検出だけなら set に放り込んで O(n)（[空間で時間を買う](AL-Strategies.md#6-space-vs-time-tradeoffs)）。でも presort の価値は**「ソート済み」が再利用できる**点にある——最頻値・最近接ペア・範囲クエリなど複数の問いに同じ前処理が効く。「1つの問いならハッシュ、複数の順序依存の問いなら presort」が使い分け。
 
     関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q6 Euclid's](#q6)（problem reduction の lcm→gcd と対比）、[空間と時間のトレードオフ](AL-Strategies.md#6-space-vs-time-tradeoffs)
+
+---
+
+<a id="q11"></a>
+
+??? question "Q11. Representation change（表現の変更）— なぜ heapsort がそれに当たる？"
+
+    *(2026-06-13)*
+
+    **A.** [Transform-and-Conquer](AL-Strategies.md#5b-representation-change) の変換のひとつ。**「同じデータを、別のデータ表現に作り替えてから解く」**構え。データの中身（値の集合）は変えず、**並べ方・構造だけ**を変える。
+
+    ### なぜ heapsort が representation change なのか（質問の核心）
+
+    ソートしたい入力は、ただの**順序のない配列**。これを直接「最小から取り出す」のは難しく、毎回 O(n) で最小を探すことになる（それが selection sort、→ [Q1](#q1)）。heapsort はこう考える：
+
+    > **配列を「ヒープ」という別表現に作り替えれば、「最大/最小を取り出す」操作が O(log n) で何度でもできる。**
+
+    つまり「順序のない配列」→「**ヒープ条件を満たす配列**」という**表現の変更**が問題を解く鍵。だから representation change の例。
+
+    ### 2段階の流れ
+
+    ```
+    [ 4, 10, 3, 5, 1 ]   ① build-heap: 配列をヒープ表現に作り替える O(n)
+            ↓
+       max-heap（根が最大）
+            ↓
+    ② 根(最大)を末尾と交換 → ヒープサイズを1減らす → sift-down で再構築 O(log n)
+       これを n 回繰り返すと後ろから昇順に確定
+            ↓
+    [ 1, 3, 4, 5, 10 ]   完成
+    ```
+
+    「**同じ配列の中身を、ヒープという見方に変えた**」だけ。値は1つも増減していない。表現が変わっただけで「最大を高速に取り出せる」性質が手に入る。
+
+    !!! note "ヒープは『配列の上の論理構造』"
+        ヒープは新しい入れ物ではなく、**同じ配列を「i の子は 2i+1, 2i+2」という規則で二分木とみなす**だけ（→ AL-Foundational のヒープ）。物理データは同じ配列のまま、**解釈（表現）だけ**を木に変える。だから in-place（追加メモリ O(1)）で済む——これが「representation change」という言葉にぴったりはまる理由。
+
+    ### heapsort の性質
+
+    | 観点 | 値 |
+    |---|---|
+    | 計算量 | **O(n log n) 保証**（最悪も）|
+    | 追加メモリ | O(1)（in-place）|
+    | 安定性 | 不安定 |
+
+    quicksort（最悪 O(n²)）と違い最悪でも O(n log n)、mergesort（O(n) 作業領域）と違い in-place。だから introsort（→ [Q7](#q7)）が「再帰が深くなりすぎたときの保険」に heapsort を選ぶ。
+
+    ### 主要ソートをパラダイムで整理
+
+    | ソート | パラダイム | 一言 |
+    |---|---|---|
+    | selection（→ [Q1](#q1)）| Brute-Force | 毎回全部見て最小を選ぶ |
+    | insertion（→ [Q4](#q4)）| Decrease-and-Conquer | 1つずつ挿す |
+    | quicksort（→ [Q7](#q7)）| Divide-and-Conquer | partition で分ける |
+    | mergesort | Divide-and-Conquer | 併合で統べる |
+    | **heapsort** | **Transform-and-Conquer** | **ヒープ表現に変えて取り出す** |
+
+    selection sort と heapsort は「最大/最小を取り出して並べる」**同じ発想**だが、selection が毎回 O(n) で探すのに対し heapsort は**ヒープ表現に投資して取り出しを O(log n) に**した。representation change が O(n²) を O(n log n) に変えた、と見ると両者がきれいに繋がる。
+
+    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q1 selection sort](#q1)、[Q10 instance simplification](#q10)（同じ Transform-and-Conquer の別変換）

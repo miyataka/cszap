@@ -1,0 +1,170 @@
+/* ワーシャルフロイド・ビジュアライザの見た目。すべて #floyd-viz 配下にスコープ。 */
+
+#floyd-viz {
+  border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+#floyd-viz .fw-stage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+#floyd-viz .fw-pane {
+  flex: 1 1 320px;
+  min-width: 280px;
+}
+
+/* --- 距離行列 --- */
+#floyd-viz .fw-table {
+  border-collapse: collapse;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+#floyd-viz .fw-table th,
+#floyd-viz .fw-table td {
+  border: 1px solid var(--md-default-fg-color--lighter, #cfd8dc);
+  width: 3rem;
+  height: 2.6rem;
+  text-align: center;
+  padding: 0;
+  font-size: 1rem;
+}
+#floyd-viz .fw-table th {
+  background: var(--md-default-fg-color--lightest, #eceff1);
+  font-weight: 700;
+}
+#floyd-viz .fw-corner {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+#floyd-viz .fw-pivot-head {
+  background: #ffe082 !important;
+  color: #5d4037;
+}
+#floyd-viz .fw-pivot {
+  background: #fff8e1;
+}
+#floyd-viz .fw-read {
+  outline: 2px solid #1e88e5;
+  outline-offset: -2px;
+  font-weight: 700;
+}
+#floyd-viz .fw-write {
+  outline: 2px dashed #607d8b;
+  outline-offset: -2px;
+}
+#floyd-viz .fw-write-on {
+  background: #66bb6a !important;
+  color: #fff;
+  font-weight: 700;
+  outline: 2px solid #2e7d32;
+  outline-offset: -2px;
+}
+
+/* --- グラフ --- */
+#floyd-viz .fw-svg {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+}
+#floyd-viz .fw-node {
+  fill: #eceff1;
+  stroke: #90a4ae;
+  stroke-width: 1.6;
+}
+#floyd-viz .fw-node-k {
+  fill: #ffb74d;
+  stroke: #ef6c00;
+  stroke-width: 2.4;
+}
+#floyd-viz .fw-node-i {
+  fill: #90caf9;
+  stroke: #1565c0;
+  stroke-width: 2.4;
+}
+#floyd-viz .fw-node-j {
+  fill: #a5d6a7;
+  stroke: #2e7d32;
+  stroke-width: 2.4;
+}
+#floyd-viz .fw-node-label {
+  text-anchor: middle;
+  font-weight: 700;
+  font-size: 14px;
+  fill: #263238;
+}
+#floyd-viz .fw-edge-w {
+  text-anchor: middle;
+  font-size: 12px;
+  fill: #546e7a;
+}
+#floyd-viz .fw-edge-w.fw-neg {
+  fill: #e53935;
+  font-weight: 700;
+}
+
+/* --- テキスト(見出し・式) --- */
+#floyd-viz .fw-header {
+  font-size: 1.05rem;
+  margin: 0.2rem 0 0.6rem;
+}
+#floyd-viz .fw-formula {
+  font-family: var(--md-code-font-family, monospace);
+  background: var(--md-code-bg-color, #f5f5f5);
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  margin: 0.4rem 0;
+  line-height: 1.6;
+  min-height: 2.4rem;
+}
+#floyd-viz .fw-tag-k { color: #ef6c00; font-weight: 700; }
+#floyd-viz .fw-tag-i { color: #1565c0; font-weight: 700; }
+#floyd-viz .fw-tag-j { color: #2e7d32; font-weight: 700; }
+#floyd-viz .fw-upd { color: #2e7d32; font-weight: 700; }
+#floyd-viz .fw-keep { color: #78909c; }
+
+/* --- コントロール --- */
+#floyd-viz .fw-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.8rem;
+}
+#floyd-viz .fw-controls button {
+  cursor: pointer;
+  border: 1px solid var(--md-default-fg-color--lighter, #cfd8dc);
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #000);
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.9rem;
+}
+#floyd-viz .fw-controls button:hover:not(:disabled) {
+  border-color: var(--md-accent-fg-color, #3f51b5);
+}
+#floyd-viz .fw-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+#floyd-viz .fw-preset-on {
+  background: var(--md-accent-fg-color, #3f51b5) !important;
+  color: #fff !important;
+  border-color: var(--md-accent-fg-color, #3f51b5) !important;
+}
+#floyd-viz .fw-progress {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+  margin-left: auto;
+}
+#floyd-viz .fw-presets {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}

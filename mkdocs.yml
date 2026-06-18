@@ -61,9 +61,13 @@ markdown_extensions:
 hooks:
   - hooks/mermaid_lazy.py
 
+extra_css:
+  - assets/css/floyd-warshall.css
+
 extra_javascript:
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
   - assets/js/mermaid-lazy.js
+  - assets/js/floyd-warshall.js
 
 nav:
   - ホーム: index.md
@@ -72,6 +76,7 @@ nav:
       - AL-Foundational: AL/AL-Foundational.md
       - AL-Foundational Q&A: AL/AL-Foundational-QA.md
       - AL-Foundational 採点記録: AL/AL-Foundational-Quiz.md
+      - ワーシャルフロイド法 アニメ: AL/floyd-warshall.md
       - Hash Table 実装サンプル: AL/hashtable-code.md
       - AL-Strategies: AL/AL-Strategies.md
       - AL-Strategies Q&A: AL/AL-Strategies-QA.md

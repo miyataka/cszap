@@ -80,3 +80,5 @@ nav:
       - Hash Table 実装サンプル: AL/hashtable-code.md
       - AL-Strategies: AL/AL-Strategies.md
       - AL-Strategies Q&A: AL/AL-Strategies-QA.md
+      - AL-Complexity: AL/AL-Complexity.md
+      - AL-Complexity Q&A: AL/AL-Complexity-QA.md

@@ -57,7 +57,7 @@ graph TD
 - **経験的測定 (empirical)**: 実際に動かして時間・メモリを計る。機種・言語・コンパイラに依存し、**移植性がない**。
 - **相対的測定 (relative / Order of Growth)**: 「入力サイズに対する**伸び方**」で表す。機種に依存せず比較できる。これが漸近記法の動機。
 
-### 1c. 入力サイズ (input size) と基本操作 (primitive operation)
+### 1c. 入力サイズ (input size) と基本操作 (primitive operation) {#input-size}
 
 伸び方を語るには「何に対して」「何を数えるか」を決める必要がある。
 
@@ -100,7 +100,7 @@ graph TD
 
 ---
 
-## 3. 基本計算量クラスと代表例
+## 3. 基本計算量クラスと代表例 {#complexity-classes}
 
 CS2023 が挙げる 8 つのクラス。**遅い順に上から覚える**より、「**何をすると各クラスになるか**」で覚える。大小の図解は [Foundational-QA Q10](AL-Foundational-QA.md#q10) と対。
 
@@ -153,14 +153,14 @@ graph LR
 
 ---
 
-## 6. 扱いやすさ と 扱いにくさ（Tractability / Intractability）
+## 6. 扱いやすさ と 扱いにくさ（Tractability / Intractability） {#tractability}
 
 ここからが**第 2 の問い**。「速くする」前に「**そもそも現実的に解けるのか**」。AL-Strategies-QA で予告した NP の正式な回収点（[Q15](AL-Strategies-QA.md#q15)・[Q14 SAT](AL-Strategies-QA.md#q14)）。
 
 !!! warning "P vs NP は未解決"
     以下の関係はすべて「**P ≠ NP だと仮定すれば**」の話。P = NP か P ≠ NP かは**未証明の大問題**（ミレニアム懸賞問題）。「P ≠ NP が証明されている」とは書かないこと。
 
-### 6a. P・NP・NP完全
+### 6a. P・NP・NP完全 {#p-np-npc}
 
 | クラス | 定義 | 直感 | 例 |
 |---|---|---|---|

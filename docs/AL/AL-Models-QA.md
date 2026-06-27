@@ -196,3 +196,34 @@
     日常語の「形式的な挨拶」（中身のない、型通りの挨拶）という使い方もここから来ている——「意味より形を重視する」という点が共通。
 
     関連：[§2 形式言語・文法・Chomsky 階層](AL-Models.md#chomsky-hierarchy)
+
+<a id="q5"></a>
+
+??? question "Q5. info は informal から来ている？"
+
+    *(2026-06-28)*
+
+    **A.** いいえ。**info は information（情報）の略**。informal とは別語——ただし面白いことに、両方ともラテン語 **forma**（形）という同じ祖語を持っている。
+
+    #### 語源の比較
+
+    | 語 | 分解 | in- の意味 | 意味 |
+    |---|---|---|---|
+    | **information** → info | **in-**（中へ）+ **formare**（形を与える） | 方向（into） | 「心の中に形を与える」→ 理解させる・情報 |
+    | **informal** | **in-**（否定）+ **formal** | 否定（not） | 「形式的でない」 |
+
+    - **informare**（ラテン語）＝「心の中に形（forma）を作る」＝ 概念・理解を形成する → 英語 inform・information の祖語。
+    - **informal** の in- は「not」。formal（形式的）の否定。
+
+    #### 同じ forma を持つ語族
+
+    | 語 | 意味 | forma との関係 |
+    |---|---|---|
+    | form / format | 形・書式 | 直接 |
+    | formal / informal | 形式的 / 非形式的 | forma + al（形容詞化） |
+    | information / info | 情報 | in + formare（形を与える） |
+    | reform | 改革 | re（再び）+ form |
+    | conform | 従う | con（共に）+ form |
+    | 形式（日本語） | formal の訳 | forma の意訳 |
+
+    Q4 の「形式＝forma」と同じ語根が info にも潜んでいるという気づきは正しい。in- の役割だけが全く違う。

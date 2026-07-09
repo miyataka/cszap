@@ -86,3 +86,8 @@ nav:
       - AL-Complexity 採点記録: AL/AL-Complexity-Quiz.md
       - AL-Models: AL/AL-Models.md
       - AL-Models Q&A: AL/AL-Models-QA.md
+  - Operating Systems (OS):
+      - OS-Purpose: OS/OS-Purpose.md
+      - OS-Purpose Q&A: OS/OS-Purpose-QA.md
+      - OS-Principles: OS/OS-Principles.md
+      - OS-Principles Q&A: OS/OS-Principles-QA.md

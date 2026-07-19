@@ -91,3 +91,9 @@ nav:
       - OS-Purpose Q&A: OS/OS-Purpose-QA.md
       - OS-Principles: OS/OS-Principles.md
       - OS-Principles Q&A: OS/OS-Principles-QA.md
+      - OS-Concurrency: OS/OS-Concurrency.md
+      - OS-Concurrency Q&A: OS/OS-Concurrency-QA.md
+      - OS-Scheduling: OS/OS-Scheduling.md
+      - OS-Scheduling Q&A: OS/OS-Scheduling-QA.md
+      - OS-Real-time: OS/OS-Real-time.md
+      - OS-Real-time Q&A: OS/OS-Real-time-QA.md

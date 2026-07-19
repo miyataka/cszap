@@ -161,6 +161,6 @@ CS Core:
 ## 前後のユニット
 
 - 前: [OS-Purpose](OS-Purpose.md) — OS の役割と目的
-- 次: OS-Concurrency — 並行性（スレッド・競合状態・デッドロック）
+- 次: [OS-Concurrency](OS-Concurrency.md) — 並行性（スレッド・競合状態・デッドロック）
 
 疑問が出たら [OS-Principles Q&A](OS-Principles-QA.md) に記録する。

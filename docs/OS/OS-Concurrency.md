@@ -160,6 +160,6 @@ KA Core:
 ## 前後のユニット
 
 - 前: [OS-Principles](OS-Principles.md) — OS の原理（割り込み・モード分離）
-- 次: [OS-Scheduling](OS-Scheduling.md) — スケジューリング（CS2023 の並びでは間に OS-Protection: Protection and Safety がある）
+- 次: [OS-Protection](OS-Protection.md) — 保護と安全
 
 疑問が出たら [OS-Concurrency Q&A](OS-Concurrency-QA.md) に記録する。

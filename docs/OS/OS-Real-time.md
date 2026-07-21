@@ -97,7 +97,7 @@ Non-core:
 
 ## 前後のユニット
 
-- 前: [OS-Scheduling](OS-Scheduling.md) — スケジューリング（CS2023 の並びでは間に OS-Process / OS-Memory / OS-Devices / OS-Files / OS-Advanced-Files / OS-Virtualization がある）
+- 前: [OS-Memory](OS-Memory.md) — メモリ管理（CS2023 の並びでは間に OS-Devices / OS-Files / OS-Advanced-Files / OS-Virtualization がある）
 - 次: OS-Faults — 耐故障性（未作成）
 
 疑問が出たら [OS-Real-time Q&A](OS-Real-time-QA.md) に記録する。

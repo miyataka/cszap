@@ -107,7 +107,7 @@ Non-core:
 
 ## 前後のユニット
 
-- 前: [OS-Concurrency](OS-Concurrency.md) — 並行性（CS2023 の並びでは間に OS-Protection がある）
-- 次: [OS-Real-time](OS-Real-time.md) — リアルタイム・組込みシステム（CS2023 の並びでは間に OS-Process / OS-Memory / OS-Devices / OS-Files / OS-Advanced-Files / OS-Virtualization がある）
+- 前: [OS-Protection](OS-Protection.md) — 保護と安全
+- 次: [OS-Process](OS-Process.md) — プロセスモデル
 
 疑問が出たら [OS-Scheduling Q&A](OS-Scheduling-QA.md) に記録する。

@@ -111,6 +111,6 @@ Non-core:
 ## 前後のユニット
 
 - 前: [OS-Process](OS-Process.md) — プロセスモデル
-- 次: OS-Devices — デバイス管理（未作成）
+- 次: [OS-Devices](OS-Devices.md) — デバイス管理
 
 疑問が出たら [OS-Memory Q&A](OS-Memory-QA.md) に記録する。

@@ -97,7 +97,7 @@ Non-core:
 
 ## 前後のユニット
 
-- 前: [OS-Memory](OS-Memory.md) — メモリ管理（CS2023 の並びでは間に OS-Devices / OS-Files / OS-Advanced-Files / OS-Virtualization がある）
-- 次: OS-Faults — 耐故障性（未作成）
+- 前: [OS-Virtualization](OS-Virtualization.md) — 仮想化
+- 次: [OS-Faults](OS-Faults.md) — 耐故障性
 
 疑問が出たら [OS-Real-time Q&A](OS-Real-time-QA.md) に記録する。

@@ -121,3 +121,8 @@ nav:
       - OS-Faults: OS/OS-Faults.md
       - OS-Faults Q&A: OS/OS-Faults-QA.md
       - OS-Faults 採点記録: OS/OS-Faults-Quiz.md
+  - Networking and Communication (NC):
+      - NC-Fundamentals: NC/NC-Fundamentals.md
+      - NC-Fundamentals Q&A: NC/NC-Fundamentals-QA.md
+      - NC-SingleHop: NC/NC-SingleHop.md
+      - NC-SingleHop Q&A: NC/NC-SingleHop-QA.md

@@ -464,7 +464,7 @@
     ```
 
     **O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(n³) < O(2ⁿ) < O(n!)**
-    左ほど速い（増えにくい）、右ほど遅い（増えやすい）。`O(n³)` までの**多項式**は現実的(tractable)、`O(2ⁿ)` 以降の**指数・階乗**は非現実的(intractable)——この境目が [AL-Complexity](AL-Foundational.md#sort) の P / NP の話につながる。
+    左ほど速い（増えにくい）、右ほど遅い（増えやすい）。`O(n³)` までの**多項式**は現実的(tractable)、`O(2ⁿ)` 以降の**指数・階乗**は非現実的(intractable)——この境目が [AL-Complexity](AL-Complexity.md#tractability) の P / NP の話につながる。
 
     ### 2. 伸び方をプロット（n = 1〜10）
 

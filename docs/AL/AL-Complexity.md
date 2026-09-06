@@ -369,7 +369,7 @@ KA Core:
 |---|---|---|
 | 14 | **漸化式**を使って、再帰的に定義されたアルゴリズムの時間計算量を評価できる。 | [§8](#recurrences) |
 | 15 | **マスター定理**の形式を使って、初等的な漸化式を解ける。 | [§8](#recurrences) |
-| 16 | **Big-O 記法**を適用して、アルゴリズムの時間・空間計算量の上界を与えられる。 | [§2](#asymptotic-notation)・[§7](#little-notations) |
+| 16 | **Big-O 記法**を適用して、アルゴリズムの時間・空間計算量の上界を与えられる。 | [§2](#asymptotic-notation) |
 | 17 | **Cook-Levin の定理**と SAT の NP完全性を説明できる。 | [§6](#tractability)・[§10](#tm-complexity) |
 | 18 | **クラス P と NP** を説明できる。 | [§6a](#p-np-npc)・[§10](#tm-complexity) |
 | 19 | 既知の古典的 NP完全問題（例: 3SAT と Clique）を**帰着**することで、ある問題が NP完全であることを証明できる。 | [§6](#tractability) |

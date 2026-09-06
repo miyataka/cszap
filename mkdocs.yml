@@ -131,4 +131,7 @@ nav:
           - 採点記録: OS/OS-Faults-Quiz.md
   - Networking and Communication (NC):
       - NC-Fundamentals: NC/NC-Fundamentals.md
+      - NC-Applications: NC/NC-Applications.md
+      - NC-Reliability: NC/NC-Reliability.md
+      - NC-Routing: NC/NC-Routing.md
       - NC-SingleHop: NC/NC-SingleHop.md

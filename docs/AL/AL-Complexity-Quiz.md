@@ -57,13 +57,13 @@
 ```javascript
 function matmul(n, A, B) {
   var C = new Array(n);
-  for (var i=0; i<n; i++) {
+  for (var i=0; i < n; i++) {
     C[i] = new Array(n);
-    for (var j=0; j<n; j++) { C[i][j] = 0; }
+    for (var j=0; j < n; j++) { C[i][j] = 0; }
   }
-  for (var k=0; k<n; k++) {
-    for (var i=0; i<n; i++) {
-      for (var j=0; j<n; j++) {
+  for (var k=0; k < n; k++) {
+    for (var i=0; i < n; i++) {
+      for (var j=0; j < n; j++) {
         C[i][j] += A[i][k] * B[k][j];
       }
     }

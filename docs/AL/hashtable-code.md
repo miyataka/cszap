@@ -1,6 +1,6 @@
 # Hash Table 実装サンプル
 
-[AL-Foundational](AL-Foundational.md#2-連想集合の構造) のハッシュ表、および [Q6（衝突対処）](AL-Foundational-QA.md#q6) に対応する**動作確認済み**のコード。
+[AL-Foundational](AL-Foundational.md#assoc-set) のハッシュ表、および [Q6（衝突対処）](AL-Foundational-QA.md#q6) に対応する**動作確認済み**のコード。
 
 - **C** … 連鎖法（separate chaining）。`insert`/`find`/`delete`/`rehash`。
 - **Go** … オープンアドレス法（linear probing）＋**墓標（tombstone）**。Q6 の delete の話に対応。
@@ -328,4 +328,4 @@ graph LR
 !!! note "使い分け"
     実務では**自作せず組み込み `map` を使う**のが基本。自作実装は「中で何が起きているか」を理解するための学習用。`insert`/`find`/`delete`・衝突・rehash・墓標といった概念は、組み込み `map` の挙動（償却 O(1)、最悪 O(n)、反復順ランダム）を理解する土台になる。
 
-関連: [ハッシュ表](AL-Foundational.md#2-連想集合の構造)、[Q6（衝突対処の挙動）](AL-Foundational-QA.md#q6)
+関連: [ハッシュ表](AL-Foundational.md#assoc-set)、[Q6（衝突対処の挙動）](AL-Foundational-QA.md#q6)

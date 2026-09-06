@@ -5,6 +5,10 @@ repo_url: https://github.com/miyataka/cszap
 repo_name: miyataka/cszap
 docs_dir: docs
 
+validation:
+  links:
+    anchors: warn
+
 theme:
   name: material
   language: ja
@@ -57,6 +61,9 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - tables
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 hooks:
   - hooks/mermaid_lazy.py
@@ -71,58 +78,57 @@ extra_javascript:
 
 nav:
   - ホーム: index.md
+  - 弱点ノート・復習キュー: weak-points.md
+  - 用語索引: glossary.md
   - 目次 (CS2023): CS2023-目次.md
   - Algorithmic Foundations (AL):
-      - AL-Foundational: AL/AL-Foundational.md
-      - AL-Foundational Q&A: AL/AL-Foundational-QA.md
-      - AL-Foundational 採点記録: AL/AL-Foundational-Quiz.md
-      - ワーシャルフロイド法 アニメ: AL/floyd-warshall.md
-      - Hash Table 実装サンプル: AL/hashtable-code.md
-      - AL-Strategies: AL/AL-Strategies.md
-      - AL-Strategies Q&A: AL/AL-Strategies-QA.md
-      - AL-Strategies 採点記録: AL/AL-Strategies-Quiz.md
-      - AL-Complexity: AL/AL-Complexity.md
-      - AL-Complexity Q&A: AL/AL-Complexity-QA.md
-      - AL-Complexity 採点記録: AL/AL-Complexity-Quiz.md
-      - AL-Models: AL/AL-Models.md
-      - AL-Models Q&A: AL/AL-Models-QA.md
+      - AL-Foundational:
+          - 本文: AL/AL-Foundational.md
+          - Q&A: AL/AL-Foundational-QA.md
+          - 採点記録: AL/AL-Foundational-Quiz.md
+          - ワーシャルフロイド法 アニメ: AL/floyd-warshall.md
+          - Hash Table 実装サンプル: AL/hashtable-code.md
+      - AL-Strategies:
+          - 本文: AL/AL-Strategies.md
+          - Q&A: AL/AL-Strategies-QA.md
+          - 採点記録: AL/AL-Strategies-Quiz.md
+      - AL-Complexity:
+          - 本文: AL/AL-Complexity.md
+          - Q&A: AL/AL-Complexity-QA.md
+          - 採点記録: AL/AL-Complexity-Quiz.md
+      - AL-Models:
+          - 本文: AL/AL-Models.md
+          - Q&A: AL/AL-Models-QA.md
   - Operating Systems (OS):
       - OS-Purpose: OS/OS-Purpose.md
-      - OS-Purpose Q&A: OS/OS-Purpose-QA.md
       - OS-Principles: OS/OS-Principles.md
-      - OS-Principles Q&A: OS/OS-Principles-QA.md
       - OS-Concurrency: OS/OS-Concurrency.md
-      - OS-Concurrency Q&A: OS/OS-Concurrency-QA.md
-      - OS-Protection: OS/OS-Protection.md
-      - OS-Protection Q&A: OS/OS-Protection-QA.md
-      - OS-Protection 採点記録: OS/OS-Protection-Quiz.md
+      - OS-Protection:
+          - 本文: OS/OS-Protection.md
+          - 採点記録: OS/OS-Protection-Quiz.md
       - OS-Scheduling: OS/OS-Scheduling.md
-      - OS-Scheduling Q&A: OS/OS-Scheduling-QA.md
-      - OS-Process: OS/OS-Process.md
-      - OS-Process Q&A: OS/OS-Process-QA.md
-      - OS-Process 採点記録: OS/OS-Process-Quiz.md
-      - OS-Memory: OS/OS-Memory.md
-      - OS-Memory Q&A: OS/OS-Memory-QA.md
-      - OS-Memory 採点記録: OS/OS-Memory-Quiz.md
-      - OS-Devices: OS/OS-Devices.md
-      - OS-Devices Q&A: OS/OS-Devices-QA.md
-      - OS-Devices 採点記録: OS/OS-Devices-Quiz.md
-      - OS-Files: OS/OS-Files.md
-      - OS-Files Q&A: OS/OS-Files-QA.md
-      - OS-Files 採点記録: OS/OS-Files-Quiz.md
-      - OS-Advanced-Files: OS/OS-Advanced-Files.md
-      - OS-Advanced-Files Q&A: OS/OS-Advanced-Files-QA.md
-      - OS-Advanced-Files 採点記録: OS/OS-Advanced-Files-Quiz.md
-      - OS-Virtualization: OS/OS-Virtualization.md
-      - OS-Virtualization Q&A: OS/OS-Virtualization-QA.md
-      - OS-Virtualization 採点記録: OS/OS-Virtualization-Quiz.md
+      - OS-Process:
+          - 本文: OS/OS-Process.md
+          - 採点記録: OS/OS-Process-Quiz.md
+      - OS-Memory:
+          - 本文: OS/OS-Memory.md
+          - 採点記録: OS/OS-Memory-Quiz.md
+      - OS-Devices:
+          - 本文: OS/OS-Devices.md
+          - 採点記録: OS/OS-Devices-Quiz.md
+      - OS-Files:
+          - 本文: OS/OS-Files.md
+          - 採点記録: OS/OS-Files-Quiz.md
+      - OS-Advanced-Files:
+          - 本文: OS/OS-Advanced-Files.md
+          - 採点記録: OS/OS-Advanced-Files-Quiz.md
+      - OS-Virtualization:
+          - 本文: OS/OS-Virtualization.md
+          - 採点記録: OS/OS-Virtualization-Quiz.md
       - OS-Real-time: OS/OS-Real-time.md
-      - OS-Real-time Q&A: OS/OS-Real-time-QA.md
-      - OS-Faults: OS/OS-Faults.md
-      - OS-Faults Q&A: OS/OS-Faults-QA.md
-      - OS-Faults 採点記録: OS/OS-Faults-Quiz.md
+      - OS-Faults:
+          - 本文: OS/OS-Faults.md
+          - 採点記録: OS/OS-Faults-Quiz.md
   - Networking and Communication (NC):
       - NC-Fundamentals: NC/NC-Fundamentals.md
-      - NC-Fundamentals Q&A: NC/NC-Fundamentals-QA.md
       - NC-SingleHop: NC/NC-SingleHop.md
-      - NC-SingleHop Q&A: NC/NC-SingleHop-QA.md

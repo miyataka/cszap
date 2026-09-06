@@ -245,7 +245,7 @@ graph TD
 ## 10. 発展トピック (Non-core)
 
 ??? abstract "量子コンピューティング"
-    量子の重ね合わせ・干渉を使う計算パラダイム。詳細は [AL-Foundational §8](AL-Foundational.md#8-non-core) の Shor / Grover を参照。
+    量子の重ね合わせ・干渉を使う計算パラダイム。詳細は [AL-Foundational §8](AL-Foundational.md#advanced) の Shor / Grover を参照。
 
 ---
 

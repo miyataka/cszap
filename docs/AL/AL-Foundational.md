@@ -6,7 +6,7 @@ CS2023 / Algorithmic Foundations (AL) の最初の Knowledge Unit「**AL-Foundat
     出典: `ComputerScienceCurricula2023.pdf` pp.88–89。
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。計算量の `n` は要素数。
 
-## 全体像
+## 全体像 {#overview}
 
 このユニットは「**データ構造**（データの入れ物）」と、その上で動く「**アルゴリズム**（探索・ソート・グラフ処理）」に大別される。
 
@@ -25,7 +25,7 @@ graph TD
 
 ---
 
-## 0. 基礎概念
+## 0. 基礎概念 {#basics}
 
 ### Abstract Data Type (ADT) / 抽象データ型
 
@@ -40,7 +40,7 @@ graph TD
 
 ---
 
-## 1. 線形データ構造
+## 1. 線形データ構造 {#linear}
 
 ### Array / 配列
 
@@ -112,7 +112,7 @@ graph TD
 
 ---
 
-## 2. 連想・集合の構造
+## 2. 連想・集合の構造 {#assoc-set}
 
 ### Hash table / Hash map / ハッシュ表
 
@@ -215,7 +215,7 @@ graph TD
 
 ---
 
-## 4. 探索アルゴリズム (Search)
+## 4. 探索アルゴリズム (Search) {#search}
 
 | アルゴリズム | 計算量 | 条件・例 |
 |---|---|---|
@@ -228,7 +228,7 @@ graph TD
 
 ---
 
-## 5. ソートアルゴリズム (Sort)
+## 5. ソートアルゴリズム (Sort) {#sort}
 
 - **Stable / Unstable（安定 / 不安定）**: 同値要素の元の順序が保たれるか。複数キーのソートで安定性が効く。
 
@@ -252,7 +252,7 @@ graph LR
 
 ---
 
-## 6. グラフアルゴリズム (Graph algorithms)
+## 6. グラフアルゴリズム (Graph algorithms) {#graph-algorithms}
 
 - **Shortest path / 最短経路**
     - **Dijkstra's / ダイクストラ法**: 非負重みの単一始点最短経路。貪欲法。
@@ -265,7 +265,7 @@ graph LR
 
 ---
 
-## 7. 文字列照合 (Matching) [KA Core]
+## 7. 文字列照合 (Matching) [KA Core] {#matching}
 
 - **Efficient string matching**: テキストからパターンを高速探索。
     - **Boyer-Moore**: 末尾から比較し、不一致時に大きくスキップ。
@@ -275,7 +275,7 @@ graph LR
 
 ---
 
-## 8. 発展トピック (Non-core)
+## 8. 発展トピック (Non-core) {#advanced}
 
 ??? abstract "クリックで展開：暗号・並列・合意・量子・FFT・進化計算"
     - **Cryptography / 暗号アルゴリズム**: 例 **SHA-256**（任意長データを256ビット固定長に変換する暗号学的ハッシュ関数）。→ SEC-Crypto
@@ -292,7 +292,7 @@ graph LR
 
 ---
 
-## まとめ：押さえるべき軸
+## まとめ：押さえるべき軸 {#summary}
 
 1. **ADT（仕様）とデータ構造（実装）の区別** — 同じ操作でも実装で計算量が変わる。
 2. **線形構造と非線形構造（木・グラフ）の使い分け**。

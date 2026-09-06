@@ -61,7 +61,7 @@
 
     **構え方（パラダイム）の違いが、入力の性質への感度の違いとして現れる**好例。「ほぼ整列済み」と分かっているなら挿入ソート、書き込み回数を抑えたいなら選択ソート、という使い分けにつながる。
 
-    関連: [Brute-Force / 力まかせ法](AL-Strategies.md#1-brute-force)、[Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[AL-Foundational §5 ソート](AL-Foundational.md#5-sort)
+    関連: [Brute-Force / 力まかせ法](AL-Strategies.md#1-brute-force)、[Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[AL-Foundational §5 ソート](AL-Foundational.md#sort)
 
 ---
 
@@ -189,7 +189,7 @@
     ??? note "補足：挿入位置を二分探索にしたら速くなる？（binary insertion sort）"
         挿入**位置の発見**は二分探索で O(log n) にできるが、挿入のための**要素の右ずらしが O(n)** のまま残るので全体は O(n²) から変わらない。「ボトルネックは比較ではなく移動」という計算量分析の練習問題として良い。
 
-    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[Q1 selection sort](#q1)、[AL-Foundational §5 ソート](AL-Foundational.md#5-sort)
+    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[Q1 selection sort](#q1)、[AL-Foundational §5 ソート](AL-Foundational.md#sort)
 
 ---
 
@@ -234,7 +234,7 @@
 
     `make`・CI のビルド順序、パッケージマネージャの依存解決（npm, apt）、講義の履修順、スプレッドシートのセル再計算順、タスクスケジューリング。
 
-    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)、[Q4 insertion sort](#q4)（同じ「1つずつ剥がす」構え）
+    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#graph-algorithms)、[Q4 insertion sort](#q4)（同じ「1つずつ剥がす」構え）
 
 ---
 
@@ -351,7 +351,7 @@
     ??? note "補足：選択だけなら quickselect で O(n)"
         「k 番目に小さい値だけ欲しい」なら、partition 後に**片側だけ**再帰すればよい（quickselect）。期待値 O(n)。両側を解く分割統治から、片側だけの減治法（by a variable size）に変わる、Q1〜Q6 の流れと繋がる好例。
 
-    関連: [Divide-and-Conquer / 分割統治法](AL-Strategies.md#3-divide-and-conquer)、[Q4 insertion sort](#q4)、[AL-Foundational §5 ソート](AL-Foundational.md#5-sort)
+    関連: [Divide-and-Conquer / 分割統治法](AL-Strategies.md#3-divide-and-conquer)、[Q4 insertion sort](#q4)、[AL-Foundational §5 ソート](AL-Foundational.md#sort)
 
 ---
 
@@ -463,7 +463,7 @@
 
     3つを並べる本当の意図は、まとめページの [warning「貪欲が最適とは限らない」](AL-Strategies.md#4-greedy) の実演。**貪欲を使うときは「局所最適の積み重ねが大域最適になるか」を必ず検証する**——Dijkstra's/Kruskal's は証明できる側、0/1 Knapsack は反例が作れる側。学習成果6「Evaluate whether a greedy approach leads to an optimal solution」がこの判断力を問うている。
 
-    関連: [Greedy / 貪欲法](AL-Strategies.md#4-greedy)、[Q3 knapsack](#q3)、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)
+    関連: [Greedy / 貪欲法](AL-Strategies.md#4-greedy)、[Q3 knapsack](#q3)、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#graph-algorithms)
 
 ---
 
@@ -723,7 +723,7 @@
     | Problem reduction | lcm→gcd、各種→LP | [Q12](#q12) |
     | **Dynamic programming** | **Floyd's / Warshall / Bellman-Ford** | **Q13** |
 
-    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q9 Dijkstra's](#q9)（貪欲 vs DP の最短経路）、[Q3 knapsack](#q3)（DP O(nW) の別例）、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)
+    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q9 Dijkstra's](#q9)（貪欲 vs DP の最短経路）、[Q3 knapsack](#q3)（DP O(nW) の別例）、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#graph-algorithms)
 
 ---
 
@@ -1012,7 +1012,7 @@
     !!! note "パラダイム的な位置づけ"
         A* は[§7 指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)の一員。状態空間が爆発する探索で、h(n) という「勘」で**有望な枝だけ展開**し全探索を避ける。backtracking・branch-and-bound と同じ「見込みのない方向は見ない」仲間で、A* は特に「良い順に展開する (best-first)」タイプ。
 
-    関連: [Q9 Dijkstra's](#q9)（h=0 で一致）、[指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)、[AL-Foundational §4 探索](AL-Foundational.md#4-search)
+    関連: [Q9 Dijkstra's](#q9)（h=0 で一致）、[指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)、[AL-Foundational §4 探索](AL-Foundational.md#search)
 
 ---
 
@@ -1340,7 +1340,7 @@
 
     ### 代表的な量子アルゴリズム
 
-    [AL-Foundational の発展トピック](AL-Foundational.md#8-non-core)と対応：
+    [AL-Foundational の発展トピック](AL-Foundational.md#advanced)と対応：
 
     | アルゴリズム | 何をする | 速度 |
     |---|---|---|
@@ -1365,7 +1365,7 @@
 
     Non-core（発展）。CS Core/KA Core の全パラダイムが「**古典計算機で問題をどう賢く解くか**」だったのに対し、量子は「**計算のハードウェアそのものを量子力学に置き換えたら何が変わるか**」という一段メタな話。詳細は AL-Models・AR-Quantum、暗号影響は SEC-Crypto で扱う。
 
-    関連: [§10 Non-core](AL-Strategies.md#10-non-core)、[AL-Foundational §8](AL-Foundational.md#8-non-core)（Shor/Grover）、[Q6 Euclid's](#q6)（RSA）、[Q15 NP困難・NP完全](#q15)（誤解の訂正）
+    関連: [§10 Non-core](AL-Strategies.md#10-non-core)、[AL-Foundational §8](AL-Foundational.md#advanced)（Shor/Grover）、[Q6 Euclid's](#q6)（RSA）、[Q15 NP困難・NP完全](#q15)（誤解の訂正）
 
 ---
 

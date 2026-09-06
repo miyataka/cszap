@@ -16,7 +16,7 @@
 
     *(2026-06-04)*
 
-    **A.** Dictionary だけではない。[AL-Foundational](AL-Foundational.md#0) の一覧は「**ADT（仕様）**」と「**その実装にあたる具体構造**」が混在して並んでいる。
+    **A.** Dictionary だけではない。[AL-Foundational](AL-Foundational.md#basics) の一覧は「**ADT（仕様）**」と「**その実装にあたる具体構造**」が混在して並んでいる。
 
     | 区分 | 一覧中の項目 |
     |---|---|
@@ -38,7 +38,7 @@
         - **Stack / Queue** は教科書により「データ構造」とも「ADT」とも呼ばれるが、本質は**操作で定義される ADT**で、配列でも連結リストでも実装できる。
         - **Graph / Tree** は操作で見れば ADT 的だが、この一覧では具体表現（隣接リスト/行列、BST/AVL/heap）まで並ぶため中間に置いた。
 
-    関連: [ADT / 抽象データ型](AL-Foundational.md#0-基礎概念)
+    関連: [ADT / 抽象データ型](AL-Foundational.md#basics)
 
 ---
 
@@ -161,7 +161,7 @@
 
     直感的には、**閉路がある = 堂々巡りができる**／**閉路がない = 一方通行で必ず終点にたどり着く**。DAG の「依存関係を一列に並べられる（トポロジカルソート）」性質は、閉路がないからこそ成り立つ。
 
-    関連: [グラフと木](AL-Foundational.md#tree)、[トポロジカルソート](AL-Foundational.md#6-graph-algorithms)
+    関連: [グラフと木](AL-Foundational.md#tree)、[トポロジカルソート](AL-Foundational.md#graph-algorithms)
 
 ---
 
@@ -207,7 +207,7 @@
 
     ひとことで言えば **線形＝要素が一直線に連なる（分岐しない）**。この「分岐しない」が木・グラフとの本質的な違い。
 
-    関連: [線形データ構造](AL-Foundational.md#1-線形データ構造)、[グラフと木](AL-Foundational.md#tree)
+    関連: [線形データ構造](AL-Foundational.md#linear)、[グラフと木](AL-Foundational.md#tree)
 
 ---
 
@@ -315,7 +315,7 @@
 
     要点：**delete が一番性格差が出る**——chaining はリストから外すだけ、probing は墓標で probe 連鎖を守る必要。rehash は両者を支える土台で主に insert がトリガ。
 
-    関連: [ハッシュ表](AL-Foundational.md#2-連想集合の構造)
+    関連: [ハッシュ表](AL-Foundational.md#assoc-set)
 
 ---
 
@@ -399,7 +399,7 @@
 
     → **[Hash Table 実装サンプルページへ](hashtable-code.md)**
 
-    関連: [ハッシュ表](AL-Foundational.md#2-連想集合の構造)、[Q6（衝突対処）](#q6)
+    関連: [ハッシュ表](AL-Foundational.md#assoc-set)、[Q6（衝突対処）](#q6)
 
 ---
 
@@ -444,7 +444,7 @@
 
     ひとことで：**Go slice ＝ 動的配列で実装された List ADT**。
 
-    関連: [線形データ構造](AL-Foundational.md#1-線形データ構造)、[Q1（ADT と実装）](#q1)、[Q7（型の整理）](#q7)
+    関連: [線形データ構造](AL-Foundational.md#linear)、[Q1（ADT と実装）](#q1)、[Q7（型の整理）](#q7)
 
 ---
 
@@ -464,7 +464,7 @@
     ```
 
     **O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(n³) < O(2ⁿ) < O(n!)**
-    左ほど速い（増えにくい）、右ほど遅い（増えやすい）。`O(n³)` までの**多項式**は現実的(tractable)、`O(2ⁿ)` 以降の**指数・階乗**は非現実的(intractable)——この境目が [AL-Complexity](AL-Foundational.md#5-ソートアルゴリズム-sort) の P / NP の話につながる。
+    左ほど速い（増えにくい）、右ほど遅い（増えやすい）。`O(n³)` までの**多項式**は現実的(tractable)、`O(2ⁿ)` 以降の**指数・階乗**は非現実的(intractable)——この境目が [AL-Complexity](AL-Foundational.md#sort) の P / NP の話につながる。
 
     ### 2. 伸び方をプロット（n = 1〜10）
 
@@ -512,7 +512,7 @@
         - `log` が付くと「半分ずつ＝とても速い」、`²/³` は「多項式＝重いが現実的」、`2ⁿ/n!` は「指数・階乗＝非現実的」。
         - 迷ったら **n=100 を代入**して数の桁を比べれば一発で大小が分かる。
 
-    関連: [探索](AL-Foundational.md#4-探索アルゴリズム-search)、[ソート](AL-Foundational.md#5-ソートアルゴリズム-sort)
+    関連: [探索](AL-Foundational.md#search)、[ソート](AL-Foundational.md#sort)
 
 ---
 
@@ -553,7 +553,7 @@
 
     ### 壁を「破る」方法
 
-    壁は**比較する限り**の話。**比較をやめれば破れる**。[Q10](#q10) や [AL-Foundational](AL-Foundational.md#5-ソートアルゴリズム-sort) の **疑似 O(n) ソート**がこれ：
+    壁は**比較する限り**の話。**比較をやめれば破れる**。[Q10](#q10) や [AL-Foundational](AL-Foundational.md#sort) の **疑似 O(n) ソート**がこれ：
 
     - **counting sort（計数ソート）** … 各値の出現回数を数える
     - **radix sort（基数ソート）** … 桁ごとに振り分ける
@@ -564,7 +564,7 @@
     !!! tip "一言で"
         **比較で並べる限り O(n log n) が下限（＝壁）。値を直接使うソートだけが O(n) でそれを越えられる。**
 
-    関連: [ソート](AL-Foundational.md#5-ソートアルゴリズム-sort)、[Q10（計算量の大小）](#q10)
+    関連: [ソート](AL-Foundational.md#sort)、[Q10（計算量の大小）](#q10)
 
 ---
 
@@ -623,12 +623,12 @@
 
     ### 重要な制約：負の辺はNG
 
-    負の重みがあると「確定した頂点が後からもっと短くなる」ことが起き、貪欲が破綻する。負辺がある場合は **Bellman–Ford 法**（または [Floyd–Warshall](AL-Foundational.md#6-graph-algorithms)）を使う。
+    負の重みがあると「確定した頂点が後からもっと短くなる」ことが起き、貪欲が破綻する。負辺がある場合は **Bellman–Ford 法**（または [Floyd–Warshall](AL-Foundational.md#graph-algorithms)）を使う。
 
     !!! tip "一言で"
         **非負グラフの最短経路を、貪欲＋緩和で解く。優先度付きキューで O((V+E) log V)。負辺があったら使えない。**
 
-    関連: [グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)、[Q3（閉路）](#q3)
+    関連: [グラフアルゴリズム](AL-Foundational.md#graph-algorithms)、[Q3（閉路）](#q3)
 
 ---
 
@@ -762,7 +762,7 @@
     !!! tip "おまけ：負閉路の検出"
         処理後に `dist[i][i] < 0`（自分への距離が負）になる頂点があれば、**負の閉路**が存在する印。
 
-    関連: [グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)、[Q12（ダイクストラ法）](#q12)
+    関連: [グラフアルゴリズム](AL-Foundational.md#graph-algorithms)、[Q12（ダイクストラ法）](#q12)
 
 ---
 
@@ -831,7 +831,7 @@
     - **閉路検出**、**トポロジカルソート**（DAG の順序付け）
     - 迷路・パズルの**全探索＋バックトラック**
 
-    関連: [探索アルゴリズム](AL-Foundational.md#4-探索アルゴリズム-search)、[Q16（BFS）](#q16)
+    関連: [探索アルゴリズム](AL-Foundational.md#search)、[Q16（BFS）](#q16)
 
 ---
 
@@ -896,7 +896,7 @@
     !!! note "一言で"
         **「深く潜るなら DFS（スタック）、近い順なら BFS（キュー）」。重みなし最短経路がほしいときは BFS。**
 
-    関連: [探索アルゴリズム](AL-Foundational.md#4-探索アルゴリズム-search)、[Q15（DFS）](#q15)、[Q12（ダイクストラ法）](#q12)
+    関連: [探索アルゴリズム](AL-Foundational.md#search)、[Q15（DFS）](#q15)、[Q12（ダイクストラ法）](#q12)
 
 ---
 
@@ -975,7 +975,7 @@
     !!! tip "一言で"
         **木を1頂点ずつ育て、毎回「木へつなぐ最も軽い辺」を貪欲に足して MST を作る。Dijkstra と瓜二つだが、見るのは“始点からの距離”でなく“接続辺の重み”。**
 
-    関連: [グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)、[Q12（ダイクストラ法）](#q12)、[Q3（閉路と木）](#q3)、[Q2（Graph ADT）](#q2)
+    関連: [グラフアルゴリズム](AL-Foundational.md#graph-algorithms)、[Q12（ダイクストラ法）](#q12)、[Q3（閉路と木）](#q3)、[Q2（Graph ADT）](#q2)
 
 ---
 
@@ -1052,7 +1052,7 @@
     !!! tip "一言で"
         **辺を軽い順に見て、閉路にならなければ採用——を Union-Find で判定しながら森を1本の木に併合する。Prim が頂点主導なら Kruskal は辺主導。**
 
-    関連: [グラフアルゴリズム](AL-Foundational.md#6-graph-algorithms)、[Q17（Prim法）](#q17)、[Q3（閉路と木）](#q3)
+    関連: [グラフアルゴリズム](AL-Foundational.md#graph-algorithms)、[Q17（Prim法）](#q17)、[Q3（閉路と木）](#q3)
 
 ---
 

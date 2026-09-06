@@ -49,9 +49,9 @@
 
     ### パラダイム視点：なぜ Brute-Force の例なのか
 
-    CS2023 は selection sort を [Brute-Force](AL-Strategies.md#1-brute-force) の例に挙げる。「最小値を**未整列部分の総当たりスキャン**で探す」という、定義に忠実な構えだから。
+    CS2023 は selection sort を [Brute-Force](AL-Strategies.md#brute-force) の例に挙げる。「最小値を**未整列部分の総当たりスキャン**で探す」という、定義に忠実な構えだから。
 
-    対照的に**挿入ソートは [Decrease-and-Conquer (by a constant)](AL-Strategies.md#2-decrease-and-conquer)** の例。同じ O(n²) ソートでも構えが違う：
+    対照的に**挿入ソートは [Decrease-and-Conquer (by a constant)](AL-Strategies.md#decrease-and-conquer)** の例。同じ O(n²) ソートでも構えが違う：
 
     | | 選択ソート（Brute-Force）| 挿入ソート（Decrease-and-Conquer）|
     |---|---|---|
@@ -61,7 +61,7 @@
 
     **構え方（パラダイム）の違いが、入力の性質への感度の違いとして現れる**好例。「ほぼ整列済み」と分かっているなら挿入ソート、書き込み回数を抑えたいなら選択ソート、という使い分けにつながる。
 
-    関連: [Brute-Force / 力まかせ法](AL-Strategies.md#1-brute-force)、[Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[AL-Foundational §5 ソート](AL-Foundational.md#sort)
+    関連: [Brute-Force / 力まかせ法](AL-Strategies.md#brute-force)、[Decrease-and-Conquer / 減治法](AL-Strategies.md#decrease-and-conquer)、[AL-Foundational §5 ソート](AL-Foundational.md#sort)
 
 ---
 
@@ -83,10 +83,10 @@
 
     | パラダイム | TSP へのアプローチ | 結果 |
     |---|---|---|
-    | [Brute-Force](AL-Strategies.md#1-brute-force) | 全順列を試す | O(n!)。n≤10 程度が限界 |
+    | [Brute-Force](AL-Strategies.md#brute-force) | 全順列を試す | O(n!)。n≤10 程度が限界 |
     | [DP（Held-Karp）](AL-Strategies.md#5d-dynamic-programming) | 「訪問済み集合 S＋現在地 v」を状態に表を埋める | **O(n²·2ⁿ)**。n! よりずっと良いがまだ指数。空間 O(n·2ⁿ) を払って時間を買う |
-    | [Greedy（最近傍法）](AL-Strategies.md#4-greedy) | 今いる都市から最も近い未訪問都市へ | 高速だが**最適保証なし**（ヒューリスティックとしての貪欲） |
-    | [Branch-and-bound](AL-Strategies.md#7-handling-exponential-growth) | 部分経路から下界 (bound) を見積もり枝刈り | **厳密解**。中規模まで実用的 |
+    | [Greedy（最近傍法）](AL-Strategies.md#greedy) | 今いる都市から最も近い未訪問都市へ | 高速だが**最適保証なし**（ヒューリスティックとしての貪欲） |
+    | [Branch-and-bound](AL-Strategies.md#exponential-growth) | 部分経路から下界 (bound) を見積もり枝刈り | **厳密解**。中規模まで実用的 |
     | 近似（→ §9）| Christofides 法（距離が三角不等式を満たす metric TSP）| **最適の 1.5 倍以内**を保証 |
     | 反復改善（→ §9）| 2-opt（辺2本を付け替えて交差をほどく）、Lin-Kernighan | 実務で強力な局所探索 |
 
@@ -96,7 +96,7 @@
 
     配送ルート最適化、基板の穴あけ順序、巡回点検・検針ルートなど。現実には数千都市規模を 2-opt 系の局所探索＋メタヒューリスティクスで「ほぼ最適」に解いている。
 
-    関連: [指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)、[Q3 knapsack](#q3)（同じく NP困難の看板問題）
+    関連: [指数爆発への対処](AL-Strategies.md#exponential-growth)、[Q3 knapsack](#q3)（同じく NP困難の看板問題）
 
 ---
 
@@ -123,19 +123,19 @@
     | B | 5 | 35 | 7.0 |
     | C | 5 | 35 | 7.0 |
 
-    貪欲は密度最大の A を取る → 残り容量 4 に B も C も入らず**価値 48**。最適は **B＋C＝70**。「局所最適（密度）の積み重ねが大域最適にならない」教科書例で、[まとめページの warning](AL-Strategies.md#4-greedy) の実物がこれ。
+    貪欲は密度最大の A を取る → 残り容量 4 に B も C も入らず**価値 48**。最適は **B＋C＝70**。「局所最適（密度）の積み重ねが大域最適にならない」教科書例で、[まとめページの warning](AL-Strategies.md#greedy) の実物がこれ。
 
     ### パラダイム別アプローチ
 
-    - [Brute-Force](AL-Strategies.md#1-brute-force): 全部分集合を試す O(2ⁿ)。
+    - [Brute-Force](AL-Strategies.md#brute-force): 全部分集合を試す O(2ⁿ)。
     - [DP](AL-Strategies.md#5d-dynamic-programming): 「**i 番目までの品物で容量 j のときの最大価値** dp[i][j]」という表を埋めて **O(nW)**。「i 番目まで・状態 j」と言語化できる典型 DP。
-    - [Branch-and-bound](AL-Strategies.md#7-handling-exponential-growth): fractional 版（貪欲で瞬時に解ける）の値を**上界 (bound)** に使って枝刈り——「緩和した問題の解を bound に使う」定石の代表例。
+    - [Branch-and-bound](AL-Strategies.md#exponential-growth): fractional 版（貪欲で瞬時に解ける）の値を**上界 (bound)** に使って枝刈り——「緩和した問題の解を bound に使う」定石の代表例。
     - 近似（→ §9）: 任意精度の近似が多項式時間でできる **FPTAS** が存在する。
 
     !!! note "O(nW) は多項式じゃないの？（擬多項式時間）"
         W は「数値の大きさ」であり、入力としての W の**表記長は log W ビット**。O(nW) = O(n·2^(log W)) なので入力長に対しては指数——これを**擬多項式時間**と呼ぶ。だから「DP で解ける」ことと「NP完全」は矛盾しない（W が小さい実用例では DP が完勝する）。詳細は AL-Complexity で回収。
 
-    関連: [Greedy / 貪欲法](AL-Strategies.md#4-greedy)、[Q2 TSP](#q2)（同じく NP困難の看板問題。TSP は「順序」、knapsack は「選択」の組合せ爆発）
+    関連: [Greedy / 貪欲法](AL-Strategies.md#greedy)、[Q2 TSP](#q2)（同じく NP困難の看板問題。TSP は「順序」、knapsack は「選択」の組合せ爆発）
 
 ---
 
@@ -189,7 +189,7 @@
     ??? note "補足：挿入位置を二分探索にしたら速くなる？（binary insertion sort）"
         挿入**位置の発見**は二分探索で O(log n) にできるが、挿入のための**要素の右ずらしが O(n)** のまま残るので全体は O(n²) から変わらない。「ボトルネックは比較ではなく移動」という計算量分析の練習問題として良い。
 
-    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[Q1 selection sort](#q1)、[AL-Foundational §5 ソート](AL-Foundational.md#sort)
+    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#decrease-and-conquer)、[Q1 selection sort](#q1)、[AL-Foundational §5 ソート](AL-Foundational.md#sort)
 
 ---
 
@@ -234,7 +234,7 @@
 
     `make`・CI のビルド順序、パッケージマネージャの依存解決（npm, apt）、講義の履修順、スプレッドシートのセル再計算順、タスクスケジューリング。
 
-    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#graph-algorithms)、[Q4 insertion sort](#q4)（同じ「1つずつ剥がす」構え）
+    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#decrease-and-conquer)、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#graph-algorithms)、[Q4 insertion sort](#q4)（同じ「1つずつ剥がす」構え）
 
 ---
 
@@ -269,7 +269,7 @@
 
     ### パラダイム視点：Decrease-and-Conquer (by a variable size) の代表例
 
-    これで[減治法の3変種](AL-Strategies.md#2-decrease-and-conquer)が役者付きで揃う：
+    これで[減治法の3変種](AL-Strategies.md#decrease-and-conquer)が役者付きで揃う：
 
     | 縮小のしかた | 例 | 1ステップで問題は |
     |---|---|---|
@@ -288,7 +288,7 @@
 
     分数の約分、`lcm(m, n) = m·n / gcd(m, n)`（[問題の帰着](AL-Strategies.md#5c-problem-reduction)の例として本編にも登場）、そして**拡張ユークリッド互除法** → モジュラ逆元 → **RSA 暗号の鍵生成**。2300年前のアルゴリズムが毎日の HTTPS を支えている。
 
-    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#2-decrease-and-conquer)、[Q4 insertion sort](#q4)、[Q5 topological sort](#q5)（3変種の比較）
+    関連: [Decrease-and-Conquer / 減治法](AL-Strategies.md#decrease-and-conquer)、[Q4 insertion sort](#q4)、[Q5 topological sort](#q5)（3変種の比較）
 
 ---
 
@@ -322,7 +322,7 @@
 
     ### パラダイム視点：mergesort と「仕事の置き場」が逆
 
-    どちらも [Divide-and-Conquer](AL-Strategies.md#3-divide-and-conquer) だが、対で覚えると構造が立体的になる：
+    どちらも [Divide-and-Conquer](AL-Strategies.md#divide-and-conquer) だが、対で覚えると構造が立体的になる：
 
     | | quicksort | mergesort |
     |---|---|---|
@@ -336,7 +336,7 @@
 
     partition が毎回「0 : n−1」に偏るとき。素朴に**先頭をピボット**にすると、**整列済み入力という日常的なケースで最悪**を踏む。
 
-    対策：**ピボットをランダムに選ぶ**と、どんな入力でも**期待値 O(n log n)**。[§9 乱択アルゴリズム](AL-Strategies.md#9-ka-core)の「最悪ケースの入力を乱数で均す」の最も身近な実例。決定的な工夫としては median-of-three（先頭・中央・末尾の中央値をピボットに）もある。
+    対策：**ピボットをランダムに選ぶ**と、どんな入力でも**期待値 O(n log n)**。[§9 乱択アルゴリズム](AL-Strategies.md#ka-core)の「最悪ケースの入力を乱数で均す」の最も身近な実例。決定的な工夫としては median-of-three（先頭・中央・末尾の中央値をピボットに）もある。
 
     ### なぜ実務で速い・どう使われている
 
@@ -351,7 +351,7 @@
     ??? note "補足：選択だけなら quickselect で O(n)"
         「k 番目に小さい値だけ欲しい」なら、partition 後に**片側だけ**再帰すればよい（quickselect）。期待値 O(n)。両側を解く分割統治から、片側だけの減治法（by a variable size）に変わる、Q1〜Q6 の流れと繋がる好例。
 
-    関連: [Divide-and-Conquer / 分割統治法](AL-Strategies.md#3-divide-and-conquer)、[Q4 insertion sort](#q4)、[AL-Foundational §5 ソート](AL-Foundational.md#sort)
+    関連: [Divide-and-Conquer / 分割統治法](AL-Strategies.md#divide-and-conquer)、[Q4 insertion sort](#q4)、[AL-Foundational §5 ソート](AL-Foundational.md#sort)
 
 ---
 
@@ -390,7 +390,7 @@
 
     ### パラダイム視点：「部分問題の個数」を削るタイプの分割統治
 
-    同じ [Divide-and-Conquer](AL-Strategies.md#3-divide-and-conquer) でも、ソート系とは効きどころが違う：
+    同じ [Divide-and-Conquer](AL-Strategies.md#divide-and-conquer) でも、ソート系とは効きどころが違う：
 
     | | mergesort / quicksort | Strassen |
     |---|---|---|
@@ -407,7 +407,7 @@
 
     それでも教材として重要なのは、**「掛け算を1回減らす」という代数的工夫が計算量クラスを変えうる**という発見だから。「行列積の指数はどこまで下げられるか」という今も続く研究（理論的下限は現在 ≈ 2.37）の出発点になった。
 
-    関連: [Divide-and-Conquer / 分割統治法](AL-Strategies.md#3-divide-and-conquer)、[Q7 quicksort](#q7)（同じ分割統治でも「個数を減らす」のが Strassen の特徴）
+    関連: [Divide-and-Conquer / 分割統治法](AL-Strategies.md#divide-and-conquer)、[Q7 quicksort](#q7)（同じ分割統治でも「個数を減らす」のが Strassen の特徴）
 
 ---
 
@@ -417,7 +417,7 @@
 
     *(2026-06-13)*
 
-    **A.** CS2023 はこの3つを [Greedy](AL-Strategies.md#4-greedy) の例として並べる。狙いは「**貪欲が最適になる/ならないの境界**」を見せること——Knapsack だけ仲間外れ、という構図が肝。
+    **A.** CS2023 はこの3つを [Greedy](AL-Strategies.md#greedy) の例として並べる。狙いは「**貪欲が最適になる/ならないの境界**」を見せること——Knapsack だけ仲間外れ、という構図が肝。
 
     ### Dijkstra's / ダイクストラ法（単一始点最短経路）
 
@@ -461,9 +461,9 @@
 
     ### このユニットでの読み方
 
-    3つを並べる本当の意図は、まとめページの [warning「貪欲が最適とは限らない」](AL-Strategies.md#4-greedy) の実演。**貪欲を使うときは「局所最適の積み重ねが大域最適になるか」を必ず検証する**——Dijkstra's/Kruskal's は証明できる側、0/1 Knapsack は反例が作れる側。学習成果6「Evaluate whether a greedy approach leads to an optimal solution」がこの判断力を問うている。
+    3つを並べる本当の意図は、まとめページの [warning「貪欲が最適とは限らない」](AL-Strategies.md#greedy) の実演。**貪欲を使うときは「局所最適の積み重ねが大域最適になるか」を必ず検証する**——Dijkstra's/Kruskal's は証明できる側、0/1 Knapsack は反例が作れる側。学習成果6「Evaluate whether a greedy approach leads to an optimal solution」がこの判断力を問うている。
 
-    関連: [Greedy / 貪欲法](AL-Strategies.md#4-greedy)、[Q3 knapsack](#q3)、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#graph-algorithms)
+    関連: [Greedy / 貪欲法](AL-Strategies.md#greedy)、[Q3 knapsack](#q3)、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#graph-algorithms)
 
 ---
 
@@ -514,7 +514,7 @@
 
     ### パラダイム視点：前処理コストを後で回収する
 
-    [まとめページの使いどころ](AL-Strategies.md#5-transform-and-conquer)「同値判定・近傍比較を何度も行うなら presort」がこれ。Transform-and-Conquer の3変換の並び：
+    [まとめページの使いどころ](AL-Strategies.md#transform-and-conquer)「同値判定・近傍比較を何度も行うなら presort」がこれ。Transform-and-Conquer の3変換の並び：
 
     | 変換 | 何を変える | 例 |
     |---|---|---|
@@ -523,9 +523,9 @@
     | Problem reduction | **問題そのもの**を別問題へ | lcm を gcd に帰着 |
 
     !!! note "ハッシュを使えば O(n) では？というツッコミ"
-        重複検出だけなら set に放り込んで O(n)（[空間で時間を買う](AL-Strategies.md#6-space-vs-time-tradeoffs)）。でも presort の価値は**「ソート済み」が再利用できる**点にある——最頻値・最近接ペア・範囲クエリなど複数の問いに同じ前処理が効く。「1つの問いならハッシュ、複数の順序依存の問いなら presort」が使い分け。
+        重複検出だけなら set に放り込んで O(n)（[空間で時間を買う](AL-Strategies.md#space-time-tradeoffs)）。でも presort の価値は**「ソート済み」が再利用できる**点にある——最頻値・最近接ペア・範囲クエリなど複数の問いに同じ前処理が効く。「1つの問いならハッシュ、複数の順序依存の問いなら presort」が使い分け。
 
-    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q6 Euclid's](#q6)（problem reduction の lcm→gcd と対比）、[空間と時間のトレードオフ](AL-Strategies.md#6-space-vs-time-tradeoffs)
+    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#transform-and-conquer)、[Q6 Euclid's](#q6)（problem reduction の lcm→gcd と対比）、[空間と時間のトレードオフ](AL-Strategies.md#space-time-tradeoffs)
 
 ---
 
@@ -585,7 +585,7 @@
 
     selection sort と heapsort は「最大/最小を取り出して並べる」**同じ発想**だが、selection が毎回 O(n) で探すのに対し heapsort は**ヒープ表現に投資して取り出しを O(log n) に**した。representation change が O(n²) を O(n log n) に変えた、と見ると両者がきれいに繋がる。
 
-    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q1 selection sort](#q1)、[Q10 instance simplification](#q10)（同じ Transform-and-Conquer の別変換）
+    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#transform-and-conquer)、[Q1 selection sort](#q1)、[Q10 instance simplification](#q10)（同じ Transform-and-Conquer の別変換）
 
 ---
 
@@ -626,7 +626,7 @@
     | 最短経路 | 距離を変数にした LP |
     | 配分・スケジューリング | 資源制約を線形不等式で |
 
-    **自分でアルゴリズムを設計せず、問題を LP の形（変数・制約・目的関数）に定式化できれば、枯れた LP ソルバ（シンプレックス法など）に丸投げできる**。まとめページの「[強力な既製ソルバに変換して任せる](AL-Strategies.md#5-transform-and-conquer)」の王道。
+    **自分でアルゴリズムを設計せず、問題を LP の形（変数・制約・目的関数）に定式化できれば、枯れた LP ソルバ（シンプレックス法など）に丸投げできる**。まとめページの「[強力な既製ソルバに変換して任せる](AL-Strategies.md#transform-and-conquer)」の王道。
 
     !!! note "実務での『帰着』は毎日使われている"
         「この配置、SAT ソルバに食わせられないか」「このスケジューリング、整数計画 (ILP) に落とせないか」「この探索、最大フローに帰着できないか」——ゼロから書くより**枯れた高性能ソルバに翻訳して投げる**方が速くて堅牢。reduction は「車輪の再発明をしない」ための最重要スキル。
@@ -651,7 +651,7 @@
 
     reduction は4つで最も抽象度が高く、**「未知の問題を、解ける既知の問題の言葉で語り直す」**アルゴリズム設計の最上位の発想。
 
-    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q6 Euclid's](#q6)（lcm→gcd の gcd 側）、[Q10 instance simplification](#q10)・[Q11 representation change](#q11)（同じ変換統治の仲間）
+    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#transform-and-conquer)、[Q6 Euclid's](#q6)（lcm→gcd の gcd 側）、[Q10 instance simplification](#q10)・[Q11 representation change](#q11)（同じ変換統治の仲間）
 
 ---
 
@@ -723,7 +723,7 @@
     | Problem reduction | lcm→gcd、各種→LP | [Q12](#q12) |
     | **Dynamic programming** | **Floyd's / Warshall / Bellman-Ford** | **Q13** |
 
-    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#5-transform-and-conquer)、[Q9 Dijkstra's](#q9)（貪欲 vs DP の最短経路）、[Q3 knapsack](#q3)（DP O(nW) の別例）、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#graph-algorithms)
+    関連: [Transform-and-Conquer / 変換統治法](AL-Strategies.md#transform-and-conquer)、[Q9 Dijkstra's](#q9)（貪欲 vs DP の最短経路）、[Q3 knapsack](#q3)（DP O(nW) の別例）、[AL-Foundational §6 グラフアルゴリズム](AL-Foundational.md#graph-algorithms)
 
 ---
 
@@ -753,11 +753,11 @@
 
     | 技法 | 中身 | パラダイム的に |
     |---|---|---|
-    | **DPLL** | 変数を仮に決め、矛盾したら戻る | [backtracking（§7）](AL-Strategies.md#7-handling-exponential-growth) |
+    | **DPLL** | 変数を仮に決め、矛盾したら戻る | [backtracking（§7）](AL-Strategies.md#exponential-growth) |
     | **単位伝播** | 「この節を満たすにはこの変数はこう」と強制確定 | 制約伝播による枝刈り |
     | **CDCL（節学習）** | 矛盾の原因を「二度と踏まない節」として学習・追加 | 失敗からの学習 |
 
-    [まとめページ §7「指数的爆発への対処」](AL-Strategies.md#7-handling-exponential-growth)の backtracking が現実の最強ツールに育った姿。最悪は指数のままだが、実用入力では枝刈りが劇的に効く。
+    [まとめページ §7「指数的爆発への対処」](AL-Strategies.md#exponential-growth)の backtracking が現実の最強ツールに育った姿。最悪は指数のままだが、実用入力では枝刈りが劇的に効く。
 
     ### 実務でどう使うか — 翻訳して投げる
 
@@ -784,7 +784,7 @@
 
     SAT ソルバは AL-Strategies の複数パラダイムが合流する場所：**problem reduction（Q12）で問題を翻訳し、backtracking（§7）系の CDCL で指数爆発をしのぐ**。「なぜ難しいか」は AL-Complexity（NP完全・Cook-Levin）で回収される。
 
-    関連: [Q12 problem reduction](#q12)（SAT への翻訳）、[指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)（backtracking）、[Q2 TSP](#q2)・[Q3 knapsack](#q3)（同じ NP困難の仲間）
+    関連: [Q12 problem reduction](#q12)（SAT への翻訳）、[指数爆発への対処](AL-Strategies.md#exponential-growth)（backtracking）、[Q2 TSP](#q2)・[Q3 knapsack](#q3)（同じ NP困難の仲間）
 
 ---
 
@@ -857,14 +857,14 @@
 
     | 戦略 | 手段 | 参照 |
     |---|---|---|
-    | 厳密解を粘る（中規模まで）| branch-and-bound, backtracking | [§7](AL-Strategies.md#7-handling-exponential-growth) |
-    | 最適を諦め品質保証つき近似 | 近似アルゴリズム | [§9](AL-Strategies.md#9-ka-core) |
+    | 厳密解を粘る（中規模まで）| branch-and-bound, backtracking | [§7](AL-Strategies.md#exponential-growth) |
+    | 最適を諦め品質保証つき近似 | 近似アルゴリズム | [§9](AL-Strategies.md#ka-core) |
     | 入力の特殊性を使う | DP（knapsack の O(nW) 等）| [Q3](#q3) |
     | ソルバに翻訳して投げる | SAT/ILP ソルバ | [Q12](#q12), [Q14](#q14) |
 
     「P=NP か？」（NP完全問題に多項式アルゴリズムはあるか）は**100万ドルの懸賞金つき未解決問題**。ほとんどの研究者は P≠NP と信じている。
 
-    関連: [Q2 TSP](#q2)・[Q3 knapsack](#q3)・[Q14 SAT](#q14)（NP困難/完全の代表例）、[Q12 problem reduction](#q12)（難しさを示す帰着）、[指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)
+    関連: [Q2 TSP](#q2)・[Q3 knapsack](#q3)・[Q14 SAT](#q14)（NP困難/完全の代表例）、[Q12 problem reduction](#q12)（難しさを示す帰着）、[指数爆発への対処](AL-Strategies.md#exponential-growth)
 
 ---
 
@@ -944,7 +944,7 @@
 
     「guess-and-check」の guess を現実の計算で代行するのが [backtracking や SAT ソルバ（Q14）](#q14)、check が速いことを利用して「候補を作って確かめる」のが多くの探索アルゴリズム。NP という枠組みが AL-Strategies の「指数爆発とどう戦うか」の背景にある。formal な扱いは AL-Complexity で。
 
-    関連: [Q15 NP困難・NP完全](#q15)、[Q14 SAT](#q14)（guess-and-check の代表）、[指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)
+    関連: [Q15 NP困難・NP完全](#q15)、[Q14 SAT](#q14)（guess-and-check の代表）、[指数爆発への対処](AL-Strategies.md#exponential-growth)
 
 ---
 
@@ -954,7 +954,7 @@
 
     *(2026-06-13)*
 
-    **A.** **最短経路を効率よく見つける探索アルゴリズム**。[まとめページ §7](AL-Strategies.md#7-handling-exponential-growth)の「ヒューリスティック探索」の代表格で、カーナビやゲームの経路探索の定番。読みは「**エースター (A-star)**」。
+    **A.** **最短経路を効率よく見つける探索アルゴリズム**。[まとめページ §7](AL-Strategies.md#exponential-growth)の「ヒューリスティック探索」の代表格で、カーナビやゲームの経路探索の定番。読みは「**エースター (A-star)**」。
 
     ### 核心：f(n) = g(n) + h(n)
 
@@ -1010,9 +1010,9 @@
     つまり `*` は**ワイルドカードでも掛け算でもなく、「最適 (optimal)」を意味する数学記号**。「A という探索アルゴリズム群の、最適版」が表記の意味。
 
     !!! note "パラダイム的な位置づけ"
-        A* は[§7 指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)の一員。状態空間が爆発する探索で、h(n) という「勘」で**有望な枝だけ展開**し全探索を避ける。backtracking・branch-and-bound と同じ「見込みのない方向は見ない」仲間で、A* は特に「良い順に展開する (best-first)」タイプ。
+        A* は[§7 指数爆発への対処](AL-Strategies.md#exponential-growth)の一員。状態空間が爆発する探索で、h(n) という「勘」で**有望な枝だけ展開**し全探索を避ける。backtracking・branch-and-bound と同じ「見込みのない方向は見ない」仲間で、A* は特に「良い順に展開する (best-first)」タイプ。
 
-    関連: [Q9 Dijkstra's](#q9)（h=0 で一致）、[指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)、[AL-Foundational §4 探索](AL-Foundational.md#search)
+    関連: [Q9 Dijkstra's](#q9)（h=0 で一致）、[指数爆発への対処](AL-Strategies.md#exponential-growth)、[AL-Foundational §4 探索](AL-Foundational.md#search)
 
 ---
 
@@ -1022,9 +1022,9 @@
 
     *(2026-06-13)*
 
-    **A.** **解を少しずつ組み立てていき、「この先どう頑張っても制約を満たせない」と分かった瞬間に1手戻って別の選択を試す**探索法。[§7 指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)の基本形。
+    **A.** **解を少しずつ組み立てていき、「この先どう頑張っても制約を満たせない」と分かった瞬間に1手戻って別の選択を試す**探索法。[§7 指数爆発への対処](AL-Strategies.md#exponential-growth)の基本形。
 
-    キーワードは**枝刈り (pruning)**。全候補を最後まで作ってから検査する（[Brute-Force](AL-Strategies.md#1-brute-force)）のではなく、**途中でダメと分かったら、その先の枝を丸ごと探索しない**。
+    キーワードは**枝刈り (pruning)**。全候補を最後まで作ってから検査する（[Brute-Force](AL-Strategies.md#brute-force)）のではなく、**途中でダメと分かったら、その先の枝を丸ごと探索しない**。
 
     ### イメージ：迷路と「行き止まりで引き返す」
 
@@ -1054,7 +1054,7 @@
 
     **制約充足問題**（条件を全部満たす配置を1つ（or 全部）見つけたい）で、**部分解の段階で矛盾を早期検出できる**とき。数独、迷路、部分集合・順列の列挙、パズル全般。最悪は指数のままだが、早期枝刈りで実用的になる。
 
-    関連: [指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)、[Q19 branch-and-bound](#q19)（最適化版）、[Q14 SAT](#q14)（DPLL は backtracking）
+    関連: [指数爆発への対処](AL-Strategies.md#exponential-growth)、[Q19 branch-and-bound](#q19)（最適化版）、[Q14 SAT](#q14)（DPLL は backtracking）
 
 ---
 
@@ -1093,7 +1093,7 @@
     !!! note "A* との関係"
         [A*（→ Q17）](#q17)も「f(n) = g + h で見込みのない枝を後回し/枝刈り」する点で branch-and-bound の親戚。bound にあたるのが A* の h(n)。「見込みを見積もって無駄を省く」という同じ思想の別実装。
 
-    関連: [指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)、[Q18 backtracking](#q18)（充足版）、[Q3 knapsack](#q3)、[Q17 A*](#q17)
+    関連: [指数爆発への対処](AL-Strategies.md#exponential-growth)、[Q18 backtracking](#q18)（充足版）、[Q3 knapsack](#q3)、[Q17 A*](#q17)
 
 ---
 
@@ -1109,7 +1109,7 @@
 
     ### 文脈1：iteration vs recursion の定番例（→ §8）
 
-    [§8 反復 vs 再帰](AL-Strategies.md#8-iteration-vs-recursion)で「同じ問題をループでも再帰でも書ける」例として使われる。
+    [§8 反復 vs 再帰](AL-Strategies.md#iteration-vs-recursion)で「同じ問題をループでも再帰でも書ける」例として使われる。
 
     === "反復 (iteration)"
 
@@ -1134,7 +1134,7 @@
 
     ### 文脈2：組合せ爆発の代表的な増加率
 
-    n! は**指数よりさらに速く**爆発する。[§7 指数爆発への対処](AL-Strategies.md#7-handling-exponential-growth)や計算量の話で「最悪クラス」として現れる。
+    n! は**指数よりさらに速く**爆発する。[§7 指数爆発への対処](AL-Strategies.md#exponential-growth)や計算量の話で「最悪クラス」として現れる。
 
     | n | n! |
     |---|---|
@@ -1143,12 +1143,12 @@
     | 15 | 約 1.3 兆 |
     | 20 | 約 2.4×10¹⁸ |
 
-    **n 個のものの並べ方（順列）が n! 通り**だから、[TSP（→ Q2）](#q2)の全巡回路の総当たり O(n!) など、「全順列を試す」アルゴリズムの計算量に直結する。だから [Brute-Force の使いどころ](AL-Strategies.md#1-brute-force)で「O(n!) なら n ≤ 10 程度が限界」と書いた。
+    **n 個のものの並べ方（順列）が n! 通り**だから、[TSP（→ Q2）](#q2)の全巡回路の総当たり O(n!) など、「全順列を試す」アルゴリズムの計算量に直結する。だから [Brute-Force の使いどころ](AL-Strategies.md#brute-force)で「O(n!) なら n ≤ 10 程度が限界」と書いた。
 
     !!! note "増加の速さ: n! > 2ⁿ"
         指数 2ⁿ より階乗 n! の方が速く増える（n ≥ 4 で逆転）。計算量クラスの序列では O(2ⁿ)（指数）< O(n!)（階乗）。AL-Complexity でこの序列を正式に扱う。
 
-    関連: [§8 反復 vs 再帰](AL-Strategies.md#8-iteration-vs-recursion)、[Q2 TSP](#q2)（O(n!) の全列挙）、[Brute-Force](AL-Strategies.md#1-brute-force)
+    関連: [§8 反復 vs 再帰](AL-Strategies.md#iteration-vs-recursion)、[Q2 TSP](#q2)（O(n!) の全列挙）、[Brute-Force](AL-Strategies.md#brute-force)
 
 ---
 
@@ -1158,7 +1158,7 @@
 
     *(2026-06-13)*
 
-    **A.** [まとめページ §9 KA Core](AL-Strategies.md#9-ka-core) の一員。**「最適解を諦める代わりに、『最適からどれだけずれても保証できる』近い解を、多項式時間で返す」**アルゴリズム。NP困難問題（TSP・knapsack…）への現実的な降り方で、[Q15](#q15)「NP完全と分かったら諦め方を変える」の代表。
+    **A.** [まとめページ §9 KA Core](AL-Strategies.md#ka-core) の一員。**「最適解を諦める代わりに、『最適からどれだけずれても保証できる』近い解を、多項式時間で返す」**アルゴリズム。NP困難問題（TSP・knapsack…）への現実的な降り方で、[Q15](#q15)「NP完全と分かったら諦め方を変える」の代表。
 
     ### ヒューリスティックとの決定的な違い：保証があるか
 
@@ -1208,9 +1208,9 @@
     | 入力の特殊性を使う | W が小さい等 | [DP (Q3)](#q3) |
 
     !!! note "なぜ KA Core なのか"
-        CS Core の [§7 指数爆発対処](AL-Strategies.md#7-handling-exponential-growth)（branch-and-bound 等＝厳密解を粘る）の**次の段階**。「厳密解を粘ってもダメなら保証つきで諦める」という進んだ判断を扱うため KA Core。
+        CS Core の [§7 指数爆発対処](AL-Strategies.md#exponential-growth)（branch-and-bound 等＝厳密解を粘る）の**次の段階**。「厳密解を粘ってもダメなら保証つきで諦める」という進んだ判断を扱うため KA Core。
 
-    関連: [§9 KA Core](AL-Strategies.md#9-ka-core)、[Q15 NP困難・NP完全](#q15)、[Q2 TSP](#q2)・[Q3 knapsack](#q3)、[Q19 branch-and-bound](#q19)（厳密解側）
+    関連: [§9 KA Core](AL-Strategies.md#ka-core)、[Q15 NP困難・NP完全](#q15)、[Q2 TSP](#q2)・[Q3 knapsack](#q3)、[Q19 branch-and-bound](#q19)（厳密解側）
 
 ---
 
@@ -1220,7 +1220,7 @@
 
     *(2026-06-13)*
 
-    **A.** [§9 KA Core](AL-Strategies.md#9-ka-core) の一員。**「実行可能な解から出発し、『少し変えると改善する』操作を、改善できなくなるまで繰り返す」**戦略。
+    **A.** [§9 KA Core](AL-Strategies.md#ka-core) の一員。**「実行可能な解から出発し、『少し変えると改善する』操作を、改善できなくなるまで繰り返す」**戦略。
 
     ### 基本の形
 
@@ -1258,7 +1258,7 @@
     - Ford-Fulkerson やシンプレックスは問題の構造上、局所最適＝大域最適が保証される良いケース
     - 一般の最適化（TSP の 2-opt など）では局所最適に捕まる → **乱択で脱出**するのが次の Q23 に繋がる（ランダムな再スタート、焼きなまし）
 
-    関連: [§9 KA Core](AL-Strategies.md#9-ka-core)、[Q12 problem reduction](#q12)（LP）、[Q9 貪欲法](#q9)（組み上げ vs 磨く）、[Q23 乱択](#q23)（局所最適からの脱出）
+    関連: [§9 KA Core](AL-Strategies.md#ka-core)、[Q12 problem reduction](#q12)（LP）、[Q9 貪欲法](#q9)（組み上げ vs 磨く）、[Q23 乱択](#q23)（局所最適からの脱出）
 
 ---
 
@@ -1268,7 +1268,7 @@
 
     *(2026-06-13)*
 
-    **A.** [§9 KA Core](AL-Strategies.md#9-ka-core) の一員。**計算の途中で乱数（コイン投げ・サイコロ）を使い、性能や解の質を『期待値として』良くする**アルゴリズム。同じ入力でも実行ごとに動きが変わるのが特徴。
+    **A.** [§9 KA Core](AL-Strategies.md#ka-core) の一員。**計算の途中で乱数（コイン投げ・サイコロ）を使い、性能や解の質を『期待値として』良くする**アルゴリズム。同じ入力でも実行ごとに動きが変わるのが特徴。
 
     ### 2つのタイプ
 
@@ -1301,13 +1301,13 @@
 
     ### KA Core 3戦略の関係
 
-    [§9](AL-Strategies.md#9-ka-core) の3つはこう繋がる：
+    [§9](AL-Strategies.md#ka-core) の3つはこう繋がる：
 
     - [近似（Q21）](#q21): 最適を諦め**保証つき**で近づく
     - [反復改善（Q22）](#q22): 解を磨く（ただし局所最適に捕まる）
     - **乱択（Q23）**: 最悪を均す・局所最適から脱出する（ランダム再スタート、焼きなまし）
 
-    関連: [§9 KA Core](AL-Strategies.md#9-ka-core)、[Q7 quicksort](#q7)（ランダムピボット）、[Q21 近似](#q21)（max-cut）、[Q22 反復改善](#q22)（局所最適からの脱出）
+    関連: [§9 KA Core](AL-Strategies.md#ka-core)、[Q7 quicksort](#q7)（ランダムピボット）、[Q21 近似](#q21)（max-cut）、[Q22 反復改善](#q22)（局所最適からの脱出）
 
 ---
 
@@ -1317,7 +1317,7 @@
 
     *(2026-06-13)*
 
-    **A.** [Non-core（§10）](AL-Strategies.md#10-non-core)の項目。**量子力学の現象（重ね合わせ・干渉・もつれ）を計算資源として使う、別原理の計算パラダイム**。これまでの全パラダイムが「古典計算機の上での問題の解き方」だったのに対し、量子は**計算機そのものを変える**話。
+    **A.** [Non-core（§10）](AL-Strategies.md#advanced)の項目。**量子力学の現象（重ね合わせ・干渉・もつれ）を計算資源として使う、別原理の計算パラダイム**。これまでの全パラダイムが「古典計算機の上での問題の解き方」だったのに対し、量子は**計算機そのものを変える**話。
 
     ### 古典ビット vs 量子ビット (qubit)
 
@@ -1365,7 +1365,7 @@
 
     Non-core（発展）。CS Core/KA Core の全パラダイムが「**古典計算機で問題をどう賢く解くか**」だったのに対し、量子は「**計算のハードウェアそのものを量子力学に置き換えたら何が変わるか**」という一段メタな話。詳細は AL-Models・AR-Quantum、暗号影響は SEC-Crypto で扱う。
 
-    関連: [§10 Non-core](AL-Strategies.md#10-non-core)、[AL-Foundational §8](AL-Foundational.md#advanced)（Shor/Grover）、[Q6 Euclid's](#q6)（RSA）、[Q15 NP困難・NP完全](#q15)（誤解の訂正）
+    関連: [§10 Non-core](AL-Strategies.md#advanced)、[AL-Foundational §8](AL-Foundational.md#advanced)（Shor/Grover）、[Q6 Euclid's](#q6)（RSA）、[Q15 NP困難・NP完全](#q15)（誤解の訂正）
 
 ---
 
@@ -1375,7 +1375,7 @@
 
     *(2026-06-14)*
 
-    **A.** **再帰呼び出しが関数の「最後の動作」になっているとき、新しいスタックフレームを積まずに現在のフレームを使い回す（＝ループに変える）コンパイラ/処理系の最適化**。これにより、本来 `O(n)` 積み上がるはずの呼び出しスタックが `O(1)` で済み、深い再帰でも**スタックオーバーフローしなくなる**。[§8 反復と再帰](AL-Strategies.md#8-iteration-vs-recursion) の「末尾再帰なら単純ループに」を機械が自動でやってくれる、という話。
+    **A.** **再帰呼び出しが関数の「最後の動作」になっているとき、新しいスタックフレームを積まずに現在のフレームを使い回す（＝ループに変える）コンパイラ/処理系の最適化**。これにより、本来 `O(n)` 積み上がるはずの呼び出しスタックが `O(1)` で済み、深い再帰でも**スタックオーバーフローしなくなる**。[§8 反復と再帰](AL-Strategies.md#iteration-vs-recursion) の「末尾再帰なら単純ループに」を機械が自動でやってくれる、という話。
 
     ### 「末尾呼び出し (tail call)」とは
 
@@ -1450,10 +1450,10 @@
 
     !!! tip "Go での実務的な結論"
         - 末尾再帰に書いても**最適化はされない**（ループに化けない）。
-        - 入力サイズに依存して深くなる再帰は、**Python と同じく自分で `for` ループ＋明示スタックに書き換える**のが正解（[§8 の指針](AL-Strategies.md#8-iteration-vs-recursion)どおり）。
+        - 入力サイズに依存して深くなる再帰は、**Python と同じく自分で `for` ループ＋明示スタックに書き換える**のが正解（[§8 の指針](AL-Strategies.md#iteration-vs-recursion)どおり）。
         - 「伸びるスタックがあるから多少深くても落ちない」のは保険であって、`O(深さ)` のメモリを使う事実は変わらない。
 
     !!! tip "一言で"
         **「再帰呼び出しの後に何も残っていない」なら、フレームを積まずループにできる。それを自動でやるのが末尾再帰最適化。** ただし言語が対応していて初めて効く。
 
-    関連: [§8 反復と再帰](AL-Strategies.md#8-iteration-vs-recursion)（再帰⇄反復の機械的変換）、[§2 減治法](AL-Strategies.md#2-decrease-and-conquer)（階乗は decrease-by-one の典型）
+    関連: [§8 反復と再帰](AL-Strategies.md#iteration-vs-recursion)（再帰⇄反復の機械的変換）、[§2 減治法](AL-Strategies.md#decrease-and-conquer)（階乗は decrease-by-one の典型）

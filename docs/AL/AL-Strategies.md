@@ -6,8 +6,9 @@ CS2023 / Algorithmic Foundations (AL) の2つ目の Knowledge Unit「**AL-Strate
     出典: `ComputerScienceCurricula2023.pdf` pp.90–91。
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     例に登場するアルゴリズムの多くは [AL-Foundational](AL-Foundational.md) で学んだもの。「あのアルゴリズムはどの型か」を当てはめ直すのがこのユニットの核心。
+    このユニットは **CS Core 6時間**（KA Core の時間配分はない）。§9・§10 のように KA Core / Non-core のトピックは持つが、AL KA の KA Core 32時間は AL-Foundational（6時間）・AL-Complexity（3時間）・AL-Models（23時間）に配分されており、本ユニットの取り分はない。
 
-## 全体像
+## 全体像 {#overview}
 
 「問題をどう小さくするか・どう変形するか」でパラダイムを分類できる。
 
@@ -34,7 +35,7 @@ graph TD
 
 ---
 
-## 1. Brute-Force / 力まかせ法
+## 1. Brute-Force / 力まかせ法 {#brute-force}
 
 **候補を全部試す**最も素朴な戦略。定義に忠実で実装が簡単、必ず正解に到達するが、候補数が爆発すると破綻する。
 
@@ -47,7 +48,7 @@ graph TD
 
 ---
 
-## 2. Decrease-and-Conquer / 減治法
+## 2. Decrease-and-Conquer / 減治法 {#decrease-and-conquer}
 
 問題を**一回り小さい同じ問題に縮小**し、その解を拡張して元の解を得る戦略。縮小のしかたで3種に分かれる。
 
@@ -76,7 +77,7 @@ graph LR
 
 ---
 
-## 3. Divide-and-Conquer / 分割統治法
+## 3. Divide-and-Conquer / 分割統治法 {#divide-and-conquer}
 
 問題を**複数の部分問題に分割**し、それぞれを（通常は再帰で）解いて、**結果を併合 (combine)** する戦略。
 
@@ -105,7 +106,7 @@ graph TD
 
 ---
 
-## 4. Greedy / 貪欲法
+## 4. Greedy / 貪欲法 {#greedy}
 
 各ステップで**その時点の最良（局所最適）を選び、後から決して取り消さない**戦略。高速だが、**最適解になるのは問題に特定の構造があるときだけ**。
 
@@ -123,7 +124,7 @@ graph TD
 
 ---
 
-## 5. Transform-and-Conquer / 変換統治法
+## 5. Transform-and-Conquer / 変換統治法 {#transform-and-conquer}
 
 問題を**解きやすい形に変換してから**解く戦略。CS2023 は4つの変換を挙げる。
 
@@ -165,7 +166,7 @@ graph LR
 
 ---
 
-## 6. Space vs Time tradeoffs / 空間と時間のトレードオフ
+## 6. Space vs Time tradeoffs / 空間と時間のトレードオフ {#space-time-tradeoffs}
 
 **メモリを余分に使って時間を稼ぐ**（またはその逆）という資源交換の視点。
 
@@ -179,7 +180,7 @@ graph LR
 
 ---
 
-## 7. 指数的爆発への対処 (Handling Exponential Growth)
+## 7. 指数的爆発への対処 (Handling Exponential Growth) {#exponential-growth}
 
 解空間が O(2ⁿ) や O(n!) で爆発する問題に対し、**全部は見ない**で済ませる技法群。
 
@@ -209,7 +210,7 @@ graph TD
 
 ---
 
-## 8. Iteration vs Recursion / 反復と再帰
+## 8. Iteration vs Recursion / 反復と再帰 {#iteration-vs-recursion}
 
 同じ問題をループでも再帰でも書ける（例: **階乗**、**木の探索**）。
 
@@ -229,7 +230,7 @@ graph TD
 
 ---
 
-## 9. KA Core のパラダイム
+## 9. KA Core のパラダイム {#ka-core}
 
 - **Approximation algorithms / 近似アルゴリズム**: 最適解の代わりに「**最適の α 倍以内**」を保証する解を多項式時間で返す。NP困難問題への現実的アプローチ。
 - **Iterative improvement / 反復改善法**: 実行可能解から始め、**改善できる限り少しずつ改善**して最適に至る。例: **Ford-Fulkerson**（増加道がある限り流す、最大フロー）、**シンプレックス法**（隣の頂点へ移りながら線形計画の最適へ）。
@@ -242,7 +243,7 @@ graph TD
     - 「**今の解を少し改善する**」操作が自然に定義できる最適化 → 反復改善（フロー、LP、局所探索）。
     - **最悪ケースの入力を乱数で均したい**（クイックソートのランダムピボットが典型）、または**期待値で十分** → 乱択。実装が単純になることが多いのも利点。
 
-## 10. 発展トピック (Non-core)
+## 10. 発展トピック (Non-core) {#advanced}
 
 ??? abstract "量子コンピューティング"
     量子の重ね合わせ・干渉を使う計算パラダイム。詳細は [AL-Foundational §8](AL-Foundational.md#advanced) の Shor / Grover を参照。
@@ -291,7 +292,7 @@ graph TD
 
 ---
 
-## まとめ：パラダイム早見表
+## まとめ：パラダイム早見表 {#summary}
 
 | パラダイム | 一言で | 代表例 |
 |---|---|---|
@@ -311,3 +312,31 @@ graph TD
     - [ ] backtracking・branch-and-bound・A* の違いを一言ずつで言える
     - [ ] AL-Foundational の各アルゴリズムがどのパラダイムに属するか言える（学習成果2）
     - [ ] 未知の問題を渡されたとき、「どのシグナルを見て、どのパラダイムから試すか」を口頭で説明できる（学習成果4）
+
+---
+
+## 学習成果（Illustrative Learning Outcomes） {#learning-outcomes}
+
+CS Core:
+
+| # | 学習成果 | 本文の対応節 |
+|---|---|---|
+| 1 | 本ユニットの各**パラダイム**について、その定義的な特徴を説明でき、パラダイムを体現する例を挙げて「その例がなぜ特徴を満たすのか」まで説明できる。 | [§1](#brute-force)・[§2](#decrease-and-conquer)・[§3](#divide-and-conquer)・[§4](#greedy)・[§5](#transform-and-conquer)・[§6](#space-time-tradeoffs)・[§9](#ka-core) |
+| 2 | [AL-Foundational](AL-Foundational.md) の**各アルゴリズムが使っているパラダイム**を挙げ、それがどうそのパラダイムの例になっているかを説明できる。 | [まとめ](#summary) |
+| 3 | 与えられたアルゴリズムについて、**使われているパラダイムを見抜き**、それがどうそのパラダイムの例になっているかを説明できる。 | [実戦](#paradigm-selection)・[まとめ](#summary) |
+| 4 | 現実世界の問題に対して、**適切なパラダイムとアルゴリズムを評価・選択**でき、選んだもの同士のトレードオフも評価できる。 | [実戦](#paradigm-selection) |
+| 5 | **同じ問題を解く反復版と再帰版**の例を挙げ、それぞれの利点と欠点を説明できる。 | [§8](#iteration-vs-recursion) |
+| 6 | **貪欲法が最適解に至るかどうか**を評価できる。 | [§4](#greedy) |
+| 7 | アルゴリズム的解法が**指数時間になってしまう問題への各種アプローチ**を説明できる。 | [§7](#exponential-growth)・[§9](#ka-core) |
+
+!!! tip "学習成果2は「表を逆から読む」練習"
+    [まとめの早見表](#summary)は「パラダイム → 代表例」の向きに並んでいるが、学習成果2が要求するのは**逆向き**——アルゴリズム名を出されて、それがどのパラダイムかを即答することである。AL-Foundational の §4〜§6 のアルゴリズムを1つずつ取り上げ、早見表を見ずにパラダイムを言えるか確かめるとよい。二分探索（減治法か分割統治法か）とヒープソート（表現の変更）が特に間違えやすい。
+
+## 前後のユニット {#related-units}
+
+- 前: [AL-Foundational](AL-Foundational.md) — 基礎的データ構造とアルゴリズム
+- 次: [AL-Complexity](AL-Complexity.md) — 計算量（本ユニットの「どの型で解くか」に対し、「その解法のコストをどう測るか」を与える）
+- 関連する他 KA:
+    - [OS-Scheduling §2](../OS/OS-Scheduling.md#policies) — SJF（最短ジョブ優先）は「その時点で最短のものから処理する」貪欲法（§4）そのもので、平均待ち時間を最適化する一方、長いジョブを飢餓させるという貪欲法の弱点も同時に見せてくれる。
+
+疑問が出たら [AL-Strategies Q&A](AL-Strategies-QA.md) に記録する。理解度の評価は [AL-Strategies 採点記録](AL-Strategies-Quiz.md) に残す。

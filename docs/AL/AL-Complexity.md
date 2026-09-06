@@ -6,8 +6,9 @@ CS2023 / Algorithmic Foundations (AL) の3つ目の Knowledge Unit「**AL-Comple
     出典: `ComputerScienceCurricula2023.pdf` pp.91–93。
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     例に登場するアルゴリズムの多くは [AL-Foundational](AL-Foundational.md)、難しさの直感は [AL-Strategies](AL-Strategies.md) で扱った。このユニットはそれらに**測る言葉と理論的根拠**を与える。
+    このユニットは **CS Core 6時間 + KA Core 3時間**。KA Core の3時間は §7 以降（little-o・漸化式・償却解析・チューリング機械ベースの計算量モデル）にあたる。
 
-## 全体像
+## 全体像 {#overview}
 
 このユニットは大きく **2 つの問い**に分かれる。
 
@@ -35,7 +36,7 @@ graph TD
 
 ---
 
-## 1. 計算量解析のフレームワーク
+## 1. 計算量解析のフレームワーク {#framework}
 
 「速い／遅い」を**客観的に比較するための土台**。4 つの約束ごとを最初に固める。
 
@@ -125,7 +126,7 @@ graph LR
 
 ---
 
-## 4. 経験的測定で理論を検証する
+## 4. 経験的測定で理論を検証する {#empirical}
 
 理論（漸近解析）が正しいかは、**実際に動かして確かめられる**。
 
@@ -138,9 +139,9 @@ graph LR
 
 ---
 
-## 5. 時間と空間のトレードオフ
+## 5. 時間と空間のトレードオフ {#space-time-tradeoffs}
 
-同じ問題でも、**メモリを多く使えば時間を減らせる**ことが多い（逆も）。AL-Strategies の[空間と時間のトレードオフ（§6）](AL-Strategies.md#6-space-vs-time-tradeoffs)を、計算量の言葉で捉え直す。
+同じ問題でも、**メモリを多く使えば時間を減らせる**ことが多い（逆も）。AL-Strategies の[空間と時間のトレードオフ（§6）](AL-Strategies.md#space-time-tradeoffs)を、計算量の言葉で捉え直す。
 
 | 余分に使う空間 | 買える時間 | 例 |
 |---|---|---|
@@ -201,7 +202,7 @@ graph TD
     **SAT が最初に NP完全と証明された**問題（Cook-Levin）。「NP に属するすべての問題は SAT に多項式時間で帰着できる」＝ SAT は NP 全体の代表。だから新しい問題の NP完全性は「**SAT（やその仲間）からの帰着**」で芋づる式に示せる。[AL-Strategies-QA Q14](AL-Strategies-QA.md#q14) で予告した回収点。
 
 !!! tip "NP完全だと分かったら何をするか（実務の出口）"
-    「厳密・高速・任意入力」の 3 つは同時に望めない。[AL-Strategies §7・§9](AL-Strategies.md#7-handling-exponential-growth) の出口へ降りる:
+    「厳密・高速・任意入力」の 3 つは同時に望めない。[AL-Strategies §7・§9](AL-Strategies.md#exponential-growth) の出口へ降りる:
 
     - **入力が小さい** → backtracking / branch-and-bound で厳密解。
     - **品質保証つきで速く** → 近似アルゴリズム（ナップサックには FPTAS あり）。
@@ -209,7 +210,7 @@ graph TD
 
 ---
 
-## KA Core
+## KA Core {#ka-core}
 
 ここからは当該分野で必須の発展トピック。漸近記法を**より精密にする**道具と、**理論計算機科学の枠組み**。
 
@@ -226,7 +227,7 @@ Big-O が「**以下**（タイトでもよい）」なのに対し、little-o �
 !!! tip "覚え方"
     大文字（O/Ω/Θ）は **≤・≥・=** に対応、小文字（o/ω）は **<・>** に対応。「ぴったり等しい可能性を**含むか含まないか**」が違い。
 
-## 8. 漸化式による再帰解析（Recurrence / Master Theorem）
+## 8. 漸化式による再帰解析（Recurrence / Master Theorem） {#recurrences}
 
 再帰アルゴリズムの計算量は、**漸化式 (recurrence relation)** を立てて解く。
 
@@ -243,7 +244,7 @@ Big-O が「**以下**（タイトでもよい）」なのに対し、little-o �
 
     ※二分探索は d=0 で a=1=b⁰ の拮抗ケース → Θ(n⁰ log n)=Θ(log n)。3 ケースのどれに当たるかを**取り違えると例ごと壊れる**ので、a と bᵈ を必ず突き合わせる。
 
-## 9. 償却解析 (Amortized Analysis)
+## 9. 償却解析 (Amortized Analysis) {#amortized}
 
 **操作 1 回の最悪**ではなく、**操作列全体のコストを均した 1 回あたり**を見る。
 
@@ -255,7 +256,7 @@ Big-O が「**以下**（タイトでもよい）」なのに対し、little-o �
 
     償却 O(1) は「どんな操作列でも合計が O(n)」という**決定的な保証**。混同しないこと。
 
-## 10. チューリング機械ベースの計算量モデル
+## 10. チューリング機械ベースの計算量モデル {#tm-complexity}
 
 計算量を**形式的な機械モデル**の上で定義する、理論計算機科学の枠組み。
 
@@ -312,7 +313,7 @@ graph TD
 
 ---
 
-## まとめ：計算量 早見表
+## まとめ：計算量 早見表 {#summary}
 
 | 概念 | 一言で | キーワード |
 |---|---|---|
@@ -339,3 +340,50 @@ graph TD
     - [ ] マスター定理の 3 ケースを a と bᵈ の大小で判定し、マージソート／二分探索／Strassen を当てはめられる
     - [ ] 償却解析と平均計算量の違い（確率を使うか）を動的配列の例で説明できる
     - [ ] 未知のアルゴリズムを見て、おおよその計算量クラスを見積もれる（学習成果5）
+
+---
+
+## 学習成果（Illustrative Learning Outcomes） {#learning-outcomes}
+
+CS Core:
+
+| # | 学習成果 | 本文の対応節 |
+|---|---|---|
+| 1 | 1年次学生向けに、**計算量の基本概念**——best/average/worst、O・Ω・Θ、計算量クラス、時間と空間のトレードオフ、経験的測定、実問題への影響——を一通り説明するプレゼンを作れる。 | [§1](#framework)・[§2](#asymptotic-notation)・[§3](#complexity-classes)・[§4](#empirical)・[§5](#space-time-tradeoffs)・[まとめ](#summary) |
+| 2 | 例を使って、本ユニットの**各基本計算量クラス**を説明できる。 | [§3](#complexity-classes) |
+| 3 | 各基本計算量クラスについて、**その実行時間を体現するアルゴリズム**を1つ説明できる。 | [§3](#complexity-classes) |
+| 4 | [AL-Foundational](AL-Foundational.md) の各アルゴリズムについて、**属する計算量クラスとその理由**を説明できる。 | [§3](#complexity-classes)・[実戦](#estimate-flow) |
+| 5 | 単純なアルゴリズムの基本計算量クラスを、**厳密な証明によらず見積もれる**。 | [実戦](#estimate-flow) |
+| 6 | 複数の解法がありうるプログラミング課題に対し、それらを評価して**実行可能なものを見極め、実装と実行時挙動の両面で最良のものを選べる**。 | [実戦](#estimate-flow)・[AL-Strategies 実戦](AL-Strategies.md#paradigm-selection) |
+| 7 | さまざまな入力サイズでアルゴリズムを走らせ、実測値を理論解析と突き合わせることで、**実行時間の仮説を検証する経験的研究を組み立てられる**。 | [§4](#empirical) |
+| 8 | アルゴリズムの**時間と空間のトレードオフ**を示す例を説明できる。 | [§5](#space-time-tradeoffs) |
+| 9 | **木の平衡が二分探索木の操作効率に与える影響**を説明できる。 | [§3](#complexity-classes)・[AL-Foundational §3](AL-Foundational.md#tree) |
+| 10 | 非専門家に対し、Big-O の直感的な説明を使って**扱いやすい問題と扱いにくい問題の違いの意味**を説明できる。 | [§6](#tractability) |
+| 11 | **NP完全性の意義**を説明できる。 | [§6](#tractability)・[§6a](#p-np-npc) |
+| 12 | **NP困難が下界、NP が上界**であり、NP完全がその交点であることを説明できる。 | [§6](#tractability) |
+| 13 | **NP完全問題の例**を説明できる。 | [§6](#tractability) |
+
+KA Core:
+
+| # | 学習成果 | 本文の対応節 |
+|---|---|---|
+| 14 | **漸化式**を使って、再帰的に定義されたアルゴリズムの時間計算量を評価できる。 | [§8](#recurrences) |
+| 15 | **マスター定理**の形式を使って、初等的な漸化式を解ける。 | [§8](#recurrences) |
+| 16 | **Big-O 記法**を適用して、アルゴリズムの時間・空間計算量の上界を与えられる。 | [§2](#asymptotic-notation)・[§7](#little-notations) |
+| 17 | **Cook-Levin の定理**と SAT の NP完全性を説明できる。 | [§6](#tractability)・[§10](#tm-complexity) |
+| 18 | **クラス P と NP** を説明できる。 | [§6a](#p-np-npc)・[§10](#tm-complexity) |
+| 19 | 既知の古典的 NP完全問題（例: 3SAT と Clique）を**帰着**することで、ある問題が NP完全であることを証明できる。 | [§6](#tractability) |
+| 20 | **PSPACE クラス**と EXP クラスとの関係を説明できる。 | [§10](#tm-complexity) |
+
+!!! tip "学習成果1は「全部入り」の総合演習"
+    学習成果1だけは個別トピックではなく、**§1〜§5 の全体を1つの筋にまとめて他人に話す**ことを求めている（原文は "Prepare a presentation ... to first year students"）。用語を並べるのではなく、「①どの入力を代表に取るか（best/avg/worst）→ ②その上でコストの伸びをどう抑えるか（O/Ω/Θ）→ ③伸び方には階段がある（計算量クラス）→ ④空間と交換できる → ⑤理論は実測で裏を取る」と**依存関係の順に**並べると、残りの学習成果の多くはこの骨格の枝として説明できるようになる。
+
+## 前後のユニット {#related-units}
+
+- 前: [AL-Strategies](AL-Strategies.md) — アルゴリズム戦略
+- 次: [AL-Models](AL-Models.md) — 計算モデルと形式言語（§10 のチューリング機械ベースの計算量モデルを、機械そのものの理論から立て直す）
+- 関連する他 KA:
+    - [OS-Real-time §2](../OS/OS-Real-time.md#hard-soft-lowlatency) — ハードリアルタイムでは**最悪実行時間 (WCET)** の見積もりが設計の中心になる。best/average/worst のうち worst だけが保証の基準になる（§1）という本ユニットの主張が、そのまま工学的要求になっている実例。
+    - [OS-Scheduling §2](../OS/OS-Scheduling.md#policies) — SJF が「平均待ち時間に最適」なのは平均で測ったときの話で、飢餓は最悪ケースに現れる。**どの入力を代表に取るか**（§1）で評価が反転する。
+
+疑問が出たら [AL-Complexity Q&A](AL-Complexity-QA.md) に記録する。理解度の評価は [AL-Complexity 採点記録](AL-Complexity-Quiz.md) に残す。

@@ -38,8 +38,11 @@ CS2023 の **Body of Knowledge** に登場する用語を、Knowledge Area（KA�
 | OS | [OS-Faults](OS/OS-Faults.md) | 済 | 0 問 | [0 点・未回答](OS/OS-Faults-Quiz.md) |
 | OS | OS-SEP | 未作成 | | |
 | NC | [NC-Fundamentals](NC/NC-Fundamentals.md) | 済 | 0 問 | 未出題 |
+| NC | [NC-Applications](NC/NC-Applications.md) | 済 | 0 問 | 未出題 |
+| NC | [NC-Reliability](NC/NC-Reliability.md) | 済 | 0 問 | 未出題 |
+| NC | [NC-Routing](NC/NC-Routing.md) | 済 | 0 問 | 未出題 |
 | NC | [NC-SingleHop](NC/NC-SingleHop.md) | 済 | 0 問 | 未出題 |
-| NC | NC-Applications / NC-Reliability / NC-Routing / NC-Security / NC-Mobility / NC-Emerging | 未作成 | | |
+| NC | NC-Security / NC-Mobility / NC-Emerging | 未作成 | | |
 
 次に何を復習するかは [弱点ノート・復習キュー](weak-points.md) にまとめてある。
 

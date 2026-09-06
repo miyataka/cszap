@@ -259,8 +259,9 @@ KA Core:
 
 ## 前後のユニット
 
-- 前: [NC-Fundamentals](NC-Fundamentals.md) — ネットワークの基礎（CS2023 の並びでは間に NC-Applications・NC-Reliability・NC-Routing があるが、いずれも未作成）
+- 前: [NC-Routing](NC-Routing.md) — 経路制御とフォワーディング（CS2023 の並びでは本ユニットの直前に来る）
 - 次: NC-Security — ネットワークセキュリティ（未作成）
 - 関連（未作成）: NC-Mobility（無線 LAN とセルラーの続き） / NC-Emerging（ネットワーク仮想化・SDN）
+- CS2023 の並びでは KA の起点は [NC-Fundamentals](NC-Fundamentals.md) で、そこから本ユニットまでの間に [NC-Applications](NC-Applications.md)・[NC-Reliability](NC-Reliability.md)・NC-Routing（上記）が挟まる。ただし実際の学習順は NC-Fundamentals の次に本ユニットを先に読み、NC-Applications・NC-Reliability・NC-Routing は後から埋めている。
 
 疑問が出たら [NC-SingleHop Q&A](NC-SingleHop-QA.md) に記録する。

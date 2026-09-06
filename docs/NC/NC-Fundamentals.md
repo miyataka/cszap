@@ -41,9 +41,9 @@ graph TD
 
 | 困難 | どういう問題か | 扱うユニット |
 |---|---|---|
-| **通信路は信頼できない** | パケットは落ちる・重複する・順序が入れ替わる | NC-Reliability（未作成） |
-| **相手を指し示す必要がある** | 名前とアドレスをどう決め、どう解決するか | NC-Applications（未作成） |
-| **経路を決めなければならない** | 世界中のどこへでも届く道をどう見つけるか | NC-Routing（未作成） |
+| **通信路は信頼できない** | パケットは落ちる・重複する・順序が入れ替わる | [NC-Reliability](NC-Reliability.md#unreliable-delivery) |
+| **相手を指し示す必要がある** | 名前とアドレスをどう決め、どう解決するか | [NC-Applications](NC-Applications.md#naming-addressing) |
+| **経路を決めなければならない** | 世界中のどこへでも届く道をどう見つけるか | [NC-Routing](NC-Routing.md#routing-paradigms) |
 | **媒体を共有している** | 同じ電波・同じケーブルを複数の送信者が使う | [NC-SingleHop](NC-SingleHop.md) |
 | **敵対者がいる** | 盗聴・なりすまし・サービス妨害 | NC-Security（未作成） |
 | **端末が動く** | 移動しながら接続を維持する | NC-Mobility（未作成） |
@@ -242,7 +242,8 @@ CS Core:
 ## 前後のユニット
 
 - 前: なし（NC Knowledge Area の最初のユニット）
-- 次: [NC-SingleHop](NC-SingleHop.md) — 単一ホップ通信（本来の CS2023 の並びでは NC-Applications・NC-Reliability・NC-Routing が先だが、いずれも未作成）
-- 関連（未作成）: NC-Applications / NC-Reliability / NC-Routing / NC-Security / NC-Mobility / NC-Emerging
+- 次: [NC-Applications](NC-Applications.md) — ネットワークアプリケーション（名前とアドレス、分散アプリの構成法、HTTP・TCP/UDP・ソケット）
+- 関連（未作成）: NC-Security / NC-Mobility / NC-Emerging
+- なお実際の学習順は CS2023 の並びと前後している。本ユニットの次に [NC-SingleHop](NC-SingleHop.md) を先に読んでおり、本来その手前にある NC-Applications・NC-Reliability・NC-Routing は後から埋めた。
 
 疑問が出たら [NC-Fundamentals Q&A](NC-Fundamentals-QA.md) に記録する。

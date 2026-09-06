@@ -261,8 +261,8 @@ KA Core:
 
 ## 前後のユニット
 
-- 前: NC-Applications — アプリケーション層とネームサービス（未作成）
-- 次: NC-Routing — 経路制御と転送（未作成）
+- 前: [NC-Applications](NC-Applications.md) — アプリケーション層とネームサービス
+- 次: [NC-Routing](NC-Routing.md) — 経路制御と転送
 - 関連: [NC-Fundamentals](NC-Fundamentals.md#switching-techniques) — パケット交換が保証を持たないこと、およびキューイングと輻輳（[§7](NC-Fundamentals.md#queueing)）が本ユニットの出発点 / [NC-SingleHop §2](NC-SingleHop.md#framing) — リンク層の CRC は「捨てるだけ」で、回復は本ユニットに委ねられる / [OS-Faults](../OS/OS-Faults.md#redundancy-types) — 時間的冗長性が**再送**という名前で現れる並行構造
 
 実際の学習順は CS2023 の並び（Fundamentals → Applications → Reliability → Routing → SingleHop …）どおりではなく、[NC-SingleHop](NC-SingleHop.md) を先に読んでいる。リンク層の誤り検出（CRC）を先に見ているぶん、本ユニットの「検出は下、回復は上」という層の分担は理解しやすいはずである。

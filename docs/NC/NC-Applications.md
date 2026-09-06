@@ -221,8 +221,8 @@ CS Core:
 ## 前後のユニット
 
 - 前: [NC-Fundamentals](NC-Fundamentals.md) — ネットワークの基礎（5層の骨格。本ユニットはその最上層を深掘りする）
-- 次: NC-Reliability（未作成） — 信頼性のある通信（本ユニットで「TCP は確実に届ける」と述べた、その中身）
-- 関連（未作成）: NC-Routing（アドレスから経路へ） / NC-Security / NC-Mobility / NC-Emerging
-- なお実際の学習順は CS2023 の並びと前後している。NC-Fundamentals の次に [NC-SingleHop](NC-SingleHop.md) を先に読んでおり、本来その手前にある NC-Applications・NC-Reliability・NC-Routing を後から埋めている。**本ユニットは NC-SingleHop より前に置かれるべき内容**なので、通読の際は NC-Fundamentals → 本ユニット → NC-Reliability → NC-Routing → NC-SingleHop の順に読むとよい。
+- 次: [NC-Reliability](NC-Reliability.md) — 信頼性のある通信（TCP等。本ユニットで「TCP は確実に届ける」と述べた、その中身）
+- 関連: [NC-Routing](NC-Routing.md)（アドレスから経路へ） / NC-Security（未作成） / NC-Mobility（未作成） / NC-Emerging（未作成）
+- なお実際の学習順は CS2023 の並びと前後している。NC-Fundamentals の次に [NC-SingleHop](NC-SingleHop.md) を先に読んでおり、本来その手前にある NC-Applications・NC-Reliability・NC-Routing は後から埋めた（今はいずれも埋まっている）。**本ユニットは NC-SingleHop より前に置かれるべき内容**なので、通読の際は NC-Fundamentals → 本ユニット → NC-Reliability → NC-Routing → NC-SingleHop の順に読むとよい。
 
 疑問が出たら [NC-Applications Q&A](NC-Applications-QA.md) に記録する。

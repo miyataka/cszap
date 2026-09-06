@@ -195,7 +195,7 @@ KA Core:
 
 ## 前後のユニット
 
-- 前: NC-Reliability（未作成） — 信頼できる通信路の構築
+- 前: [NC-Reliability](NC-Reliability.md) — 信頼できる通信路の構築
 - 次: [NC-SingleHop](NC-SingleHop.md) — 単一ホップ通信（本来の CS2023 の並びでは NC-Routing の後に NC-SingleHop が来るが、本メモでは先に NC-SingleHop を作成済み）
 - 関連: [NC-Fundamentals](NC-Fundamentals.md) — AS・ピアリング・砂時計モデル・キューイングという本ユニットの前提知識
 - 関連: [AL-Foundational §6](../AL/AL-Foundational.md#graph-algorithms) — 経路計算の土台となる最短経路アルゴリズム（Dijkstra・Bellman-Ford）

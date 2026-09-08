@@ -131,8 +131,16 @@ nav:
           - 採点記録: OS/OS-Faults-Quiz.md
   - Networking and Communication (NC):
       - NC-Fundamentals: NC/NC-Fundamentals.md
-      - NC-Applications: NC/NC-Applications.md
-      - NC-Reliability: NC/NC-Reliability.md
-      - NC-Routing: NC/NC-Routing.md
-      - NC-SingleHop: NC/NC-SingleHop.md
+      - NC-Applications:
+          - 本文: NC/NC-Applications.md
+          - 採点記録: NC/NC-Applications-Quiz.md
+      - NC-Reliability:
+          - 本文: NC/NC-Reliability.md
+          - 採点記録: NC/NC-Reliability-Quiz.md
+      - NC-Routing:
+          - 本文: NC/NC-Routing.md
+          - 採点記録: NC/NC-Routing-Quiz.md
+      - NC-SingleHop:
+          - 本文: NC/NC-SingleHop.md
+          - 採点記録: NC/NC-SingleHop-Quiz.md
       - 指定テキスト対応表（図解入門TCP/IP）: NC/NC-Textbook-TCPIP.md

@@ -66,9 +66,22 @@
 | 38 | Q9 ジャーナリングファイルシステムの利点と欠点——「利点:」「欠点:」の見出しのみで中身が空＝実質未回答 | OS-Advanced-Files | 2026-08-11 | 0.0 | — | 未対処 | [2026-08-11](OS/OS-Advanced-Files-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q5-9) |
 | 39 | Q13 ホストOSが VM の CPU・メモリ・デバイスをどう制御するか——未回答。5ユニット横断クイズ中もっとも総合的な設問 | OS-Virtualization | 2026-08-11 | 0.0 | — | 未対処 | [2026-08-11](OS/OS-Virtualization-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q13) |
 | 40 | Q14 RAID（0/1/5/6 の仕組みと耐えられる故障）——未回答 | OS-Faults | 2026-08-11 | 0.0 | — | 未対処 | [2026-08-11](OS/OS-Faults-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q14) |
+| 41 | Q1 URI とは?——「Unique Resource Identifier」と誤記（正は Uniform）。3分類（命名/アドレス指定/資源位置特定）にも未言及 | NC-Applications | 2026-09-08 | 0.4 | — | 未対処 | [2026-09-08](NC/NC-Applications-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q1-2-3-4-5-6-9-10) |
+| 42 | Q5 HTTP Status Code / Header——Status Code は11個列挙できたが Header が一つも書かれていない（設問後半の読み落とし） | NC-Applications | 2026-09-08 | 0.4 | — | 未対処 | [2026-09-08](NC/NC-Applications-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q1-2-3-4-5-6-9-10) |
+| 43 | Q9 well-known port の一意性の保証——「団体が管理している」のみで **IANA** という固有名詞に未到達 | NC-Applications | 2026-09-08 | 0.4 | — | 未対処 | [2026-09-08](NC/NC-Applications-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q1-2-3-4-5-6-9-10) |
+| 44 | Q12 パケットの中身が壊れていない確認——「IP パケットのヘッダを確認する」のみで**チェックサム**という核心語が無い | NC-Reliability | 2026-09-08 | 0.3 | — | 未対処 | [2026-09-08](NC/NC-Reliability-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q11-12-13-14-15-16-17-18-19) |
+| 45 | Q15 TCP は確実に届けるか——**下位層（IP）の不確実性**と**TCP が再送で回復する信頼性**を取り違え | NC-Reliability | 2026-09-08 | 0.3 | — | 未対処 | [2026-09-08](NC/NC-Reliability-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q11-12-13-14-15-16-17-18-19) |
+| 46 | Q16 TCP のペース調整はなぜ必要か・UDP では不要か——フロー制御と輻輳制御を区別せず、UDP 側の答えも無い | NC-Reliability | 2026-09-08 | 0.5 | — | 未対処 | [2026-09-08](NC/NC-Reliability-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q11-12-13-14-15-16-17-18-19) |
+| 47 | Q17 TCP のペース調整の具体的な方法（rwnd/cwnd・スライディングウィンドウ）——未回答 | NC-Reliability | 2026-09-08 | 0.0 | — | 未対処 | [2026-09-08](NC/NC-Reliability-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q11-12-13-14-15-16-17-18-19) |
+| 48 | Q18 3-way handshake——順序・名称ともに誤り（正は SYN → SYN-ACK → ACK）。本サイト未収録のため別途補強が必要 | NC-Reliability | 2026-09-08 | 0.1 | — | 未対処 | [2026-09-08](NC/NC-Reliability-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q11-12-13-14-15-16-17-18-19) |
+| 49 | Q19 TCP の状態遷移——未回答。本サイト未収録のため別途補強が必要 | NC-Reliability | 2026-09-08 | 0.0 | — | 未対処 | [2026-09-08](NC/NC-Reliability-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q11-12-13-14-15-16-17-18-19) |
+| 50 | Q7 IP アドレスの重複と管理主体——私用アドレスの重複は正しいが、グローバルアドレスの管理主体（IANA/RIR）に未言及 | NC-Routing | 2026-09-08 | 0.4 | — | 未対処 | [2026-09-08](NC/NC-Routing-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q7-8-21-22) |
+| 51 | Q8 IPv6 アドレス形式——例が16ビット×6個（96ビット）にとどまり8グループの基本形になっていない。回答も書きかけ | NC-Routing | 2026-09-08 | 0.2 | — | 未対処 | [2026-09-08](NC/NC-Routing-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q7-8-21-22) |
+| 52 | Q21 RIP/OSPF/BGP の経路決定方式——未回答。ドメイン内/ドメイン間の対比が手薄 | NC-Routing | 2026-09-08 | 0.0 | — | 未対処 | [2026-09-08](NC/NC-Routing-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q7-8-21-22) |
+| 53 | Q20 L2 の経路決定——ARP（宛先 MAC の解決）と学習型ブリッジ（転送先ポートの決定）を混同 | NC-SingleHop | 2026-09-08 | 0.4 | — | 未対処 | [2026-09-08](NC/NC-SingleHop-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q20) |
 
 !!! info "状態の内訳"
-    全40件のうち **克服** 3件（#24・#27・#29）／**改善** 8件（#1・#2・#3・#5・#7・#25・#28・#30）／**未対処** 29件。改善で止まっている 8 件は「0.6 以上まで戻したが満点ではない」状態なので、克服まで運ぶ余地がまだある。未対処 29 件のうち3件（#9・#11・#31）は**再テストで点は上がったが 0.5 以下にとどまった**もので、講評が「積み残し」と呼ぶ状態と同じ扱いにしてある。
+    全53件のうち **克服** 3件（#24・#27・#29）／**改善** 8件（#1・#2・#3・#5・#7・#25・#28・#30）／**未対処** 42件。改善で止まっている 8 件は「0.6 以上まで戻したが満点ではない」状態なので、克服まで運ぶ余地がまだある。未対処のうち3件（#9・#11・#31）は**再テストで点は上がったが 0.5 以下にとどまった**もので、講評が「積み残し」と呼ぶ状態と同じ扱いにしてある。#41〜#53 は Day10（NC 横断クイズ、2026-09-08）で新たに追加した弱点。
 
 ## 復習キュー {#queue}
 
@@ -78,20 +91,23 @@
 |---|---|---|---|---|---|
 | 1 | [OS-Faults](OS/OS-Faults-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q14) | 0 | 2026-08-11 | 未実施 | 講評の指示どおり、まず本文 §2 の RAID 0/1/5/6 の表（仕組み・耐えられる故障・トレードオフ）を暗記し直す。RAID 0 に冗長性が無いこと、RAID がバックアップの代わりにならないことまで言えるように |
 | 2 | [OS-Virtualization](OS/OS-Virtualization-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q13) | 0 | 2026-08-11 | 未実施 | 講評の指示どおり本文 §1・§2・§3・§9 を読み直してから再テスト。CPU＝ハイパーバイザによる特権命令のトラップ、メモリ＝ネステッドページング、デバイス＝エミュレーション/準仮想化/パススルー、の3資源で答える型を作る |
-| 3 | [OS-Devices](OS/OS-Devices-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q6-10-11-12) | 33 | 2026-08-11 | 未実施 | 講評の名指し2点——「メモリマップド I/O と mmap の区別」（レジスタを地図に載せる vs ファイルを地図に載せる、で対比）、および「`ioctl` とメジャー/マイナー番号」を本文 §1 の「すべてはファイル」抽象から補強する |
-| 4 | [OS-Advanced-Files](OS/OS-Advanced-Files-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q5-9) | 35 | 2026-08-11 | 未実施 | 講評の名指しどおり、Q9 は本文 §5 を読み直し「write-ahead logging」「fsck 不要」の2語を軸に再構成する。Q5 は「なぜ保証されないか」の機構（`write` はページキャッシュに書くだけで、書き戻しは OS が非同期に行う）まで踏み込む |
-| 5 | [AL-Strategies](AL/AL-Strategies-Quiz.md#day2-algorithmic-strategies-12) | 51 | 2026-06-28 | 未実施 | 講評の「次に上げるなら」どおり、Q9・Q10（近似アルゴリズム・乱択アルゴリズム）を補完し、Q1 の `break` バグを直す。加えて Q5・Q11 で崩れた正式名称（局所最適・明示スタック）を固める |
-| 6 | [AL-Complexity](AL/AL-Complexity-Quiz.md#day3-complexity-10) | 51 | 2026-06-28 | 未実施 | 講評の「次に上げるなら」どおり、Q2・Q3 の計算量訂正（再帰の空間は O(n)、メモ化の時間は O(n)）と、Q6（O(n log n)）・Q7・Q8 の補完。NP の語彙は本文 §6 と Q&A Q4 で固める |
-| 7 | [OS-Files](OS/OS-Files-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q1-2-3-4-7-8) | 52 | 2026-08-11 | 未実施 | 講評の名指しどおり、Q2（inode の中身）を埋め、Q7 は「設問文を最後まで読む練習」として特徴まで書く。伸びしろとして Q3 は「リンク先が消えたときの挙動の違い」、Q8 は「ビットテーブルは1ブロック1ビット」まで踏み込む |
-| 8 | [AL-Foundational](AL/AL-Foundational-Quiz.md#2026-06-14-2026-06-09-26) | 58 | 2026-06-14 | 済（2026-06-14） | 講評が「次回の最優先」とした積み残し3点——Q18 の **run**、Q19 の**非負の重み**、Q20 の**使い分け**。あわせて忘却した Q10（隣接リスト vs 行列）と未回答へ退行した Q23（バケツソート/Pseudo）を再記憶する |
-| 9 | [OS-Memory](OS/OS-Memory-Quiz.md#2026-07-28-tlbcow) | 70 | 2026-07-28 | 済（2026-07-28） | 講評の「伸びしろ」どおり、「なぜそのタイミングで問題が起きるか」の機構の解像度を上げる。T6 はボトルネックがページイン/アウトのディスク I/O であること、T7 は Dirty COW のタイミングのスキと共有フレーム経由の波及。本文 §4・§8 を時系列の図に起こす |
-| 10 | [OS-Protection](OS/OS-Protection-Quiz.md#2026-07-28-kpti) | 80 | 2026-07-28 | 済（2026-07-28） | 講評の名指しどおり、T2 は原因（ページテーブル分離）と代償（TLB が冷えて遅くなる）を意識して区別する。Q4 は未再テストのままなので、「具体例を1つ挙げる」練習（LSM/SELinux、ASLR/NX/サンドボックス）で埋める |
-| 11 | [OS-Process](OS/OS-Process-Quiz.md#2026-07-28-pcbipc) | 95 | 2026-07-28 | 済（2026-07-28） | 講評どおり残りは T5 の詰めだけ——「共有メモリの方が速いが同期は自前」という比較を明示すれば満点。3ユニット中もっとも安定しているので、優先度は最後でよい |
-| 12 | [AL-Models](AL/AL-Models.md) | 未出題 | — | — | 未出題。採点記録が無いため弱点は未特定。まず本文を通読し、初回クイズを受ける |
-| 13 | [OS-Purpose](OS/OS-Purpose.md) | 未出題 | — | — | 未出題。採点記録が無いため弱点は未特定。まず本文を通読し、初回クイズを受ける |
-| 14 | [OS-Principles](OS/OS-Principles.md) | 未出題 | — | — | 未出題。OS-Devices Q10 の模範解答が §6（タイマー割り込み）を参照しているので、そこを起点に通読してから初回クイズ |
-| 15 | [OS-Concurrency](OS/OS-Concurrency.md) | 未出題 | — | — | 未出題。OS-Memory Q12（Dirty COW）が「並行性バグ」として参照するユニットなので、先に通読しておくと #31 の再テストが楽になる |
-| 16 | [OS-Scheduling](OS/OS-Scheduling.md) | 未出題 | — | — | 未出題。OS-Memory Q11 の対策「多重度を下げる（中期スケジューラ）」の裏付けになるので、通読してから初回クイズ |
-| 17 | [OS-Real-time](OS/OS-Real-time.md) | 未出題 | — | — | 未出題。採点記録が無いため弱点は未特定。まず本文を通読し、初回クイズを受ける |
-| 18 | [NC-Fundamentals](NC/NC-Fundamentals.md) | 未出題 | — | — | 未出題。本文は作成済みなので、通読してから初回クイズを受ける |
-| 19 | [NC-SingleHop](NC/NC-SingleHop.md) | 未出題 | — | — | 未出題。本文は作成済みなので、通読してから初回クイズを受ける |
+| 3 | [NC-Routing](NC/NC-Routing-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q7-8-21-22) | 30 | 2026-09-08 | 未実施 | 講評の指示どおり [§3](NC/NC-Routing.md#ip-scalability) を読み直し、IPv4 アドレスの希少性が NAT・CIDR・IPv6 すべての出発点であることを軸に Q7・Q8・Q22 をつなげ直す。Q21 は [§1](NC/NC-Routing.md#intra-inter-domain) のドメイン内/ドメイン間の対比表を暗記し直す |
+| 4 | [OS-Devices](OS/OS-Devices-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q6-10-11-12) | 33 | 2026-08-11 | 未実施 | 講評の名指し2点——「メモリマップド I/O と mmap の区別」（レジスタを地図に載せる vs ファイルを地図に載せる、で対比）、および「`ioctl` とメジャー/マイナー番号」を本文 §1 の「すべてはファイル」抽象から補強する |
+| 5 | [OS-Advanced-Files](OS/OS-Advanced-Files-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q5-9) | 35 | 2026-08-11 | 未実施 | 講評の名指しどおり、Q9 は本文 §5 を読み直し「write-ahead logging」「fsck 不要」の2語を軸に再構成する。Q5 は「なぜ保証されないか」の機構（`write` はページキャッシュに書くだけで、書き戻しは OS が非同期に行う）まで踏み込む |
+| 6 | [NC-Reliability](NC/NC-Reliability-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q11-12-13-14-15-16-17-18-19) | 39 | 2026-09-08 | 未実施 | 講評の指示どおり [§2〜§3](NC/NC-Reliability.md#reliability-principles) の「信頼性の4性質」とエンドツーエンド原則を読み直し、Q12・Q15 を直す。Q17・Q18・Q19 が4ユニット中最低スコアの主因——[§4](NC/NC-Reliability.md#flow-control)（スライディングウィンドウ）を最優先で復習し、3-way handshake と TCP 状態遷移は本サイト未収録のため別途補強する |
+| 7 | [NC-SingleHop](NC/NC-SingleHop-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q20) | 40 | 2026-09-08 | 未実施 | 講評どおり、ARP（宛先 MAC の解決）と [§5 学習型ブリッジ](NC/NC-SingleHop.md#learning-switch)（転送先ポートの決定）を対で覚え直す |
+| 8 | [AL-Strategies](AL/AL-Strategies-Quiz.md#day2-algorithmic-strategies-12) | 51 | 2026-06-28 | 未実施 | 講評の「次に上げるなら」どおり、Q9・Q10（近似アルゴリズム・乱択アルゴリズム）を補完し、Q1 の `break` バグを直す。加えて Q5・Q11 で崩れた正式名称（局所最適・明示スタック）を固める |
+| 9 | [AL-Complexity](AL/AL-Complexity-Quiz.md#day3-complexity-10) | 51 | 2026-06-28 | 未実施 | 講評の「次に上げるなら」どおり、Q2・Q3 の計算量訂正（再帰の空間は O(n)、メモ化の時間は O(n)）と、Q6（O(n log n)）・Q7・Q8 の補完。NP の語彙は本文 §6 と Q&A Q4 で固める |
+| 10 | [OS-Files](OS/OS-Files-Quiz.md#2026-08-11-day8-os-devicesos-filesos-advanced-filesos-virtualizationos-faults-14-q1-2-3-4-7-8) | 52 | 2026-08-11 | 未実施 | 講評の名指しどおり、Q2（inode の中身）を埋め、Q7 は「設問文を最後まで読む練習」として特徴まで書く。伸びしろとして Q3 は「リンク先が消えたときの挙動の違い」、Q8 は「ビットテーブルは1ブロック1ビット」まで踏み込む |
+| 11 | [AL-Foundational](AL/AL-Foundational-Quiz.md#2026-06-14-2026-06-09-26) | 58 | 2026-06-14 | 済（2026-06-14） | 講評が「次回の最優先」とした積み残し3点——Q18 の **run**、Q19 の**非負の重み**、Q20 の**使い分け**。あわせて忘却した Q10（隣接リスト vs 行列）と未回答へ退行した Q23（バケツソート/Pseudo）を再記憶する |
+| 12 | [NC-Applications](NC/NC-Applications-Quiz.md#2026-09-08-day10-nc-applicationsnc-reliabilitync-routingnc-singlehop-22-q1-2-3-4-5-6-9-10) | 65 | 2026-09-08 | 未実施 | 講評どおり、URI の正式名称と5要素（scheme/host/port/path/query/fragment）を [§1](NC/NC-Applications.md#uri) で確認し直す。Q5 は代表的なヘッダ（`Host`, `Content-Type`, `Content-Length`, `User-Agent`, `Cookie`, `Authorization` 等）を最低5個挙げられるようにする |
+| 13 | [OS-Memory](OS/OS-Memory-Quiz.md#2026-07-28-tlbcow) | 70 | 2026-07-28 | 済（2026-07-28） | 講評の「伸びしろ」どおり、「なぜそのタイミングで問題が起きるか」の機構の解像度を上げる。T6 はボトルネックがページイン/アウトのディスク I/O であること、T7 は Dirty COW のタイミングのスキと共有フレーム経由の波及。本文 §4・§8 を時系列の図に起こす |
+| 14 | [OS-Protection](OS/OS-Protection-Quiz.md#2026-07-28-kpti) | 80 | 2026-07-28 | 済（2026-07-28） | 講評の名指しどおり、T2 は原因（ページテーブル分離）と代償（TLB が冷えて遅くなる）を意識して区別する。Q4 は未再テストのままなので、「具体例を1つ挙げる」練習（LSM/SELinux、ASLR/NX/サンドボックス）で埋める |
+| 15 | [OS-Process](OS/OS-Process-Quiz.md#2026-07-28-pcbipc) | 95 | 2026-07-28 | 済（2026-07-28） | 講評どおり残りは T5 の詰めだけ——「共有メモリの方が速いが同期は自前」という比較を明示すれば満点。3ユニット中もっとも安定しているので、優先度は最後でよい |
+| 16 | [AL-Models](AL/AL-Models.md) | 未出題 | — | — | 未出題。採点記録が無いため弱点は未特定。まず本文を通読し、初回クイズを受ける |
+| 17 | [OS-Purpose](OS/OS-Purpose.md) | 未出題 | — | — | 未出題。採点記録が無いため弱点は未特定。まず本文を通読し、初回クイズを受ける |
+| 18 | [OS-Principles](OS/OS-Principles.md) | 未出題 | — | — | 未出題。OS-Devices Q10 の模範解答が §6（タイマー割り込み）を参照しているので、そこを起点に通読してから初回クイズ |
+| 19 | [OS-Concurrency](OS/OS-Concurrency.md) | 未出題 | — | — | 未出題。OS-Memory Q12（Dirty COW）が「並行性バグ」として参照するユニットなので、先に通読しておくと #31 の再テストが楽になる |
+| 20 | [OS-Scheduling](OS/OS-Scheduling.md) | 未出題 | — | — | 未出題。OS-Memory Q11 の対策「多重度を下げる（中期スケジューラ）」の裏付けになるので、通読してから初回クイズ |
+| 21 | [OS-Real-time](OS/OS-Real-time.md) | 未出題 | — | — | 未出題。採点記録が無いため弱点は未特定。まず本文を通読し、初回クイズを受ける |
+| 22 | [NC-Fundamentals](NC/NC-Fundamentals.md) | 未出題 | — | — | 未出題。本文は作成済みなので、通読してから初回クイズを受ける |

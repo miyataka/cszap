@@ -143,4 +143,7 @@ nav:
       - NC-SingleHop:
           - 本文: NC/NC-SingleHop.md
           - 採点記録: NC/NC-SingleHop-Quiz.md
+      - NC-Security: NC/NC-Security.md
+      - NC-Mobility: NC/NC-Mobility.md
+      - NC-Emerging: NC/NC-Emerging.md
       - 指定テキスト対応表（図解入門TCP/IP）: NC/NC-Textbook-TCPIP.md

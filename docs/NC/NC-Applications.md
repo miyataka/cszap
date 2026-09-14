@@ -196,7 +196,7 @@ sequenceDiagram
 
 - 選択の基準は §3 の要求そのものである。**ロスが許されないなら TCP、遅延が最優先でロスに耐えられるなら UDP**。ファイル転送・Web・メールは TCP、ライブ音声/映像・ゲーム・DNS の問い合わせは UDP という分かれ方になる。
 - **UDP を選ぶことは「信頼性を捨てる」ことではなく、「信頼性を自分で設計する」ことである**。リアルタイム映像なら、遅れて届いた1フレームを再送で待つより捨てて次に進むほうが正しい。TCP の一律の再送・順序保証は、そういうアプリには**かえって害になる**。QUIC（HTTP/3、§4）が UDP の上に自前の信頼性と輻輳制御を作り直したのは、まさにこの「必要な保証だけを自分で選ぶ」という発想の徹底である。
-- TCP がどうやって信頼性と輻輳制御を実現しているのか——確認応答、タイムアウトと再送、ウィンドウ、輻輳ウィンドウの制御——は本ユニットの範囲を超え、**NC-Reliability（未作成）**の主題になる。本ユニットでは「**アプリから見て何が保証されるか**」までを押さえておけばよい。
+- TCP がどうやって信頼性と輻輳制御を実現しているのか——確認応答、タイムアウトと再送、ウィンドウ、輻輳ウィンドウの制御——は本ユニットの範囲を超え、**[NC-Reliability](NC-Reliability.md)**の主題になる。本ユニットでは「**アプリから見て何が保証されるか**」までを押さえておけばよい。
 
 ---
 
@@ -222,7 +222,7 @@ CS Core:
 
 - 前: [NC-Fundamentals](NC-Fundamentals.md) — ネットワークの基礎（5層の骨格。本ユニットはその最上層を深掘りする）
 - 次: [NC-Reliability](NC-Reliability.md) — 信頼性のある通信（TCP等。本ユニットで「TCP は確実に届ける」と述べた、その中身）
-- 関連: [NC-Routing](NC-Routing.md)（アドレスから経路へ） / NC-Security（未作成） / NC-Mobility（未作成） / NC-Emerging（未作成）
+- 関連: [NC-Routing](NC-Routing.md)（アドレスから経路へ） / [NC-Security](NC-Security.md) / [NC-Mobility](NC-Mobility.md) / [NC-Emerging](NC-Emerging.md)
 - なお実際の学習順は CS2023 の並びと前後している。NC-Fundamentals の次に [NC-SingleHop](NC-SingleHop.md) を先に読んでおり、本来その手前にある NC-Applications・NC-Reliability・NC-Routing は後から埋めた（今はいずれも埋まっている）。**本ユニットは NC-SingleHop より前に置かれるべき内容**なので、通読の際は NC-Fundamentals → 本ユニット → NC-Reliability → NC-Routing → NC-SingleHop の順に読むとよい。
 
 疑問が出たら [NC-Applications Q&A](NC-Applications-QA.md) に記録する。

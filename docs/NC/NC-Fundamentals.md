@@ -45,8 +45,8 @@ graph TD
 | **相手を指し示す必要がある** | 名前とアドレスをどう決め、どう解決するか | [NC-Applications](NC-Applications.md#naming-addressing) |
 | **経路を決めなければならない** | 世界中のどこへでも届く道をどう見つけるか | [NC-Routing](NC-Routing.md#routing-paradigms) |
 | **媒体を共有している** | 同じ電波・同じケーブルを複数の送信者が使う | [NC-SingleHop](NC-SingleHop.md) |
-| **敵対者がいる** | 盗聴・なりすまし・サービス妨害 | NC-Security（未作成） |
-| **端末が動く** | 移動しながら接続を維持する | NC-Mobility（未作成） |
+| **敵対者がいる** | 盗聴・なりすまし・サービス妨害 | [NC-Security](NC-Security.md) |
+| **端末が動く** | 移動しながら接続を維持する | [NC-Mobility](NC-Mobility.md) |
 
 !!! note "「信頼できない部品から信頼できるサービスを作る」という反復テーマ"
     通信路が壊れることを前提に、その上で信頼性のあるサービスを組み立てる——という構図は [OS-Faults](../OS/OS-Faults.md#reliability-availability) で見た耐故障性の議論と同型である。実際、[OS-Faults §3](../OS/OS-Faults.md#redundancy-types) の**時間的冗長性**（同じ処理を時間をずらして繰り返す）は、ネットワークでは**再送**という名前で中心的な道具になる。OS で学んだ考え方が、そのまま距離を隔てた世界に持ち込まれると考えてよい。
@@ -180,7 +180,7 @@ graph TD
 
 - **ハブとスイッチの決定的な違いは衝突ドメイン**：ハブは全ポートが1本の共有媒体になるため、同時に送ると**衝突**する。スイッチはポートごとに独立した回線とバッファを持ち、宛先が異なるフレームを**同時に**転送できる。この違いが [NC-SingleHop §3](NC-SingleHop.md#mac) の媒体アクセス制御が現代の有線 LAN でほぼ不要になった理由に直結する。
 - **スイッチとルータの違いは扱うアドレスと範囲**：スイッチは同じ LAN 内（同一ブロードキャストドメイン）でのフレーム転送、ルータは異なるネットワーク間のパケット転送。**スイッチは「建物内の内線交換」、ルータは「建物と建物をつなぐ道路網の交差点」**。
-- 各要素の詳しい動作は、L2 側が [NC-SingleHop](NC-SingleHop.md)、L3 側が NC-Routing（未作成）で扱う。
+- 各要素の詳しい動作は、L2 側が [NC-SingleHop](NC-SingleHop.md)、L3 側が [NC-Routing](NC-Routing.md) で扱う。
 
 ## 7. キューイングの基礎——遅延・輻輳・サービスレベル {#queueing}
 
@@ -209,7 +209,7 @@ graph TD
 
 この「利用率を上げるほど待ち時間が跳ね上がる」性質は待ち行列理論の基本結果であり、**「リンクを100%使い切るように設計してはいけない」**という実務的な指針の根拠になる。
 
-- **輻輳 (congestion)** とは、需要が容量を超えてキューが溢れ、遅延とロスが増大する状態。回線交換ならブロッキング（新規接続の拒否）で現れる混雑が、パケット交換では輻輳として現れる（§3）。輻輳への対処——輻輳制御——は NC-Reliability（未作成）の主題。
+- **輻輳 (congestion)** とは、需要が容量を超えてキューが溢れ、遅延とロスが増大する状態。回線交換ならブロッキング（新規接続の拒否）で現れる混雑が、パケット交換では輻輳として現れる（§3）。輻輳への対処——輻輳制御——は [NC-Reliability §5](NC-Reliability.md#congestion-control) の主題。
 - **サービスレベル / QoS (Quality of Service)**: すべてのトラフィックを平等に扱うのではなく、遅延に敏感なトラフィック（音声・ビデオ会議）を優先するなど、**キューの扱いに差をつける**仕組み。優先度付きキューイング、公平キューイング (fair queueing)、帯域予約などがある。
 
 !!! note "キューイングとスケジューリングは同じ問題"
@@ -243,7 +243,7 @@ CS Core:
 
 - 前: なし（NC Knowledge Area の最初のユニット）
 - 次: [NC-Applications](NC-Applications.md) — ネットワークアプリケーション（名前とアドレス、分散アプリの構成法、HTTP・TCP/UDP・ソケット）
-- 関連（未作成）: NC-Security / NC-Mobility / NC-Emerging
+- 関連: [NC-Security](NC-Security.md) / [NC-Mobility](NC-Mobility.md) / [NC-Emerging](NC-Emerging.md) — NC KA の残る3ユニット
 - なお実際の学習順は CS2023 の並びと前後している。本ユニットの次に [NC-SingleHop](NC-SingleHop.md) を先に読んでおり、本来その手前にある NC-Applications・NC-Reliability・NC-Routing は後から埋めた。
 
 疑問が出たら [NC-Fundamentals Q&A](NC-Fundamentals-QA.md) に記録する。

@@ -5,7 +5,6 @@ NC（Networking and Communication）の指定テキストの1冊、[『図解入
 !!! warning "この対応表について"
     - テキスト本文までは読んでおらず、**公開されている目次（章・節タイトル）からの推測**で対応させている。実際に読み進める際に、節の内容次第でユニットの割り当てがずれる可能性がある。
     - テキストは**OSI参照モデルの階層**（物理層 → データリンク層 → ネットワーク層 → トランスポート層 → アプリケーション層）で構成されているのに対し、NC KA のユニットは階層と機能横断のトピック（信頼性、経路制御など）で分かれているため、**1章 : 1ユニットには対応しない**。
-    - NC-Security / NC-Mobility / NC-Emerging は本サイトで未作成（[[nc-progress]]参照）。該当箇所はリンクを張らずユニット名のみ記載する。
 
 ## 対応表
 
@@ -25,11 +24,11 @@ NC（Networking and Communication）の指定テキストの1冊、[『図解入
 | 4.x NAT | アドレス変換 | [NC-Routing](NC-Routing.md) §3（NAT——アドレスを共有する） |
 | 4.x IPv4/IPv6共存技術 | デュアルスタック、トンネリング等 | [NC-Routing](NC-Routing.md) §3（IPv4とIPv6） |
 | 4.x ICMP | エラー通知・診断 | [NC-Routing](NC-Routing.md)（ネットワーク層の制御プロトコルとして） |
-| 4.x IPsec | 暗号化・認証 | NC-Security（未作成） |
+| 4.x IPsec | 暗号化・認証 | [NC-Security](NC-Security.md) §3a〜3b（暗号／セキュアなアーキテクチャ） |
 | 5.1 UDP | コネクションレス・信頼性なし | [NC-Reliability](NC-Reliability.md) §1（信頼できない配送——UDPという基準点）、[NC-Applications](NC-Applications.md) §5（TCP・UDPとソケットAPI） |
 | 5.2 TCP | 誤り制御・フロー制御・輻輳制御 | [NC-Reliability](NC-Reliability.md) §3〜6（誤り制御／フロー制御／輻輳制御／TCPと性能） |
 | 6.x HTTP | Web通信 | [NC-Applications](NC-Applications.md) §4（アプリケーション層プロトコル——HTTPを例に） |
-| 6.x SSL/TLS | 暗号化通信 | NC-Security（未作成） |
+| 6.x SSL/TLS | 暗号化通信 | [NC-Security](NC-Security.md) §3a（暗号——通信路そのものは信頼せず、数学で守る） |
 | 6.x DNS | 名前解決 | [NC-Applications](NC-Applications.md) §1（命名とアドレス方式——DNSとURI） |
 | 6.x メール（SMTP/POP/IMAP等） | メール転送・受信プロトコル | [NC-Applications](NC-Applications.md) §2〜3（分散アプリケーションの構成法／アプリケーション要求の多様性） |
 | 6.x 管理・運用プロトコル（SNMP等） | ネットワーク監視・管理 | 現状どのユニットにも明示対応なし |

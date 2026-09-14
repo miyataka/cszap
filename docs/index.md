@@ -14,7 +14,7 @@ CS2023 の **Body of Knowledge** に登場する用語を、Knowledge Area（KA�
 
 ## 進捗ダッシュボード
 
-（2026-09-08 時点。スコアは辛口基準の 100 点換算。）
+（2026-09-15 時点。スコアは辛口基準の 100 点換算。）
 
 | KA | ユニット | 本文 | Q&A | 採点記録（最新） |
 |---|---|---|---|---|
@@ -42,7 +42,9 @@ CS2023 の **Body of Knowledge** に登場する用語を、Knowledge Area（KA�
 | NC | [NC-Reliability](NC/NC-Reliability.md) | 済 | 0 問 | [39 点](NC/NC-Reliability-Quiz.md) |
 | NC | [NC-Routing](NC/NC-Routing.md) | 済 | 0 問 | [30 点](NC/NC-Routing-Quiz.md) |
 | NC | [NC-SingleHop](NC/NC-SingleHop.md) | 済 | 0 問 | [40 点](NC/NC-SingleHop-Quiz.md) |
-| NC | NC-Security / NC-Mobility / NC-Emerging | 未作成 | | |
+| NC | [NC-Security](NC/NC-Security.md) | 済 | 0 問 | 未出題 |
+| NC | [NC-Mobility](NC/NC-Mobility.md) | 済 | 0 問 | 未出題 |
+| NC | [NC-Emerging](NC/NC-Emerging.md) | 済 | 0 問 | 未出題 |
 
 次に何を復習するかは [弱点ノート・復習キュー](weak-points.md) にまとめてある。
 

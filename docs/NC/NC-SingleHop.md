@@ -169,7 +169,7 @@ graph TD
 - **CSMA/CA** を基礎とし、送信前にキャリアセンス + ランダムバックオフ、送信後は**受信側からの ACK** で成功を確認する。有線と違い「送れた＝届いた」ではないため、**リンク層で再送を行う**のが Ethernet との大きな違い。
 - **フレーム間隔 (IFS)** による優先度制御：ACK など優先すべきフレームは短い待ち時間 (SIFS) で送れ、通常のデータは長い待ち時間 (DIFS) の後にしか送れない。**待ち時間の長短で優先順位を表現する**という巧妙な仕組み。
 - **NAV (Network Allocation Vector)**：RTS/CTS やフレームヘッダに書かれた「あとどれくらい媒体を使うか」を各局が記録し、その間は物理的に聞かずとも送信を控える（**仮想キャリアセンス**）。
-- アクセスポイント (AP) はビーコンを定期送信し、端末は**アソシエーション**によって特定の AP に接続する。移動しながら AP を切り替える仕組み（ローミング）は NC-Mobility（未作成）の主題。
+- アクセスポイント (AP) はビーコンを定期送信し、端末は**アソシエーション**によって特定の AP に接続する。移動しながら AP を切り替える仕組み（ローミング）は [NC-Mobility §2](NC-Mobility.md#wlan-mobility) の主題。
 
 ## 5. L2 スイッチング——学習・スパニングツリー・VLAN {#l2-switching}
 
@@ -204,7 +204,7 @@ LAN の中でフレームを届ける機器の動作（学習成果5）。
 - スイッチのポートごとに VLAN ID を割り当て、**異なる VLAN 間ではフレームが転送されない**（通信させるにはルータ／L3 スイッチを経由する必要がある）。
 - 複数のスイッチにまたがる場合は、スイッチ間のリンク（**トランク**）で Ethernet フレームに **4バイトの 802.1Q タグ**（VLAN ID を含む）を挿入して、どの VLAN のフレームかを示す。
 - 効用は3つ：**ブロードキャストドメインの分割**（不要なブロードキャストの抑制）、**セキュリティ境界**（部門・用途ごとの分離）、**配線からの独立**（物理的な場所に縛られず論理的なグループを作れる）。
-- 「1つの物理資源を分割して複数の独立した論理資源に見せる」という発想は、[OS-Virtualization](../OS/OS-Virtualization.md) の仮想化そのもの。**VLAN はネットワークの仮想化の最も素朴な形**であり、その延長線上にある SDN・ネットワーク仮想化が NC-Emerging（未作成）の主題になる。
+- 「1つの物理資源を分割して複数の独立した論理資源に見せる」という発想は、[OS-Virtualization](../OS/OS-Virtualization.md) の仮想化そのもの。**VLAN はネットワークの仮想化の最も素朴な形**であり、その延長線上にある SDN・ネットワーク仮想化が [NC-Emerging §2](NC-Emerging.md#network-virtualization) の主題になる。
 
 ## 6. LAN トポロジ {#lan-topologies}
 
@@ -260,8 +260,8 @@ KA Core:
 ## 前後のユニット
 
 - 前: [NC-Routing](NC-Routing.md) — 経路制御とフォワーディング（CS2023 の並びでは本ユニットの直前に来る）
-- 次: NC-Security — ネットワークセキュリティ（未作成）
-- 関連（未作成）: NC-Mobility（無線 LAN とセルラーの続き） / NC-Emerging（ネットワーク仮想化・SDN）
+- 次: [NC-Security](NC-Security.md) — ネットワークセキュリティ
+- 関連: [NC-Mobility](NC-Mobility.md)（無線 LAN とセルラーの続き） / [NC-Emerging](NC-Emerging.md)（ネットワーク仮想化・SDN）
 - CS2023 の並びでは KA の起点は [NC-Fundamentals](NC-Fundamentals.md) で、そこから本ユニットまでの間に [NC-Applications](NC-Applications.md)・[NC-Reliability](NC-Reliability.md)・NC-Routing（上記）が挟まる。ただし実際の学習順は NC-Fundamentals の次に本ユニットを先に読み、NC-Applications・NC-Reliability・NC-Routing は後から埋めている。
 
 疑問が出たら [NC-SingleHop Q&A](NC-SingleHop-QA.md) に記録する。

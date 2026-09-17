@@ -2,6 +2,8 @@
 
 ACM/IEEE-CS/AAAI による **Computer Science Curricula 2023 (CS2023)** を題材に、コンピュータサイエンスを学ぶ講義とワークのメモ。
 
+あわせて、文部科学省「高等学校情報科」教員研修用教材を題材にした**情報I/情報II**の学習メモも扱う（CS2023とは別体系）。
+
 ## このサイトの進め方
 
 CS2023 の **Body of Knowledge** に登場する用語を、Knowledge Area（KA）ごとに「意味を調べて理解する」のがワーク。各ユニットは **本文**（用語の整理）→ **Q&A**（読んで出た疑問の記録）→ **採点記録**（クイズによる理解度評価）の3層で進める。
@@ -14,7 +16,7 @@ CS2023 の **Body of Knowledge** に登場する用語を、Knowledge Area（KA�
 
 ## 進捗ダッシュボード
 
-（2026-09-15 時点。スコアは辛口基準の 100 点換算。）
+（2026-09-17 時点。スコアは辛口基準の 100 点換算。）
 
 | KA | ユニット | 本文 | Q&A | 採点記録（最新） |
 |---|---|---|---|---|
@@ -45,6 +47,10 @@ CS2023 の **Body of Knowledge** に登場する用語を、Knowledge Area（KA�
 | NC | [NC-Security](NC/NC-Security.md) | 済 | 0 問 | 未出題 |
 | NC | [NC-Mobility](NC/NC-Mobility.md) | 済 | 0 問 | 未出題 |
 | NC | [NC-Emerging](NC/NC-Emerging.md) | 済 | 0 問 | 未出題 |
+| 情報I | [Joho1-01](Joho1/Joho1-01.md) | 済 | 0 問 | 未出題 |
+| 情報I | [Joho1-02](Joho1/Joho1-02.md) | 済 | 0 問 | 未出題 |
+| 情報I | [Joho1-03](Joho1/Joho1-03.md) | 済 | 0 問 | 未出題 |
+| 情報I | [Joho1-04](Joho1/Joho1-04.md) | 済 | 0 問 | 未出題 |
 
 次に何を復習するかは [弱点ノート・復習キュー](weak-points.md) にまとめてある。
 

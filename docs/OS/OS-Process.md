@@ -7,20 +7,39 @@ CS2023 / Operating Systems (OS) の Knowledge Unit「**OS-Process**（Process Mo
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 2時間**（CS Core の時間割り当てはなし）。`See also: AR-Assembly`（機械語レベル）と `FPL-Translation`（翻訳系）への参照があり、**コンパイラ・アーキテクチャと OS の合流点**。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[OS-Process<br/>プロセスモデル] --> B[プロセスとは何か]
-  A --> C[プロセスの中身]
-  A --> D[プロセスを動かす]
-  A --> E[プロセス同士をつなぐ]
-  B --> B1[仮想化・保護メモリ・<br/>状態・分離]
-  C --> C1[メモリフットプリント<br/>スタック／ヒープ]
-  C --> C2[実行ファイルのロード・<br/>共有ライブラリ・動的リンク]
-  D --> D1[ディスパッチと<br/>コンテキストスイッチ]
-  E --> E1[IPC: 共有メモリ・メッセージ・<br/>シグナル・環境変数]
+  Q["中心的な問い<br/>プログラムはどうやって動く実体になり、<br/>どう管理されるか"]
+
+  Q --> EXE["実行ファイル (ELF/PE)"]
+  EXE -->|"ロード(exec)・動的リンク"| NEW["生成 (new)"]
+  NEW --> READY["ready"]
+  READY -->|"ディスパッチ・<br/>コンテキストスイッチ"| RUNNING["running"]
+  RUNNING -->|"タイムスライス切れ"| READY
+  RUNNING -->|"I/O・ロック待ち"| WAITING["待機 (waiting)"]
+  WAITING -->|"待ちが解けた"| READY
+  RUNNING -->|"終了処理"| TERM["終了 (terminated)"]
+
+  subgraph BESIDE["メモリフットプリントと別プロセス"]
+    MEM["メモリフットプリント<br/>スタック・ヒープ"]
+    subgraph OTHER["別プロセス"]
+      R2["running"]
+    end
+  end
+  RUNNING -.保持.-> MEM
+  RUNNING -->|"IPC: 共有メモリ・<br/>メッセージ・シグナル"| R2
+  R2 --> RUNNING
 ```
+
+**図の読み方**
+
+- 実行ファイル→ロード/動的リンク→生成(new) の流れ → [§3 実行ファイルの生成・ロードと動的リンク](#loading-linking)。
+- ready ⇄ running → waiting → terminated の状態遷移全体 → [§1 プロセスとスレッド](#process-as-virtualization)。
+- ready→running の「ディスパッチ・コンテキストスイッチ」→ [§4 ディスパッチとコンテキストスイッチ](#dispatch-context-switch)。running の脇のメモリフットプリント（スタック/ヒープ）→ [§2 メモリフットプリント](#memory-layout)。アドレス空間の実装詳細は [OS-Memory §4 ページング](OS-Memory.md#paging) も参照。
+- プロセス同士をつなぐ IPC → [§5 プロセス間通信](#ipc)。
+- running→ready の「タイムスライス切れ」は [OS-Scheduling §1](OS-Scheduling.md#preemptive-nonpreemptive) のプリエンプションと同じ仕組み。
 
 ---
 

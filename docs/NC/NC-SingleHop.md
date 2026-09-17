@@ -7,22 +7,37 @@ CS2023 / Networking and Communication (NC) の Knowledge Unit「**NC-SingleHop**
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 3時間**（CS Core の時間割り当てはなし）。CS2013 からの変更点として、CS2023 は単一ホップ通信をコアに**拡充**した（前文の "broadens its core focus to expand on ... single-hop communication"）。6項目すべてが KA Core で、Non-core 項目はない。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[NC-SingleHop<br/>単一ホップ通信] --> B[物理層]
-  A --> C[データリンク層]
-  B --> B1[変調・帯域幅・通信媒体]
-  C --> C2[符号化とフレーミング]
-  C --> C3[媒体アクセス制御 MAC<br/>ランダム vs スケジュールド]
-  C --> C4[Ethernet と WiFi]
-  C --> C5[L2スイッチング<br/>スパニングツリー・VLAN]
-  C --> C6[LANトポロジ<br/>データセンター・キャンパス]
-  C2 --> D1[ビット列をどう信号にし<br/>どこが1フレームかをどう示すか]
-  C3 --> D2[誰がいつ送ってよいかを決める]
-  C5 --> D3[届ける相手のポートを学習し<br/>ループを断ち切る]
+  Q["中心的な問い<br/>隣接する1ホップへどう正しく届けるか"]
+  UPNET["上位: ネットワーク層<br/>NC-Routing が経路を決める"]
+
+  subgraph DL["データリンク層"]
+    ENC["符号化とフレーミング<br/>問い: ビット列をどう区切って1フレームにするか"]
+    MAC["MAC<br/>問い: 誰がいつ送ってよいか"]
+    EW["Ethernet・WiFi<br/>具体的な実装"]
+    SWL["L2スイッチング<br/>問い: どのポートへ転送するか"]
+    LAN["LANトポロジ<br/>キャンパス・データセンター"]
+    ENC --> MAC --> EW --> SWL --> LAN
+  end
+
+  subgraph PHY["物理層"]
+    MOD["変調・帯域幅・通信媒体<br/>問い: 0と1をどう物理現象に載せるか"]
+  end
+
+  Q --> ENC
+  UPNET -.-> ENC
+  LAN --> MOD
 ```
+
+**図の読み方**
+
+- 中心的な問い「隣接する1ホップへどう正しく届けるか」を、物理層とデータリンク層の2層で分担する。
+- データリンク層内は粒度順に並べた：[§2 符号化とフレーミング](#encoding-framing)（ビット→フレーム）→ [§3 MAC](#mac)（誰が送るか）→ [§4 Ethernet・WiFi](#ethernet-wifi)（具体的な実装）→ [§5 L2スイッチング](#l2-switching)（どこへ転送するか）→ [§6 LANトポロジ](#lan-topologies)（全体構成）。
+- 物理層は[§1 変調・帯域幅・通信媒体](#modulation-media)——0と1を物理現象へ載せる話で、データリンク層を下から支える。
+- 上位の[NC-Fundamentals §4](NC-Fundamentals.md#layers)で見た5層のうち、本ユニットが担当するのは下2層。さらに上のネットワーク層でのフォワーディングは[NC-Routing §2](NC-Routing.md#forwarding)。
 
 ---
 

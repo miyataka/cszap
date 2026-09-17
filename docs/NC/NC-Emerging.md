@@ -7,19 +7,16 @@ CS2023 / Networking and Communication (NC) の Knowledge Unit「**NC-Emerging**�
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 4時間**（CS Core の割り当てはなし）。4項目すべてが KA Core。CS2023 の並びでは NC KA 最後のユニットであり、Introductory Course の時間配分（2時間）から Advanced Course（5時間）へ**+3時間**と、KA Core 6ユニット中もっとも大きく増える（他は+1〜+2時間）。**発展的な内容という位置づけ**が時間配分にも表れている。
 
-## 全体像
+## 全体像 {#overview}
 
-```mermaid
-graph TD
-  A[NC-Emerging<br/>新興トピック] --> B[1 ミドルボックス]
-  A --> C[2 ネットワーク仮想化]
-  A --> D[3 量子ネットワーキング]
-  A --> E[4 衛星・mmWave・可視光通信]
-  B --> B1["NAT・CDN・DPI・負荷分散<br/>インテントベースネットワーキング"]
-  C --> C1["SDN: 制御プレーンの集中化<br/>データセンター網の仮想化"]
-  D --> D1["量子鍵配送<br/>量子テレポーテーション"]
-  E --> E1["低軌道衛星・ミリ波<br/>可視光通信"]
-```
+**中心的な問い**：これまでの語彙（制御プレーン/データプレーンの分離・仮想化・暗号・多重化）は、新しい制約のもとでどう組み替えられるか。
+
+| トピック | 何が変わるか | なぜ学ぶか | 関連ユニット |
+|---|---|---|---|
+| [ミドルボックス](#middleboxes) | 網の中身が単純な転送に留まらず、書き換え・検査を行う | NAT・CDN・ファイアウォールなど既出の技術を統一的に捉え直せる | [NC-Routing §3](NC-Routing.md#nat)・[NC-Security §3c](NC-Security.md#monitoring-detection) |
+| [ネットワーク仮想化](#network-virtualization) | 制御プレーンが機器から切り離され、1つの論理資源に集約・分割される | SDN・VXLANはデータセンター運用の標準になりつつある | [NC-Routing §2](NC-Routing.md#control-data-plane)・[NC-SingleHop §5](NC-SingleHop.md#vlan) |
+| [量子ネットワーキング](#quantum-networking) | 安全性の根拠が計算量的困難さから物理法則に移る | 将来の暗号基盤の前提を揺るがしうる領域 | [NC-Security §3a](NC-Security.md#cryptography) |
+| [衛星・mmWave・可視光](#satellite-mmwave-vlc) | 新しい周波数帯・配置でアクセス範囲と速度を広げる | 5G以降の高速化とデジタルデバイド解消の両方に関わる | [NC-Mobility §1](NC-Mobility.md#cellular)・[NC-SingleHop §1](NC-SingleHop.md#modulation-media) |
 
 ---
 

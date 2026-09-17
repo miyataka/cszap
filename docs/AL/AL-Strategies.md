@@ -10,20 +10,29 @@ CS2023 / Algorithmic Foundations (AL) の2つ目の Knowledge Unit「**AL-Strate
 
 ## 全体像 {#overview}
 
-「問題をどう小さくするか・どう変形するか」でパラダイムを分類できる。
+中心の問いは「**未知の問題を渡されたとき、どの設計パラダイムの系統から試すか**」。問題の性質を3つの問いで絞り込むと、系統がおおまかに決まる（細かい枝分かれは終盤の[実戦フロー](#paradigm-selection)に譲る、ここでは粗い一次診断にとどめる）。
 
 ```mermaid
-graph TD
-  A[AL-Strategies<br/>設計パラダイム] --> B[全部試す<br/>Brute-Force]
-  A --> C[小さくする]
-  A --> D[変形する<br/>Transform-and-Conquer]
-  A --> E[局所最適を積む<br/>Greedy]
-  A --> F[資源を交換する<br/>Space vs Time]
-  C --> C1[1つずつ減らす<br/>Decrease-and-Conquer]
-  C --> C2[分けて統べる<br/>Divide-and-Conquer]
-  A --> G[爆発と戦う<br/>A*・分枝限定・バックトラック]
-  A --> H[KA: 近似・反復改善・乱択]
+flowchart TD
+  Q0["未知の問題、どの系統から試す?"]
+  Q0 --> Q1{部分問題に分けられる?}
+  Q1 -->|Yes| SHRINK["縮小・分割系<br/>Decrease/Divide-and-Conquer・DP"]
+  Q1 -->|No| Q2{局所最適の積み重ねが<br/>大域最適だと証明できる?}
+  Q2 -->|Yes| GR[Greedy]
+  Q2 -->|No| Q3{全列挙は現実的?}
+  Q3 -->|Yes| BF[Brute-Force]
+  Q3 -->|No、厳密解が必要| EXP["爆発対処<br/>backtracking・branch-and-bound・A*"]
+  Q3 -->|No、近似でよい| KA[近似・乱択・反復改善]
 ```
+
+**図の読み方**
+
+- 中心の問い: 「未知の問題を渡されたとき、どの設計パラダイムの系統から試すか」。
+- 縮小・分割系 → [§2 Decrease-and-Conquer](#decrease-and-conquer)・[§3 Divide-and-Conquer](#divide-and-conquer)・[§5 Transform-and-Conquer（動的計画法を含む）](#transform-and-conquer)。
+- Greedy → [§4](#greedy)。Brute-Force → [§1](#brute-force)。
+- 爆発対処 → [§7 指数的爆発への対処](#exponential-growth)。近似・乱択・反復改善 → [§9 KA Core のパラダイム](#ka-core)。
+- 実装段階で効いてくる[§6 空間と時間のトレードオフ](#space-time-tradeoffs)・[§8 反復と再帰](#iteration-vs-recursion)は、パラダイムを選んだ**後**に検討する横断的な論点。
+- シグナルごとの詳しい対応表は[実戦: パラダイム選択の思考フロー](#paradigm-selection)を見る。次ユニット [AL-Complexity §6](AL-Complexity.md#tractability) は「爆発対処」に進んだ先の「そもそも解けるか」を扱う。
 
 !!! note "パラダイムとは『問題への構え方』"
     料理に例えると、個々のアルゴリズムが「レシピ」なら、パラダイムは「煮る・焼く・蒸す」という調理法。新しい食材（未知の問題）に出会ったとき、レシピの暗記ではなく調理法を知っていれば応用が利く。

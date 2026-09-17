@@ -7,19 +7,22 @@ CS2023 / Networking and Communication (NC) の Knowledge Unit「**NC-Mobility**�
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 4時間**（CS Core の割り当てはなし）。4項目すべてが KA Core。
 
-## 全体像
+## 全体像 {#overview}
 
-```mermaid
-graph TD
-  A[NC-Mobility<br/>モビリティ] --> B[1 セルラー通信の原理]
-  A --> C[2 無線LANのモビリティ]
-  A --> D[3 デバイス間通信]
-  A --> E[4 マルチホップ無線網]
-  B --> B1["セル分割・ハンドオフ<br/>4G/5G の階層"]
-  C --> C1["ローミングと<br/>802.11 のモビリティ管理"]
-  D --> D1["Bluetooth・IoT<br/>基地局を介さない直接通信"]
-  E --> E1["アドホック網・DTN<br/>マルチホップの中継"]
-```
+**中心的な問い**：端末が動いても通信をどう続けるか（ハンドオフ／ローミング）。
+
+「通信範囲」×「基地局・インフラの有無」の2軸で4方式を配置する：
+
+|  | **インフラあり（基地局・AP）** | **インフラなし（端末同士）** |
+|---|---|---|
+| **広域** | セルラー →[§1](#cellular) | マルチホップ無線網（アドホック・DTN） →[§4](#multihop-wireless) |
+| **近距離** | 無線LAN →[§2](#wlan-mobility) | デバイス間通信（Bluetooth・IoT） →[§3](#device-to-device) |
+
+**図の読み方**
+
+- 横軸は「網が基地局・APという固定インフラを持つか」、縦軸は「近距離か広域か」。この2軸の組み合わせが4方式を分ける。
+- 左列（インフラあり）は網が主体的に[§1 ハンドオフ](#cellular)や[§2 ローミング](#wlan-mobility)を管理する。右列（インフラなし）は端末自身が[§3 直接通信](#device-to-device)するか、[§4 中継局を兼ねて](#multihop-wireless)経路を作る。
+- 無線LANの土台は[NC-SingleHop §4](NC-SingleHop.md#wifi)、固定網を前提にした経路制御との対比は[NC-Routing §1](NC-Routing.md#routing-paradigms)を参照。
 
 ---
 

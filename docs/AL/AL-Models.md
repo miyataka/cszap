@@ -10,25 +10,38 @@ CS2023 / Algorithmic Foundations (AL) の4つ目の Knowledge Unit「**AL-Models
 
 ## 全体像 {#overview}
 
-このユニットは大きく **3 つの問い** に分かれる。
+中心の問いは「**どんな機械が、どんな言語を扱えるか**」。機械の記憶機構が強くなるほど、扱える言語クラスも入れ子状に大きくなる——その包含関係と、包含の一番外側にある「決定不能」までを1枚にした図。
 
 ```mermaid
-graph TD
-  A[AL-Models<br/>計算モデルと形式言語] --> B[どんな機械が<br/>何を受理できる?<br/>形式オートマトン]
-  A --> C[言語・文法・機械は<br/>どう対応する?<br/>Chomsky 階層]
-  A --> D[そもそも<br/>アルゴリズムで解けるのか?<br/>計算可能性・停止問題]
-  B --> B1[有限オートマトン<br/>FSA = DFA / NFA]
-  B --> B2[プッシュダウンオートマトン<br/>PDA]
-  B --> B3[線形有界オートマトン<br/>LBA]
-  B --> B4[チューリング機械<br/>TM]
-  C --> C1[正規言語 Type-3<br/>正規表現]
-  C --> C2[文脈自由言語 Type-2<br/>CFG・PDA]
-  C --> C3[文脈依存言語 Type-1<br/>LBA]
-  C --> C4[再帰的可算言語 Type-0<br/>TM]
-  D --> D1[決定可能・半決定可能]
-  D --> D2[停止問題の決定不能性]
-  D --> D3[Church-Turing 命題]
+flowchart TD
+  Q0["どんな機械が、どんな言語を扱えるか?"]
+
+  subgraph T0["Type-0: 再帰的可算言語"]
+    T0I["機械: チューリング機械 TM<br/>文法: 制約なし文法"]
+    subgraph T1["Type-1: 文脈依存言語"]
+      T1I["機械: 線形有界オートマトン LBA<br/>文法: 文脈依存文法"]
+      subgraph T2["Type-2: 文脈自由言語"]
+        T2I["機械: プッシュダウンオートマトン PDA<br/>文法: 文脈自由文法 CFG"]
+        subgraph T3["Type-3: 正規言語"]
+          T3I["機械: 有限オートマトン FSA<br/>文法: 正規文法・正規表現"]
+        end
+      end
+    end
+  end
+
+  Q0 --> T0I
+  T0I -.->|この外側は| UNDEC["決定不能な問題<br/>停止問題・Rice の定理"]
+  UNDEC -.-> CT["Church-Turing 命題<br/>アルゴリズム = TMで計算できること"]
 ```
+
+**図の読み方**
+
+- 中心の問い: 「どんな機械が、どんな言語を扱えるか」。
+- 入れ子は包含関係を表す: Type-3（正規言語）⊂ Type-2（文脈自由言語）⊂ Type-1（文脈依存言語）⊂ Type-0（再帰的可算言語）。各層の機械・文法は[§1 形式オートマトン](#formal-automata)・[§2 Chomsky 階層](#chomsky-hierarchy)、対応関係の一覧表は[§3](#relations)。
+- Type-0（チューリング機械が受理できる範囲）の外側には、アルゴリズムそのものが存在しない**決定不能な問題**がある → [§4 決定可能性・計算不能性・停止](#decidability)。
+- 「TM で計算できること」と「アルゴリズム的に計算できること」を同一視するのが[§5 Church-Turing 命題](#church-turing)。
+- KA Core（§7〜§13）はこの図を補強する道具: 非決定性の力は[§7](#determinism)、階層の限界の証明は[§8 ポンピング補題](#pumping-lemma)・[§9 対角化](#arithmetization)、決定不能性の伝播は[§10 帰着](#reducibility)、計算量への応用は[§11](#time-complexity-tm)・[§12](#space-complexity)、TM と等価な別モデルは[§13](#equivalent-models)。
+- 前ユニット [AL-Complexity §6](AL-Complexity.md#tractability) の P/NP は「解けるが速くない」問題の話。このユニットは「そもそも解けるか」までさらに踏み込む。
 
 ---
 

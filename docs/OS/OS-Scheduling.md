@@ -7,20 +7,38 @@ CS2023 / Operating Systems (OS) の Knowledge Unit「**OS-Scheduling**（Schedul
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 2時間**（CS Core の時間割り当てはなし）。ここから先は「OS を専門的に学ぶ人の必修」ゾーンに入る。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[OS-Scheduling<br/>スケジューリング] --> B[基本の軸]
-  A --> C[代表的ポリシー]
-  A --> D[現代的な話題]
-  B --> B1[プリエンプティブ vs<br/>ノンプリエンプティブ]
-  B --> B2[公平性と飢餓]
-  C --> C1[FCFS / SJF / 優先度<br/>RR / 多段レベル]
-  D --> D1[SMPスケジューリングと<br/>キャッシュコヒーレンス]
-  D --> D2[有限HWタイマから<br/>多数のタイマを作る]
-  D --> D3[Non-core: 省電力・実時間<br/>協調的スケジューリング]
+  Q["中心的な問い<br/>次に誰を走らせるか"]
+
+  subgraph SMP["SMP: CPUごとにreadyキュー"]
+    RQ1["readyキュー (CPU0)"]
+    RQ2["readyキュー (CPU1)"]
+  end
+
+  RQ1 --> SCHED{"スケジューラ<br/>ポリシー選択"}
+  RQ2 --> SCHED
+  SCHED -->|"FCFS/SJF/優先度/RR/多段"| DISP["ディスパッチャ"]
+  DISP --> CPU["CPU: running"]
+
+  CPU -->|"タイマ割り込み<br/>(プリエンプション)"| RQ1
+  CPU -->|"I/O要求"| WAIT["waiting"]
+  WAIT -->|"I/O完了"| RQ1
+
+  SCHED -.評価軸.-> FAIR["公平性と飢餓<br/>エイジングで緩和"]
+
+  Q --> RQ1
 ```
+
+**図の読み方**
+
+- readyキュー→スケジューラ（ポリシー選択）→ディスパッチャ→CPU の流れ → [§2 スケジューラとポリシー](#policies)（短期/中期/長期スケジューラの区別も同節）。
+- CPU→readyキューの「タイマ割り込み(プリエンプション)」→ [§1 プリエンプティブ vs ノンプリエンプティブ](#preemptive-nonpreemptive)。CPU→waiting の I/O 待ちは [OS-Process §1](OS-Process.md#process-as-virtualization) の状態遷移と対応する。
+- readyキューを CPU ごとに複数化したのは SMP を表すため → [§3 SMP スケジューリングとキャッシュコヒーレンス](#smp-cache)。
+- 分岐点の「公平性と飢餓」→ [§5 公平性と飢餓](#fairness-starvation)。
+- ディスパッチャの実体は [OS-Process §4 ディスパッチとコンテキストスイッチ](OS-Process.md#dispatch-context-switch)。
 
 ---
 

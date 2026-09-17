@@ -7,23 +7,30 @@ CS2023 / Networking and Communication (NC) の Knowledge Unit「**NC-Reliability
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 6時間**（CS Core の割り当てはなし）。NC KA の KA Core 合計24時間のうち**最大の6時間**が本ユニットに充てられており、KA Core の中では最も重い。`See also: SF-Reliability` への参照を持つ。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[NC-Reliability<br/>信頼性のあるデータ配送] --> B[信頼できない配送<br/>UDP]
-  A --> C[信頼性の原理<br/>何を保証するのか]
-  A --> D[誤り制御<br/>再送・誤り訂正]
-  A --> E[フロー制御<br/>受信側を守る]
-  A --> F[輻輳制御<br/>網を守る]
-  A --> G[TCP と性能<br/>Tahoe/Reno/Vegas/Cubic]
-  B --> B1[ロス・重複・順序入れ替えを<br/>直さずそのまま渡す]
-  C --> C1[無損失・無重複・順序保存]
-  D --> D1[ACK・タイムアウト・<br/>シーケンス番号・チェックサム]
-  E --> E1[stop-and-wait /<br/>ウィンドウ方式]
-  F --> F1[暗黙の通知 = ロス検出<br/>明示的通知 = ECN]
-  G --> G1[ウィンドウの増やし方・<br/>減らし方の設計史]
+  Q["中心的な問い<br/>信頼できない網の上に<br/>どう信頼できる配送を組み立てるか"]
+  SEND["送信"]
+  ANOM["網で起きる異常<br/>ロス・重複・順序入れ替え"]
+  ERR["誤り制御<br/>ACK・再送・チェックサム"]
+  FLOW["フロー制御<br/>受信側を守る"]
+  CONG["輻輳制御<br/>網を守る"]
+  TCPV["TCPの進化<br/>Tahoe→Reno→Vegas→Cubic"]
+  UDP["UDP<br/>これらを何もしない基準点"]
+
+  Q --> SEND --> ANOM --> ERR --> FLOW --> CONG --> TCPV
+  ANOM -.->|何もしない選択| UDP
 ```
+
+**図の読み方**
+
+- 中心的な問い「信頼できない網の上にどう信頼できる配送を組み立てるか」を、送信から順に辿る一本の流れとして描いた。
+- [§1 網で起きる異常](#unreliable-delivery)（ロス・重複・順序入れ替え）が出発点。ここで「何もしない」選択をすると[§1 UDP](#unreliable-delivery)という基準点に分岐する。
+- 異常に対処する側の流れは、[§3 誤り制御](#error-control)（[再送](#retransmission)・[誤り訂正](#error-correction)）→ [§4 フロー制御](#flow-control)（[stop-and-wait](#stop-and-wait)・[ウィンドウ方式](#sliding-window)）→ [§5 輻輳制御](#congestion-control)（[暗黙](#implicit-notification)・[明示](#explicit-notification)の通知）と積み上がる。
+- 最後に[§6 TCPと性能](#tcp-performance)（[各版の比較](#tcp-variants)）が、この積み上げ全体を実装として束ねたもの。
+- パケット交換が保証を持たないこと自体は[NC-Fundamentals §3](NC-Fundamentals.md#switching-techniques)、UDPかTCPかの選択は[NC-Applications §5](NC-Applications.md#tcp-vs-udp)を参照。
 
 ---
 

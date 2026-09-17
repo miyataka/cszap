@@ -7,29 +7,65 @@ CS2023 / Operating Systems (OS) の Knowledge Unit「**OS-Advanced-Files**（Adv
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは全体が **KA Core 2時間**（CS Core の時間割り当てはなし）。`See also: AR-IO`（メモリマップトファイル）、`SF-Reliability`（ジャーナリング）への参照があり、**アーキテクチャ・信頼性設計との接点**が多いユニット。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[OS-Advanced-Files<br/>発展的ファイルシステム] --> B[パーティション・マウント・VFS]
-  A --> C[メモリマップトファイルの実装]
-  A --> D[特殊用途ファイルシステム]
-  A --> E[命名・検索・アクセス・バックアップ]
-  A --> F[ジャーナリング・<br/>ログ構造化ファイルシステム]
-  A --> G[Non-core]
-  B --> B1[パーティション分割]
-  B --> B2[マウント／アンマウント<br/>マウントタイプ]
-  B --> B3[仮想ファイルシステム VFS]
-  C --> C1[ページフォルト経由の<br/>ファイルアクセス]
-  D --> D1[疑似FS・フラッシュ最適化・<br/>特殊要件への対応]
-  E --> E1[命名・検索構造]
-  E --> E2[スナップショット・<br/>バックアップ]
-  F --> F1[ジャーナリング]
-  F --> F2[ログ構造化FS]
-  G --> G1[分散ファイルシステム]
-  G --> G2[暗号化ファイルシステム]
-  G --> G3[耐故障性の機構]
+  Q["中心的な問い：多様なFS実装と特殊要件を、<br/>同じファイルAPIの下にどう統合するか"]
+  APP["アプリケーション<br/>read/write と mmap"]
+  VFS["VFS<br/>共通インタフェースへのディスパッチ"]
+  BASE["OS-Files：基礎編<br/>概念・割り当て・空き領域管理"]
+
+  subgraph FSGROUP["個別FS"]
+    JOURNAL["ジャーナリングFS<br/>ext4・NTFS・APFS"]
+    LOGFS["ログ構造化FS<br/>SSD/フラッシュ向け"]
+    SPECIAL["特殊用途FS<br/>procfs・tmpfs・ISO9660"]
+  end
+
+  BLOCK["ブロック層"]
+  DEV["パーティション・デバイス"]
+
+  subgraph SIDEGROUP["横の関心・変種"]
+    NAMING["命名・検索<br/>ハード/シンボリックリンク・索引構造"]
+    BACKUP["スナップショット・バックアップ"]
+    VARIANT["FSの変種：分散・暗号化・耐故障<br/>NFS/SMB・フルディスク暗号化・RAID/チェックサム"]
+  end
+
+  Q -.-> APP
+  APP -->|"read/write"| VFS
+  APP -.->|"mmapはページフォルト経由"| VFS
+  BASE -.->|"基礎 → 発展"| VFS
+
+  VFS --> JOURNAL
+  VFS --> LOGFS
+  VFS --> SPECIAL
+  JOURNAL ~~~ LOGFS
+  LOGFS ~~~ SPECIAL
+
+  JOURNAL --> BLOCK
+  LOGFS --> BLOCK
+  SPECIAL -.->|"実体を持たないものも"| BLOCK
+  BLOCK --> DEV
+
+  VFS --- NAMING
+  VFS --- BACKUP
+  VFS -.->|"変種として発展"| VARIANT
+  DEV ~~~ NAMING
+  DEV ~~~ BACKUP
+  DEV ~~~ VARIANT
+
+  classDef variant fill:#eef,stroke:#88c,color:#224;
+  class VARIANT variant;
 ```
+
+**図の読み方**
+
+- 「VFS」（共通インタフェースへのディスパッチ）とパーティション/マウントの前提は [§1 パーティション・マウント・VFS](#mount-vfs)。
+- 「アプリケーション」からVFSへの点線（mmapはページフォルト経由でアクセスする）は [§2 メモリマップトファイル](#mmap)。
+- 「個別FS」グループのうち「特殊用途FS」（procfs・tmpfs・ISO9660など）は [§3 特殊用途ファイルシステム](#special-purpose)。
+- 「横の関心・変種」グループの「命名・検索」・「スナップショット・バックアップ」（VFS層の横に置く命名・検索・アクセス・バックアップ）は [§4 命名・検索・アクセス・バックアップ](#naming-search-backup)。
+- 「個別FS」グループのうち「ジャーナリングFS」・「ログ構造化FS」は [§5 ジャーナリングとログ構造化ファイルシステム](#journaling)。
+- 「横の関心・変種」グループの「FSの変種」（分散・暗号化・耐故障）は [§6 分散・暗号化・耐故障ファイルシステム](#non-core)。耐故障機構のより広い議論は [OS-Faults §2 RAID](OS-Faults.md#raid)。「OS-Files：基礎編」は [OS-Files](OS-Files.md) 全体を指し、割り当て方式・空き領域管理の基礎の上にVFS以降が積み上がる関係を示す。
 
 ---
 

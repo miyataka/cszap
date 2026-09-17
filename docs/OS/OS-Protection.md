@@ -7,20 +7,38 @@ CS2023 / Operating Systems (OS) の Knowledge Unit「**OS-Protection**（Protect
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **CS Core 2時間 + KA Core 1時間**。`See also: SEC-Foundations`（セキュリティ基礎）への参照が最も多く、**OS とセキュリティの接点**となるユニット。
 
-## 全体像
+## 全体像 {#overview}
+
+「攻撃・脅威」と「それを防ぐ機構」を対応づけると見取り図になる：
+
+| 攻撃・脅威 | 防ぐ機構 | 実例 |
+|---|---|---|
+| 権限昇格（一般ユーザ→カーネル権限） | 保護リング・ユーザ/カーネルモード分離（[§6](#rings)） | Dirty COW（[§3](#real-vulnerabilities)） |
+| スケジューリング経由の攻撃（キャッシュタイミング観測） | プロセス分離・投機実行の緩和策（[§1](#mechanisms-overview)・[§2](#attacks)） | Meltdown/Spectre（[§3](#real-vulnerabilities)） |
+| ネットワーク越しのリモートコード実行 | パッチ適用・最小権限の原則（[§4](#mitigations)） | EternalBlue（[§3](#real-vulnerabilities)） |
+| データ喪失（誤削除・故障・ランサムウェア） | バックアップ（オフライン保管・復元練習）（[§4](#mitigations)） | ― |
+| 認可チェック漏れ・なりすまし | アクセス制御（ACL/ケイパビリティ）・認証（[§7](#access-control)） | ― |
+
+守り方の内訳は「何を許すか（ポリシー）」と「どうやるか（メカニズム）」の分離、その実装の一例が保護リング：
 
 ```mermaid
 graph TD
-  A[OS-Protection<br/>保護と安全] --> B[CS Core]
-  A --> C[KA Core]
-  B --> B1[OS のセキュリティ機構の概観]
-  B --> B2[攻撃と敵対<br/>スケジューリング経由など]
-  B --> B3[実在 OS の重大脆弱性レビュー]
-  B --> B4[緩和策<br/>バックアップなど]
-  C --> C1[ポリシー／メカニズム分離]
-  C --> C2[保護リング<br/>Multics → x86 → ring -1/-2]
-  C --> C3[保護・アクセス制御・認証]
+  Q["中心的な問い<br/>OSは互いをどう守るか"]
+
+  POLICY["ポリシー: 何を許すか<br/>例: SELinux/AppArmorの設定"] --> ENFORCE["実施 (enforcement)"]
+  MECH["メカニズム: どうやるか<br/>例: LSMフック・保護ビット"] --> ENFORCE
+  ENFORCE --> RING["保護リングという実装<br/>ring3→ring0→ring-1→ring-2"]
+
+  Q --> ENFORCE
 ```
+
+**図の読み方**
+
+- ポリシー（何を許すか）とメカニズム（どうやるか）は分離され、両者が「実施」を支える → [§5 ポリシー／メカニズム分離](#policy-mechanism)。
+- 実施の具体的な階層構造が保護リング → [§6 保護リング](#rings)。
+- 上の表は「攻撃・脅威→防ぐ機構」の対応。機構の概観は [§1](#mechanisms-overview)、攻撃の類型は [§2 攻撃と敵対](#attacks)、緩和策は [§4 緩和策](#mitigations)。
+- アクセス制御・認証・保護の区別は [§7 保護・アクセス制御・認証](#access-control)。
+- 表の「実例」列は実在の脆弱性レビュー → [§3 実在 OS の重大脆弱性レビュー](#real-vulnerabilities)。
 
 ---
 

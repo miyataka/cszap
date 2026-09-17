@@ -7,22 +7,46 @@ CS2023 / Operating Systems (OS) の2つ目の Knowledge Unit「**OS-Principles**
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **CS Core 2時間**。全項目が CS Core。`See also: AR-Assembly` の参照が多く、**ハードウェア（アーキテクチャ）との接点**が主役のユニット。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[OS-Principles<br/>OSの原理] --> B[OSをどう構成するか]
-  A --> C[アプリとOSの境界]
-  A --> D[HWとOSの連携]
-  B --> B1[設計アプローチ<br/>モノリシック・階層・モジュール<br/>マイクロカーネル・ユニカーネル]
-  B --> B2[抽象化・プロセス・資源]
-  C --> C1[システムコールとAPI<br/>POSIX / Win32 / Java]
-  C --> C2[ユーザ/カーネルモード<br/>保護と状態遷移]
-  C --> C3[コンテキストスイッチの<br/>性能コスト]
-  D --> D1[特権命令による資源保護]
-  D --> D2[割り込みの活用<br/>タイマ・I/O]
-  D --> D3[HWアーキテクチャと<br/>OS機能の共進化]
+  Q["中心的な問い<br/>OSの仲介をどんな仕組みで実現するか"]
+
+  subgraph USER["ユーザモード"]
+    APP["アプリケーション"]
+    API["API/ライブラリ<br/>POSIX・Win32・Java"]
+  end
+
+  subgraph KERNEL["カーネルモード"]
+    K["カーネル本体<br/>抽象化の実装"]
+    ISR["割り込みサービスルーチン"]
+    DESIGN["設計アプローチ<br/>モノリシック・階層・モジュール<br/>マイクロカーネル・ユニカーネル"]
+  end
+
+  subgraph HW["ハードウェア"]
+    H["CPU特権命令・MMU・タイマ"]
+  end
+
+  COST["コンテキストスイッチの性能コスト"]
+
+  Q --> API
+  APP --> API
+  API -->|"システムコール(trap): user→kernel"| K
+  H -->|"割り込み(タイマ・I/O): hw→kernel"| ISR
+  ISR --> K
+  K -->|"特権命令: kernel→hw"| H
+  K -.構成する.-> DESIGN
+  ISR -.伴う.-> COST
 ```
+
+**図の読み方**
+
+- ユーザモード→カーネルモードの境界は「システムコール(trap)」として描いた → [§3 システムコールと API](#system-calls)・[§7 ユーザ状態／システム状態と保護](#user-kernel-mode)。
+- ハードウェア→カーネルは割り込み、カーネル→ハードウェアは特権命令 → [§6 割り込みの活用](#interrupts)・[§5 資源の保護](#protection)。
+- カーネル本体（抽象化の実装 → [§2 抽象化・プロセス・資源](#abstractions)）の構成は設計アプローチで変わる → [§1 OS ソフトウェアの設計アプローチ](#design-approaches)。
+- 割り込み処理に伴うコンテキストスイッチの性能コスト → [§9](#context-switch-cost)。システムコール1回の詳細な流れは [§8 システムコール呼び出しの機構](#syscall-mechanism)。
+- 「仲介者」としての OS の役割は [OS-Purpose §1](OS-Purpose.md#os-as-mediator) を実現したもの。ディスパッチ/コンテキストスイッチの続きは [OS-Process §4](OS-Process.md#dispatch-context-switch) で扱う。
 
 ---
 

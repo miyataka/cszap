@@ -7,19 +7,33 @@ CS2023 / Networking and Communication (NC) の Knowledge Unit「**NC-Security**�
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 3時間**（CS Core の割り当てはなし）。3項目すべてが KA Core。1と3の項目には `See also: SEP-Security, SEC-Foundations, SEC-Engineering, SEC-Crypto` という参照があり、**セキュリティ専門の Knowledge Area（SEC）の入口として、ネットワークに限定した側面だけをここで扱う**という位置づけになっている。
 
-## 全体像
+## 全体像 {#overview}
+
+**中心的な問い**：協力しない、あるいは積極的に妨害する参加者がいることを前提に、通信をどう成立させ続けるか。
 
 ```mermaid
-graph TD
-  A[NC-Security<br/>ネットワークセキュリティ] --> B[1 セキュリティの基本語彙]
-  A --> C[2 ネットワーク固有の脅威と攻撃]
-  A --> D[3 対策]
-  B --> B1["脅威・脆弱性・対策<br/>CIA トライアド"]
-  C --> C1["盗聴・なりすまし・DoS<br/>MITM・完全性攻撃・経路攻撃"]
-  D --> D1[暗号: 対称鍵と公開鍵・TLS]
-  D --> D2["セキュアなアーキテクチャ<br/>VPN・DMZ・ゼロトラスト"]
-  D --> D3["監視: IDS・ファイアウォール<br/>BGPsec・RPKI"]
+graph LR
+  T["脅威<br/>攻撃者・故障"] -->|脆弱性を突く| V["脆弱性<br/>設計・実装の弱点"]
+  V -->|実現すると| A["攻撃<br/>盗聴・なりすまし・DoSなど"]
+  A -->|備える| C["対策<br/>暗号・アーキテクチャ・監視"]
 ```
+
+CIA トライアド（機密性・完全性・可用性）ごとに、代表的な脅威・攻撃とその対策を並べる：
+
+| 脅威・攻撃 | 主に破る性質 | 対策 |
+|---|---|---|
+| 盗聴 sniffing | 機密性 | 暗号化・TLS →[§3a](#cryptography) |
+| なりすまし spoofing | 完全性・認証 | 認証・デジタル署名・証明書 →[§3a](#cryptography) |
+| AitM/MITM | 機密性・完全性 | TLS証明書による相手確認 →[§3a](#cryptography) |
+| メッセージ改ざん | 完全性 | メッセージ認証コード →[§3a](#cryptography) |
+| 経路攻撃・BGPハイジャック | 完全性・可用性 | BGPsec・RPKI →[§3c](#monitoring-detection) |
+| DoS/DDoS | 可用性 | ファイアウォール・IDS・レート制限 →[§3c](#monitoring-detection) |
+
+**図の読み方**
+
+- 上の小さな図は[§1 脅威・脆弱性・対策](#threats-vulnerabilities-countermeasures)の関係——脅威が脆弱性を突いて攻撃として実現し、対策で備える、という一本の流れ。
+- 表の行は[§2 ネットワーク固有の脅威と攻撃](#network-attacks)、右列は[§3 対策](#countermeasures)（暗号は[§3a](#cryptography)、監視は[§3c](#monitoring-detection)）に対応する。表にない境界防御（VPN・DMZ・ゼロトラスト）は[§3b](#secure-architectures)を参照。
+- 経路攻撃の詳細は[NC-Routing §3](NC-Routing.md#bgp)、1台の計算機内でのアクセス制御との対比は[OS-Protection](../OS/OS-Protection.md#access-control)を参照。
 
 ---
 

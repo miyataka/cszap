@@ -146,9 +146,15 @@ nav:
       - NC-Security: NC/NC-Security.md
       - NC-Mobility: NC/NC-Mobility.md
       - NC-Emerging: NC/NC-Emerging.md
+      - 指定テキスト対応表（図解入門TCP/IP）: NC/NC-Textbook-TCPIP.md
   - 情報I:
       - Joho1-01: Joho1/Joho1-01.md
       - Joho1-02: Joho1/Joho1-02.md
       - Joho1-03: Joho1/Joho1-03.md
       - Joho1-04: Joho1/Joho1-04.md
-      - 指定テキスト対応表（図解入門TCP/IP）: NC/NC-Textbook-TCPIP.md
+  - 情報II:
+      - Joho2-01: Joho2/Joho2-01.md
+      - Joho2-02: Joho2/Joho2-02.md
+      - Joho2-03: Joho2/Joho2-03.md
+      - Joho2-04: Joho2/Joho2-04.md
+      - Joho2-05: Joho2/Joho2-05.md

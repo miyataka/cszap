@@ -7,22 +7,37 @@ CS2023 / Operating Systems (OS) の Knowledge Unit「**OS-Faults**（Fault toler
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 1時間**（CS Core の時間割り当てはなし）。KA Core 自体はわずか2項目（信頼性・可用性の基本概念、RAID）だが、Non-core に実務的な内容——冗長化の種類、実装手法、チェックサム、ファイルシステム整合性チェック、ジャーナリング、ユースケース、OS 自身の耐故障機構——が厚く並ぶ、CS2023 全体でも短いが密度の高いユニット。`See also: SF-Reliability`（Software Engineering の信頼性分野）への参照が全項目にわたり付いている。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[OS-Faults<br/>耐故障性] --> B[KA Core]
-  A --> C[Non-core]
-  B --> B1[信頼性・可用性の<br/>基本概念]
-  B --> B2[RAID]
-  C --> C1[冗長化の種類<br/>空間的・時間的]
-  C --> C2[耐故障性の実装手法]
-  C --> C3[エラー検出・訂正<br/>チェックサム]
-  C --> C4[ファイルシステム<br/>整合性チェック・回復]
-  C --> C5[ジャーナリング・<br/>ログ構造ファイルシステム]
-  C --> C6[耐故障性の用途<br/>DB・安全クリティカル]
-  C --> C7[OS 自身の耐故障機構<br/>検出・回復・再起動]
+  Q["中心的な問い：信頼性(MTBF)と可用性(MTBF/(MTBF+MTTR))を<br/>どう両立するか"]
+  FAULT["故障発生<br/>HW故障・ソフトウェアバグ・OS自身の異常"]
+  DETECT["検出<br/>チェックサム・ECC・fsck・ハートビート"]
+  ISOLATE["隔離<br/>波及を止める"]
+  RECOVER["回復<br/>RAIDリビルド・ジャーナル再生・<br/>フェイルオーバー・プロセス再起動"]
+  CONTINUE["動作継続<br/>縮退運転・可用性の維持"]
+  REDUN["前提：冗長性<br/>空間的（RAID・レプリカ・ECC）／<br/>時間的（再送・リトライ・多数決）"]
+  USECASE["注記：用途で投資量が変わる<br/>DB(ACID) / 安全クリティカル"]
+
+  Q -.-> FAULT
+  FAULT --> DETECT --> ISOLATE --> RECOVER --> CONTINUE
+  REDUN -.->|"検出の材料になる"| DETECT
+  REDUN -.->|"回復の材料になる"| RECOVER
+  USECASE -.-> CONTINUE
+
+  classDef note fill:#f5f5f5,stroke:#999,color:#333,stroke-dasharray:4;
+  class REDUN,USECASE note;
 ```
+
+**図の読み方**
+
+- 冒頭の問い（信頼性=MTBF、可用性=MTBF/(MTBF+MTTR)）と「故障発生」（HW故障・ソフトウェアバグ・OS自身の異常）は [§1 信頼性・可用性の基本概念](#reliability-availability)。
+- 「検出」（チェックサム・ECC・fsck・ハートビート）は [§5 エラー識別・訂正機構](#error-detection-correction) と [§6 ファイルシステム整合性チェック](#fs-consistency-check)。
+- 「隔離」・「動作継続」（波及の遮断、フェイルオーバー・縮退運転）と「注記：用途で投資量が変わる」は [§4 耐故障性を実装する手法](#implementation-methods) の5段階と [§8 耐故障性のユースケース](#use-cases)。
+- 「回復」（RAIDリビルド・ジャーナル再生・プロセス再起動）は [§2 RAID](#raid)・[§7 ジャーナリングとログ構造ファイルシステム](#journaling)・[§9 OS自身の耐故障機構](#os-self-fault-tolerance) の3つが合流する段階。
+- 「前提：冗長性」（空間的/時間的冗長性）は検出と回復の両方を可能にする前提として横から入る——詳細は [§3 冗長化の種類](#redundancy-types)。
+- ジャーナリングの具体的な実装は [OS-Advanced-Files §5](OS-Advanced-Files.md#journaling)、安全クリティカルな縮退運転の前段（デッドラインとの関係）は [OS-Real-time §6](OS-Real-time.md#failures-safety) を参照。
 
 ---
 

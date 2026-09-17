@@ -7,22 +7,45 @@ CS2023 / Operating Systems (OS) の Knowledge Unit「**OS-Virtualization**（Vir
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは全体が **KA Core 3時間**（CS Core の時間割り当てはなし）。`See also: SF-Performance`（性能とのトレードオフとして繰り返し参照される）と `See also: SEC-Engineering`（VM/コンテナエスケープの文脈）への参照がある。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[OS-Virtualization<br/>仮想化] --> B[KA Core]
-  A --> C[Non-core]
-  B --> B1[仮想化と分離による<br/>保護・性能予測可能性]
-  B --> B2[高度なページング・<br/>ネステッドページング]
-  B --> B3[仮想ファイルシステム・<br/>仮想デバイス]
-  B --> B4[コンテナ vs<br/>仮想マシン]
-  B --> B5[スラッシングと<br/>Popek-Goldberg要件]
-  C --> C1[仮想化の種類<br/>HW/OS/サーバ/サービス/ネットワーク]
-  C --> C2[エミュレーション vs 分離・<br/>移植性・コスト]
-  C --> C3[VM/コンテナエスケープ<br/>セキュリティ]
-  C --> C4[ハイパーバイザ<br/>VT-x/AMD-V・QEMU-KVM]
+  Q["中心的な問い：何を仮想化し、どう分離するか"]
+
+  subgraph VMBOX["VMスタック"]
+    HW1["物理ハードウェア"] --> HV["ハイパーバイザ<br/>ring -1"]
+    HV --> GOS["ゲストOS<br/>自分がring 0のつもり"]
+    GOS --> APP1["アプリ"]
+  end
+
+  subgraph CTBOX["コンテナスタック"]
+    HW2["物理ハードウェア"] --> HOST["ホストOSカーネル"]
+    HOST --> RUNTIME["コンテナランタイム<br/>namespaces + cgroups"]
+    RUNTIME --> APP2["アプリ"]
+  end
+
+  Q --> VMBOX
+  Q --> CTBOX
+
+  NEST["注記：ネステッドページング(GVA→GPA→HPA)と<br/>Popek-Goldberg要件(VT-x/AMD-V)"] -.-> HV
+  ESC["注記：VM/コンテナエスケープ<br/>境界の実装バグが分離を破る"] -.-> HV
+  ESC -.-> HOST
+  SCOPE["注記：仮想化の射程と手段<br/>HW/OS/サーバ/サービス/ネットワーク・分離とエミュレーションの違い"] -.-> Q
+  TRADE["対比：分離の強さ vs 起動の軽さ<br/>仮想デバイス・仮想FS(virtio/overlayfs)も含む"] -.-> RUNTIME
+
+  classDef note fill:#f5f5f5,stroke:#999,color:#333,stroke-dasharray:4;
+  class NEST,ESC,SCOPE,TRADE note;
 ```
+
+**図の読み方**
+
+- 共通の問い（何を仮想化し、どう分離するか）とVM/コンテナ両スタックの対比は [§1 仮想化と分離による保護・性能予測可能性](#isolation-protection)。
+- 「ネステッドページング(GVA→GPA→HPA)とPopek-Goldberg要件(VT-x/AMD-V)」の注記は [§2 高度なページングと仮想メモリ](#nested-paging) と [§5 スラッシングとPopek-Goldberg要件](#thrashing-popek-goldberg)。
+- 「分離の強さ vs 起動の軽さ」の対比（namespaces+cgroupsによる分離、仮想デバイス/仮想FS＝virtio/overlayfs込み）は [§4 コンテナと仮想マシン](#containers-vs-vms) と [§3 仮想ファイルシステムと仮想デバイス](#virtual-fs-devices)。
+- 「仮想化の射程と手段」の注記（HW/OS/サーバ/サービス/ネットワーク・分離とエミュレーションの違い）は [§6 仮想化の種類](#types-of-virtualization) と [§7 エミュレーションと分離、移植性、コスト](#emulation-isolation-cost)。
+- 「VM/コンテナエスケープ」の注記は [§8 VM/コンテナエスケープ](#escapes-security)。
+- ハイパーバイザ本体（ring -1）の実装の種類（Type 1/Type 2・QEMU-KVM）は [§9 ハイパーバイザ](#hypervisors)。ring -1 という位置づけ自体は [OS-Protection §6 保護リング](OS-Protection.md#rings) から続く話。
 
 ---
 

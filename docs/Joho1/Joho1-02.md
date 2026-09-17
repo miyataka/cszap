@@ -9,20 +9,40 @@
 ## 全体像 {#overview}
 
 ```mermaid
-graph TD
-  A[Joho1-02<br/>コミュニケーションと情報デザイン] --> G1[メディアと<br/>コミュニケーション手段]
-  A --> G2[情報デザイン]
-  A --> G3[コンテンツ制作と評価]
-  G1 --> S1[1 情報のデジタル化]
-  G1 --> S2[2 コミュニケーションモデル]
-  G1 --> S3[3 メディアの歴史と<br/>発信・受信の視点]
-  G1 --> S4[4 画像処理の基礎]
-  G2 --> S5[5 デザインの起源]
-  G2 --> S6[6 情報デザインの<br/>定義と歴史]
-  G2 --> S7[7 抽象化・可視化・構造化]
-  G2 --> S8[8 情報伝達の方法と<br/>人間中心設計]
-  G3 --> S9[9 コンテンツ制作の過程<br/>と評価・改善]
+flowchart TD
+  Q["中心の問い<br/>情報をどう扱えば意図した通りに伝わるか"]
+
+  subgraph CTX["コミュニケーションモデルとメディアの歴史（全体を貫く視点）"]
+    direction LR
+    CM["送り手と受け手<br/>コード体系・コンテクスト"]
+    MH["メディアの歴史<br/>発信・受信の視点の変化"]
+  end
+
+  SENDER["送り手"]
+  RECEIVER["受け手"]
+
+  Q --> CTX
+  CTX -.-> SENDER
+  CTX -.-> RECEIVER
+
+  SENDER --> DIGI["1 情報のデジタル化<br/>標本化・量子化・符号化"]
+  DIGI --> DESIGN["7・8 情報デザイン<br/>抽象化・可視化・構造化<br/>人間中心設計"]
+  DESIGN --> DELIVER["メディア・伝達方法"]
+  DELIVER --> RECEIVER
+  RECEIVER --> EVAL["9 評価・改善"]
+  EVAL -->|次のコンテンツ制作へ| SENDER
+
+  DESIGN -.->|デザインの起源| ORIGIN["5・6 デザインの起源と<br/>情報デザインの歴史"]
+  DELIVER -.->|画像処理の基礎| IMG["4 ラスタ・ベクタと<br/>レイヤー"]
 ```
+
+**図の読み方**
+
+- 中心の問い「情報をどう扱えば意図した通りに伝わるか」を軸に、送り手から受け手までの流れを追う。
+- [2. コミュニケーションモデルとコンテンツ](#communication-model) と [3. メディアの歴史と発信・受信の視点](#media-history-perspectives) は、流れ全体を捉えるための視点として上段に置いた。
+- 本流: 送り手 → [1. 情報のデジタル化](#digitalization) → [7. 情報の抽象化・可視化・構造化](#abstraction-and-structuring)・[8. 情報伝達の方法と人間中心設計](#delivery-human-centered-design) → メディア・伝達方法 → 受け手 → [9. コンテンツ制作の過程と評価・改善](#content-creation-and-evaluation) を経て送り手に戻るループ。
+- [5. デザインとは何か・情報デザインの起源](#design-origins)・[6. 情報デザインの定義と歴史](#information-design-definition) は「情報デザイン」段の注記、[4. 画像処理の基礎](#image-editing-basics) は「メディア・伝達方法」段の注記として配置した。
+- 前段（[Joho1-01 §1](Joho1-01.md#info-media-problem-solving) の問題解決）を受けて情報を伝える段階がこの章であり、次章の [Joho1-03](Joho1-03.md#computer-structure) ではコンピュータ自体の処理に焦点が移る。
 
 ---
 

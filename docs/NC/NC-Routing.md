@@ -7,20 +7,42 @@ CS2023 / Networking and Communication (NC) の Knowledge Unit「**NC-Routing**�
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 4時間**（CS Core の割り当てはなし）。項目は3つだけだが、NC KA の KA Core 24時間のうち6分の1が割かれており、**項目あたりの密度は KA 中で最も高い**。3項目すべてが KA Core で、Non-core 項目はない。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[NC-Routing<br/>経路制御とフォワーディング] --> B[1 経路制御のパラダイムと階層]
-  A --> C[2 フォワーディング方式]
-  A --> D[3 IP とスケーラビリティ]
-  B --> B1["ドメイン内 vs ドメイン間<br/>集中型 vs 分散型"]
-  B --> B2["ソースルーティング vs ホップバイホップ<br/>仮想回線・QoS"]
-  C --> C1[制御プレーン vs データプレーン]
-  C --> C2["フォワーディングテーブルと<br/>最長プレフィックス一致"]
-  D --> D1["CIDR: 経路の集約<br/>NAT: アドレスの共有"]
-  D --> D2["BGP: AS 間の経路交換<br/>IPv4 / IPv6: アドレス枯渇"]
+  Q["中心的な問い<br/>宛先までの道をどう決め、<br/>毎パケットどう転送するか"]
+
+  subgraph CP["制御プレーン<br/>遅い・全体的"]
+    PARAD["経路計算のパラダイム<br/>ドメイン内/間・集中/分散"]
+    BGP["BGP<br/>AS間の経路交換"]
+    PARAD --> BGP
+  end
+
+  FIB["フォワーディングテーブル FIB<br/>宛先プレフィックス→出力ポート"]
+  CP --> FIB
+
+  subgraph DP["データプレーン<br/>速い・局所的"]
+    ARR["パケット到着"]
+    LPM["最長プレフィックス一致"]
+    OUT["出力ポートへ送出"]
+    ARR --> LPM --> OUT
+  end
+  FIB --> DP
+
+  NOTE["CIDR・NAT・IPv6<br/>FIBのサイズとアドレス空間への対処"]
+  NOTE -.-> FIB
+
+  Q --> CP
 ```
+
+**図の読み方**
+
+- 中心的な問い「宛先までの道をどう決め、毎パケットどう転送するか」を、制御プレーンとデータプレーンの分離（[§2](#control-data-plane)）で答える。
+- 制御プレーンは[§1 経路制御のパラダイムと階層](#routing-paradigms)（[ドメイン内/間](#intra-inter-domain)・[集中/分散](#centralized-decentralized)）と、その実例である[§3 BGP](#bgp)を含む。
+- 生成された[フォワーディングテーブル FIB](#control-data-plane)は、データプレーンで毎パケット[§2 最長プレフィックス一致](#longest-prefix-match)による転送に使われる。
+- CIDR・NAT・IPv6は[§3 IPとスケーラビリティ](#ip-scalability)——FIBのサイズ（[CIDR](#cidr)）とアドレス空間（[NAT](#nat)・[IPv4/IPv6](#ip-versions)）への対処として注記に置いた。
+- AS・ピアリングの前提は[NC-Fundamentals §2](NC-Fundamentals.md#internet-organization)、L2でのフレーム転送との対比は[NC-SingleHop §5](NC-SingleHop.md#l2-switching)を参照。
 
 ---
 

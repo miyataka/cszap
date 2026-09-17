@@ -7,24 +7,52 @@ CS2023 / Networking and Communication (NC) の Knowledge Unit「**NC-Fundamental
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **CS Core 2.5時間 + 0.25 (SEP) + 0.25 (SF) = 計3時間**。NC KA 全8ユニットのうち CS Core が割り当てられているのは本ユニットと NC-Applications の2つだけで（CS Core 合計7時間）、残り6ユニットは KA Core（合計24時間）。つまり**「全卒業生が必ず知っておくべきネットワーク知識」の半分が本ユニット**にある。`See also: SEP-Context, SEP-Privacy, SF-Foundations` への参照を持つ。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[NC-Fundamentals<br/>ネットワークの基礎] --> B[なぜネットワークか<br/>重要性と課題]
-  A --> C[インターネットの組織]
-  A --> D[交換方式<br/>回線交換 vs パケット交換]
-  A --> E[階層とその役割]
-  A --> F[階層化の原理<br/>カプセル化・砂時計モデル]
-  A --> G[ネットワーク要素]
-  A --> H[キューイングの基礎]
-  C --> C1[ユーザ・ISP・AS・<br/>コンテンツプロバイダ・CDN]
-  D --> D1[専有 vs 統計多重化]
-  E --> E1[アプリ・トランスポート・<br/>ネットワーク・データリンク・物理]
-  F --> F1[各層は下層を<br/>ブラックボックスとして使う]
-  G --> G1[ホスト・ハブ・スイッチ・<br/>ルータ・アクセスポイント]
-  H --> H1[遅延の4成分・輻輳・<br/>パケットロス・サービスレベル]
+  Q["中心的な問い<br/>離れた2つのプログラムはどう会話を成立させるか"]
+  ORG["インターネットの組織<br/>ホスト・ISP・AS・IXP・CDN"]
+  HG["砂時計モデル<br/>上下は多様、IPだけがくびれる"]
+
+  subgraph APPL["アプリケーション層"]
+    HA["ホスト<br/>アプリ間のメッセージ"]
+  end
+  subgraph TRANSL["トランスポート層"]
+    HT["ホスト<br/>プロセス間のセグメント"]
+  end
+  subgraph NETL["ネットワーク層"]
+    HN["ホスト・ルータ<br/>データグラムをホップごとに中継"]
+    SWX["交換方式<br/>回線交換 vs パケット交換"]
+    QUE["キューイングの基礎<br/>遅延4成分・輻輳"]
+  end
+  subgraph DLL["データリンク層"]
+    HD["ホスト・スイッチ・AP<br/>フレームを1ホップ届ける"]
+  end
+  subgraph PHYL["物理層"]
+    HP["ホスト・ハブ/リピータ<br/>ビットを信号にする"]
+  end
+
+  Q --> ORG
+  ORG --> HA
+  HA -->|カプセル化| HT
+  HT -->|カプセル化| HN
+  HN -->|カプセル化| HD
+  HD -->|カプセル化| HP
+  HN -.-> HG
+
+  classDef waist fill:#fef3c7,stroke:#d97706;
+  class HN waist;
 ```
+
+**図の読み方**
+
+- 中心的な問い「離れた2つのプログラムはどう会話を成立させるか」に、[§4 階層とその役割](#layers) の5層モデルで答える。層間の矢印は[§5 カプセル化](#encapsulation)——上位層のデータを下位層が中身を見ずに包む。
+- ネットワーク層に添えた注記は[§5 砂時計モデル](#hourglass)（上も下も多様だが IP だけがくびれる）。
+- ネットワーク層の中には、[§3 交換方式](#switching-techniques)（回線交換 vs パケット交換）と[§7 キューイングの基礎](#queueing)（遅延4成分・輻輳）を並べた——どちらもこの層の性質。
+- 各層に対応する機器は[§6 ネットワーク要素](#network-elements)（ホスト・ハブ・スイッチ・ルータ・AP）。
+- 最上位の注記は[§2 インターネットの組織](#internet-organization)（ISP・AS・IXP・CDN）——全層の前提となる文脈。
+- 層より下の1ホップの詳細は[NC-SingleHop §3](NC-SingleHop.md#mac)、層より上の経路制御は[NC-Routing §2](NC-Routing.md#forwarding)を参照。
 
 ---
 

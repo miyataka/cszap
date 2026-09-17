@@ -9,18 +9,49 @@
 ## 全体像 {#overview}
 
 ```mermaid
-graph TD
-  A[Joho1-04<br/>情報通信ネットワークとデータの活用] --> B[ア 情報通信ネットワークの<br/>仕組みと役割]
-  A --> C[イ 情報システムと<br/>データの管理]
-  A --> D[ウ データの<br/>収集・整理・分析]
-  B --> B1[1 ネットワークの仕組み<br/>LAN・TCP/IP4階層]
-  B --> B2[2 セキュリティと構築・運用<br/>暗号化方式・トラブル対応]
-  C --> C1[3 情報システムと<br/>オープンデータ]
-  C --> C2[4 データの表現形式<br/>DB・グラフ・キーバリュー]
-  D --> D1[5 量的データの分析]
-  D --> D2[6 質的データと<br/>テキストマイニング]
-  D --> D3[7 データの可視化と<br/>問題発見]
+flowchart TD
+  Q["中心の問い<br/>ネットワークとデータをどう活用して<br/>問題を発見するか"]
+
+  subgraph CARRY["運ぶ"]
+    direction TB
+    NET["1 ネットワークの仕組み<br/>LAN・4階層モデル"]
+    SEC["2 セキュリティと<br/>構築・運用"]
+    NET --> SEC
+  end
+
+  subgraph STORE["蓄える"]
+    direction TB
+    SYS["3 情報システムと<br/>オープンデータ"]
+    DATA["4 データの表現形式<br/>DB・グラフ・キーバリュー"]
+    SYS --> DATA
+  end
+
+  subgraph ANALYZE["分析する"]
+    direction TB
+    QUANT["5 量的データの分析"]
+    QUAL["6 質的データと<br/>テキストマイニング"]
+  end
+
+  subgraph VISUAL["可視化して問題を発見する"]
+    VIZ["7 データの可視化と<br/>問題発見"]
+  end
+
+  Q -.-> NET
+  SEC --> SYS
+  DATA --> QUANT
+  DATA --> QUAL
+  QUANT --> VIZ
+  QUAL --> VIZ
+  VIZ -->|次の問題解決へ| PS["問題解決<br/>Joho1-01"]
 ```
+
+**図の読み方**
+
+- 中心の問い「ネットワークとデータをどう活用して問題を発見するか」を軸に、データが運ばれ・蓄えられ・分析され・可視化されるまでの一本のパイプラインとして読む。
+- 運ぶ: [1. 情報通信ネットワークの仕組み](#network-fundamentals) → [2. 無線LANのセキュリティと構築・運用](#network-security-operation)。CS2023側の [NC-Fundamentals §4](../NC/NC-Fundamentals.md#layers) の階層モデルと対応する。
+- 蓄える: [3. 情報システムとオープンデータ](#information-systems) → [4. データの表現形式](#data-representation)。
+- 分析する: [5. 量的データの分析](#quantitative-analysis) と [6. 質的データとテキストマイニング](#qualitative-analysis-textmining)。
+- 可視化して問題を発見する: [7. データの可視化と問題発見](#data-visualization)。ここで見つかった問題は [Joho1-01 §1](Joho1-01.md#info-media-problem-solving) の問題解決の手順に戻ってつながっていく。
 
 ---
 

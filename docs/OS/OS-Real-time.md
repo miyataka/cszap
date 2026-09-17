@@ -7,21 +7,46 @@ CS2023 / Operating Systems (OS) の Knowledge Unit「**OS-Real-time**（Real-tim
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 1時間**。`See also: SPD-Embedded`（組込み）との接続が深い。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[OS-Real-time<br/>リアルタイム・組込み] --> B[何がリアルタイムか]
-  A --> C[スケジューリング]
-  A --> D[Non-core: 特有の関心]
-  B --> B1[デッドラインという<br/>正しさの基準]
-  B --> B2[低遅延 vs ソフト vs ハード<br/>リアルタイムの3区分]
-  B --> B3[遅延とその発生源]
-  C --> C1[デッドライン駆動の<br/>プロセス・タスクスケジューリング]
-  D --> D1[メモリ/ディスク管理の要件<br/>予測可能性が最優先]
-  D --> D2[故障・リスク・回復]
-  D --> D3[安全性 safety]
+  Q["中心的な問い：結果の正しさは値だけでなく<br/>間に合ったかにも依存する"]
+  EVENT["事象発生<br/>例：センサ割り込み"]
+  IRQ["割り込み遅延"]
+  DISP["ディスパッチ遅延<br/>スケジューラに選ばれ実行開始までの待ち"]
+  EXEC["実行"]
+  RESP["応答"]
+  DL{"デッドラインに<br/>間に合ったか"}
+  LOWLAT["低遅延<br/>明示的デッドラインなし・速いほど良い"]
+  SOFT["ソフトリアルタイム<br/>逃しても品質劣化のみ"]
+  HARD["ハードリアルタイム<br/>逃す＝システムの故障"]
+  SCHED["注記：EDF/RMSによる<br/>デッドライン駆動スケジューリング"]
+  MEMDISK["注記：メモリ/ディスクの予測可能性<br/>ページのピン留め・デッドラインI/O"]
+  SAFETY["注記：安全性・縮退運転<br/>ウォッチドッグ・冗長化"]
+
+  Q -.-> EVENT
+  EVENT --> IRQ --> DISP --> EXEC --> RESP --> DL
+  DL -->|"区分によって扱いが変わる"| LOWLAT
+  DL --> SOFT
+  DL --> HARD
+
+  SCHED -.-> DISP
+  MEMDISK -.-> EXEC
+  SAFETY -.-> HARD
+
+  classDef note fill:#f5f5f5,stroke:#999,color:#333,stroke-dasharray:4;
+  class SCHED,MEMDISK,SAFETY note;
 ```
+
+**図の読み方**
+
+- 冒頭の問い（結果の正しさは値だけでなく間に合ったかにも依存する）は [§1 リアルタイムシステムとは](#what-is-realtime) の定義そのもの——正しさが「値」と「間に合ったか」の両方で決まる。
+- 「事象発生」→「割り込み遅延」→「ディスパッチ遅延」→「実行」→「応答」の時間軸は [§4 遅延とその発生源](#latency-sources)。割り込み遅延・ディスパッチ遅延・実行中の変動（キャッシュミス等）がここに並ぶ。
+- 「デッドラインに間に合ったか」の分岐と「低遅延」・「ソフトリアルタイム」・「ハードリアルタイム」の3区分は [§2 低遅延 vs ソフトリアルタイム vs ハードリアルタイム](#hard-soft-lowlatency)。
+- 「EDF/RMSによるデッドライン駆動スケジューリング」の注記は [§3 プロセス・タスクスケジューリング](#rt-scheduling)。
+- 「メモリ/ディスクの予測可能性」（ページのピン留め・デッドラインI/O）の注記は [§5 リアルタイム環境のメモリ・ディスク管理要件](#rt-memory-disk)。
+- 「安全性・縮退運転」（ウォッチドッグ・冗長化）の注記は [§6 故障・リスク・回復と安全性](#failures-safety)。故障の検出・回復の一般論は [OS-Faults §1](OS-Faults.md#reliability-availability) で扱う。
 
 ---
 

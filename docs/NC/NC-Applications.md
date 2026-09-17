@@ -10,21 +10,42 @@ CS2023 / Networking and Communication (NC) の Knowledge Unit「**NC-Application
     このユニットは **CS Core 4時間**。NC KA 全8ユニットのうち CS Core が割り当てられているのは NC-Fundamentals（3時間）と本ユニットの2つだけで（CS Core 合計7時間）、残り6ユニットは KA Core（合計24時間）。**KA Core / Non-core の項目はなく、5項目すべてが CS Core** である。
     `See also: PDC-Communication, PDC-Coordination, PDC-Programs, SEP-Sustainability, SEP-Context` への参照を持つ——分散アプリの構成法は PDC（並列分散計算）と、アプリ要求の多様性は SEP（社会的・倫理的・専門的実践）と接続している。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[NC-Applications<br/>ネットワークアプリケーション] --> B[命名とアドレス方式<br/>DNS・URI]
-  A --> C[分散アプリの構成法<br/>クライアント/サーバ・P2P<br/>クラウド・エッジ・フォグ]
-  A --> D[アプリ要求の多様性<br/>遅延・帯域・ロス耐性]
-  A --> E[アプリケーション層プロトコル<br/>HTTP を例に]
-  A --> F[TCP・UDP・ソケットAPI]
-  B --> B1[命名 / アドレス指定 /<br/>資源位置特定 は別概念]
-  C --> C1[知性と資源を<br/>どこに置くか]
-  D --> D1[要求が構成と<br/>プロトコル選択を決める]
-  E --> E1[要求・応答/メソッド/<br/>状態コード]
-  F --> F1[ソケット = アプリと<br/>トランスポート層の境界]
+  Q["中心的な問い<br/>要求に応じて構成とプロトコルをどう選ぶか"]
+  NAME["命名とアドレス方式<br/>DNS・URI"]
+  DEMAND["アプリ要求<br/>遅延・帯域・ロス耐性"]
+
+  subgraph APP["アプリケーション層"]
+    PARADIGM["分散アプリの構成法<br/>クライアント/サーバ・P2P・<br/>クラウド・エッジ・フォグ"]
+    PROTO["アプリケーション層プロトコル<br/>HTTPを例に"]
+    PARADIGM --> PROTO
+  end
+  NAME --> APP
+
+  SOCK["ソケットAPI<br/>アプリとトランスポート層の境界"]
+  PROTO --> SOCK
+
+  subgraph TRANS["トランスポート層"]
+    TCP["TCP<br/>信頼性・順序を保証"]
+    UDP["UDP<br/>何も保証しない基準点"]
+  end
+  SOCK --> TRANS
+  DEMAND -->|トランスポート選択を決める| TRANS
+
+  Q --> APP
 ```
+
+**図の読み方**
+
+- 中心的な問い「要求に応じて構成とプロトコルをどう選ぶか」の答えは、この図を上から下へ辿ると見える。
+- 横から入る[§1 命名とアドレス方式](#naming-addressing)（[DNS](#dns)・[URI](#uri)）はアプリ層が相手を指し示すための前提。
+- アプリケーション層は[§2 分散アプリの構成法](#app-paradigms)（クライアント/サーバ・P2P・クラウド/エッジ/フォグ）の上に[§4 アプリケーション層プロトコル](#app-layer-protocols)（[HTTP](#http)）が乗る。
+- [§5 ソケットAPI](#sockets)がアプリ層とトランスポート層の境界。
+- [§3 アプリ要求](#app-demands)（遅延・帯域・ロス耐性）は、[§5 TCP・UDPの選択](#tcp-vs-udp)を決める入力としてラベル付きの矢印で示した。
+- 上位の5層モデルは[NC-Fundamentals §4](NC-Fundamentals.md#layers)、TCP/UDPの中身は[NC-Reliability §1](NC-Reliability.md#unreliable-delivery)を参照。
 
 ---
 

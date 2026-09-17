@@ -7,22 +7,39 @@ CS2023 / Operating Systems (OS) の Knowledge Unit「**OS-Devices**（Device man
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **KA Core 2時間**（CS Core の時間割り当てはなし）。`See also: AR-IO`（I/O アーキテクチャ）への参照が中心で、**アーキテクチャと OS の合流点**。歴史的経緯を扱う項目には `See also: SEP-History` が付く。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[OS-Devices<br/>デバイス管理] --> B[デバイス管理の階層]
-  A --> C[バッファリング戦略]
-  A --> D[DMA・ポーリング・<br/>メモリマップドI/O]
-  A --> E[永続記憶デバイスの歴史]
-  A --> F[Non-core:<br/>ドライバとHAL]
-  B --> B1[コントローラ・ドライバ・<br/>抽象化の3層]
-  C --> C1[速度差の吸収<br/>単一・二重・リングバッファ]
-  D --> D1[CPUを介さない転送<br/>ring buffer プロトコル]
-  D --> D2[ポーリング vs 割り込み<br/>メモリマップドI/O]
-  E --> E1[磁気ディスク → SSD]
-  F --> F1[デバイスドライバの<br/>実装・テストの難しさ]
+  Q["中心的な問い：物理デバイスの違いをOSはどの層で吸収し、<br/>データ転送でCPUの手をどこまで抜くか"]
+  APP["アプリケーション<br/>read / write / ioctl"]
+  ABS["デバイス抽象化<br/>「すべてはファイル」"]
+  BUF["デバイス非依存層：バッファリング<br/>単一・二重・リングバッファ"]
+  DRV["デバイスドライバ<br/>レジスタ操作をOS共通APIへ翻訳"]
+  CTRL["デバイスコントローラ<br/>レジスタ・割り込み発生元"]
+  DEV["物理デバイス<br/>ディスク・NIC・キーボード等"]
+  HIST["注記：磁気ディスク → SSD<br/>ウェアレベリングが新たに必要に"]
+  HAL["注記：ドライバ実装/テストの難しさ<br/>HALによる共通化"]
+
+  Q -.-> APP
+  APP --> ABS --> BUF --> DRV --> CTRL --> DEV
+  CTRL -->|"割り込み / ポーリングで完了通知"| DRV
+  BUF -.->|"DMA：CPUを介さず直接転送"| DEV
+  DEV --- HIST
+  DRV --- HAL
+
+  classDef note fill:#f5f5f5,stroke:#999,color:#333,stroke-dasharray:4;
+  class HIST,HAL note;
 ```
+
+**図の読み方**
+
+- 「デバイス抽象化」・「デバイスドライバ」・「デバイスコントローラ」・「物理デバイス」の4層は [§1 デバイス管理の階層](#device-layers) に対応する。
+- 「デバイス非依存層：バッファリング」は [§2 バッファリング戦略](#buffering)。速度差を吸収する単一・二重・リングバッファがここに入る。
+- 「コントローラ→ドライバ」の実線（割り込み/ポーリングによる完了通知は下から上へ向かう）と、「バッファリング→物理デバイス」の点線（DMAはCPUを介さずメモリ〜デバイス間を直接行き来する）はどちらも [§3 DMA・ポーリングI/O・メモリマップドI/O](#dma-io) に対応する。
+- 「磁気ディスク→SSD」の注記は [§4 永続記憶デバイス管理の変遷](#persistent-storage-history)。
+- 「ドライバ実装/テストの難しさ・HALによる共通化」の注記は [§5 デバイスドライバとハードウェア抽象化層](#drivers-hal)。
+- リングバッファがIPCと同じ発想の再利用である点は [OS-Process §5](OS-Process.md#ipc)、デバイス通信の耐障害設計（タイムアウト・リトライ・チェックサム）は [NC-Reliability §3](../NC/NC-Reliability.md#error-control) の誤り制御と同型。
 
 ---
 

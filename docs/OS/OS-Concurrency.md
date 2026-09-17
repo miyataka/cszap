@@ -7,21 +7,35 @@ CS2023 / Operating Systems (OS) の3つ目の Knowledge Unit「**OS-Concurrency*
     **CS Core** = 全卒業生必須 / **KA Core** = 当該分野で必須 / **Non-core** = 発展。
     このユニットは **CS Core 2時間 + KA Core 1時間**。`See also: PDC-Coordination`（並列分散）への参照が多く、**並行性の入口**となるユニット。
 
-## 全体像
+## 全体像 {#overview}
 
 ```mermaid
 graph TD
-  A[OS-Concurrency<br/>並行性] --> B[抽象と問題]
-  A --> C[解決の道具]
-  A --> D[マルチプロセッサ特有]
-  B --> B1[スレッド抽象<br/>生成・状態・API]
-  B --> B2[競合状態と<br/>クリティカルリージョン]
-  B --> B3[デッドロックと飢餓<br/>必要条件と緩和策]
-  C --> C1[セマフォ・ミューテックス<br/>条件変数]
-  C --> C2[スレッドセーフな<br/>コードの実装]
-  D --> D1[スピンロック<br/>リエントラント性]
-  D --> D2[カーネル内ロック粒度<br/>BKL vs 細粒度 vs ロックレス]
+  Q["中心的な問い<br/>共有すると何が壊れ、どう守るか"]
+
+  THREAD["スレッド抽象<br/>アドレス空間を共有"] --> SHARE["共有資源<br/>(共有メモリ含む)"]
+  SHARE --> RACE["競合状態<br/>結果がタイミング依存"]
+  RACE --> EXCL["排他制御<br/>ミューテックス・セマフォ・条件変数"]
+
+  EXCL -->|"守れないと発生"| NEWPROB["新たな問題<br/>デッドロック・飢餓"]
+  NEWPROB -->|"必要条件を崩して緩和"| MITIG["緩和策<br/>資源の全順序付け等"]
+
+  EXCL -->|"マルチプロセッサでは"| MP["マルチプロセッサ特有<br/>スピンロック"]
+  MP --> KLOCK["カーネル内ロック粒度<br/>BKL・細粒度・ロックレス"]
+
+  ALT["分離という選択<br/>マルチプロセス vs マルチスレッド"] -.共有を避ける.-> SHARE
+
+  Q --> THREAD
 ```
+
+**図の読み方**
+
+- スレッド抽象（アドレス空間を共有）→競合状態→排他制御 の流れ → [§1 スレッド抽象と並行性](#thread-abstraction)・[§2 競合状態とクリティカルリージョン](#race-conditions)・[§7 スレッドセーフなコードの実装](#thread-safety)。
+- 排他制御を誤ると生じる「新たな問題」（デッドロック・飢餓）と、必要条件を崩す緩和策 → [§3 デッドロックと飢餓](#deadlock-starvation)。
+- マルチプロセッサ特有の分岐（スピンロック・カーネル内ロック粒度）→ [§4 マルチプロセッサの問題](#multiprocessor-issues)・[§9 (Non-core) OS オブジェクトへのアトミックアクセス管理](#kernel-locking)。
+- 「共有を避ける」という代替がマルチプロセス vs マルチスレッド → [§5](#process-vs-thread)。
+- 共有メモリ IPC での競合状態は [§8](#shared-memory-races)、スレッドの状態遷移の詳細は [§6 スレッドの生成・状態・構造・API](#thread-lifecycle)。
+- 飢餓の緩和は [OS-Scheduling §5 公平性と飢餓](OS-Scheduling.md#fairness-starvation) と同じ構造。
 
 ---
 

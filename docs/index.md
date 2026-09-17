@@ -51,6 +51,11 @@ CS2023 の **Body of Knowledge** に登場する用語を、Knowledge Area（KA�
 | 情報I | [Joho1-02](Joho1/Joho1-02.md) | 済 | 0 問 | 未出題 |
 | 情報I | [Joho1-03](Joho1/Joho1-03.md) | 済 | 0 問 | 未出題 |
 | 情報I | [Joho1-04](Joho1/Joho1-04.md) | 済 | 0 問 | 未出題 |
+| 情報II | [Joho2-01](Joho2/Joho2-01.md) | 済 | 0 問 | 未出題 |
+| 情報II | [Joho2-02](Joho2/Joho2-02.md) | 済 | 0 問 | 未出題 |
+| 情報II | [Joho2-03](Joho2/Joho2-03.md) | 済 | 0 問 | 未出題 |
+| 情報II | [Joho2-04](Joho2/Joho2-04.md) | 済 | 0 問 | 未出題 |
+| 情報II | [Joho2-05](Joho2/Joho2-05.md) | 済 | 0 問 | 未出題 |
 
 次に何を復習するかは [弱点ノート・復習キュー](weak-points.md) にまとめてある。
 
